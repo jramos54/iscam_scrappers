@@ -178,7 +178,10 @@ if __name__=='__main__':
 
     driver_path = os.path.join(parent_dir, "chromedriver")  # Ruta al chromedriver
 
-    driver_manager = ChromeDriverManager(path=driver_path)
+    os.environ["WDM_LOCAL"] = '1'
+    os.environ["WDM_PATH"] = driver_path
+
+    driver_manager = ChromeDriverManager()
     driver_manager.install()
 
     driver = webdriver.Chrome(service=Service(executable_path=driver_path), options=chrome_options)
