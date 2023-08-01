@@ -60,8 +60,16 @@ def agregar_informacion(soup,informante,categoria,categoria_tipo,fecha):
 
     descripcion_larga=container.find('div',itemprop="description")
     if descripcion_larga:
-        product_information['DescripcionLarga']=descripcion_larga.text.strip().strip('\n').strip('\t')
-    time.sleep(1)
+        total_lines=descripcion_larga.text.strip().strip('\n').strip('\t')
+        lines=total_lines.splitlines()
+        product_information['DescripcionLarga']='. '.join(lines)
+        
+        for line in lines:
+            if 'Maridaje' in line:
+                product_information['Maridaje']=line[9:].strip()
+            elif 'Origen' in line:
+                product_information['PaisOrigen']=line[7].strip()
+        time.sleep(1)
 
     # MARIDAJE
     # ALCVOL
@@ -71,6 +79,7 @@ def agregar_informacion(soup,informante,categoria,categoria_tipo,fecha):
     # TAMANO
     if product_information['DescripcionCorta'] !='':
         words=product_information['DescripcionCorta'].split()
+        
         product_information['Tamaño']=words[-1]
         product_information['Marca']=words[1]
     time.sleep(1)
@@ -123,6 +132,7 @@ def productos_vinos(driver, fecha):
     menu = soup.find(id="top_links_wrapper")
     itemslevel0=menu.find('ul').find_all('li',recursive=False)
     counter=0
+    total_pages=0
     for itemlevel0 in itemslevel0:
         categoria=itemlevel0.find('a').get_text().strip().strip('\n')
         menulevel1=itemlevel0.find('ul')
@@ -135,11 +145,11 @@ def productos_vinos(driver, fecha):
         for itemlevel1 in itemslevel1:
 
             categoria_tipo=itemlevel1.find('a').get_text()
-            print(categoria)
+            print(categoria_tipo)
             link=URL+itemlevel1.find('a').get('href')
 
             pages=pagination(driver,link)
-
+            total_pages+=len(pages)
             for page in pages:
                 driver.get(page)
                 time.sleep(5)
@@ -160,6 +170,7 @@ def productos_vinos(driver, fecha):
                     informacion.append(producto)
                     counter+=1
                     print(counter)
+    print(total_pages)
     return informacion            
                 
 
