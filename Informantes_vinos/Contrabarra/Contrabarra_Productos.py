@@ -144,18 +144,21 @@ def agregar_informacion(soup,informante,categoria,fecha):
             pais_loc=total_lines.lower().find('pais')
             if pais_loc != -1:
                 pais_end=total_lines.find(' ',pais_loc+6)
-                product_information['PaisOrigen']=total_lines[pais_loc+6:pais_end].strip()
-            
+                texto_pais=total_lines[pais_loc+6:pais_end].strip()
+                lineas_pais=texto_pais.splitlines()
+                product_information['PaisOrigen']= lineas_pais[0]           
         # UVA
             uva_loc=total_lines.lower().find('uva')
             if uva_loc != -1:
                 uva_end=total_lines.find(' ',uva_loc+5)
-                product_information['Uva']=total_lines[uva_loc+4:uva_end].strip()
+                texto_uva=total_lines[uva_loc+4:uva_end].strip()
+                lineas_uva=texto_uva.splitlines()
+                product_information['Uva']=lineas_uva[0]
             time.sleep(1)
 
         # TAMANO
             patron=r'(\d+\s*ml)'
-            coincidencia = re.search(patron, total_lines)
+            coincidencia = re.search(patron, product_information['DescripcionCorta']+'\n'+total_lines)
             if coincidencia:
     # Si se encontró una coincidencia, obtenemos el resultado completo
                 resultado = coincidencia.group(1)
