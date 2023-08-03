@@ -100,7 +100,10 @@ def agregar_informacion(soup,informante,categoria,fecha):
             total_lines=total_lines[:-10]
             lines=total_lines.splitlines()
             # lines.pop(0)
-            product_information['DescripcionLarga']='. '.join(lines)
+            descripcion_larga_='. '.join(lines)
+            desc_loc=descripcion_larga_.find('FICHA')
+            descripcion_larga_=descripcion_larga_[desc_loc+14:]
+            product_information['DescripcionLarga']=descripcion_larga_.strip()
             time.sleep(1)
 
 
@@ -139,8 +142,9 @@ def agregar_informacion(soup,informante,categoria,fecha):
         # PAIS ORIGEN
         # UVA
             uva_loc=total_lines.find('Uva')
-            uva_end=total_lines.find('.',uva_loc)
-            product_information['Uva']=total_lines[uva_loc+4:uva_end]
+            if uva_loc != -1:
+                uva_end=total_lines.find('.',uva_loc)
+                product_information['Uva']=total_lines[uva_loc+4:uva_end]
             time.sleep(1)
 
         # TAMANO
