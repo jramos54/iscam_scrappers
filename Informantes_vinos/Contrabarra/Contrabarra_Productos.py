@@ -6,6 +6,7 @@ import datetime
 import json
 import time
 import requests
+import re
 
 # Importar Selenium webdriver
 from selenium import webdriver
@@ -140,20 +141,27 @@ def agregar_informacion(soup,informante,categoria,fecha):
             
         # MARCA
         # PAIS ORIGEN
+            pais_loc=total_lines.lower().find('pais')
+            if pais_loc != -1:
+                pais_end=total_lines.find(' ',pais_loc+6)
+                product_information['PaisOrigen']=total_lines[pais_loc+6:pais_end].strip()
+            
         # UVA
-            uva_loc=total_lines.find('Uva')
+            uva_loc=total_lines.lower().find('uva')
             if uva_loc != -1:
-                uva_end=total_lines.find('.',uva_loc)
-                product_information['Uva']=total_lines[uva_loc+4:uva_end]
+                uva_end=total_lines.find(' ',uva_loc+5)
+                product_information['Uva']=total_lines[uva_loc+4:uva_end].strip()
             time.sleep(1)
 
         # TAMANO
-        # if product_information['DescripcionCorta'] !='':
-        #     words=product_information['DescripcionCorta'].split()
-            
-        #     product_information['Tamaño']=words[-1]
-        #     product_information['Marca']=words[1]
-        # time.sleep(1)
+            patron=r'(\d+\s*ml)'
+            coincidencia = re.search(patron, total_lines)
+            if coincidencia:
+    # Si se encontró una coincidencia, obtenemos el resultado completo
+                resultado = coincidencia.group(1)
+                product_information['Tamaño']=resultado
+
+            time.sleep(1)
 
         # IMAGEN
         imagen_container=container.find('div',class_="product__images")

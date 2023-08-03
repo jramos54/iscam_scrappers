@@ -36,7 +36,6 @@ def obtencion_cp(direccion):
                 return ''
             
 
-
 def geolocalizacion(direccion):
     gmaps = googlemaps.Client(key='AIzaSyAGm8QGB5w0rp0EiRujJjt_e4wgcwhlKug')
 
