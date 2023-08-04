@@ -132,7 +132,7 @@ def agregar_informacion(soup,informante,categoria,fecha):
             alc_seg=text_segments(total_lines,'alc')
             for seg in alc_seg:
                 if '%' in seg:
-                    seg_loc=seg.find(':')
+                    seg_loc=seg.find(' ')
                     seg_end=seg.find('%')
                     alcvol=seg[seg_loc+1:seg_end+1]
             product_information['AlcVol']=alcvol
@@ -158,7 +158,7 @@ def agregar_informacion(soup,informante,categoria,fecha):
 
         # TAMANO
             patron=r'(\d+\s*ml)'
-            coincidencia = re.search(patron, product_information['DescripcionCorta']+'\n'+total_lines)
+            coincidencia = re.search(patron, product_information['DescripcionCorta'].lower()+'\n'+total_lines.lower())
             if coincidencia:
     # Si se encontró una coincidencia, obtenemos el resultado completo
                 resultado = coincidencia.group(1)
