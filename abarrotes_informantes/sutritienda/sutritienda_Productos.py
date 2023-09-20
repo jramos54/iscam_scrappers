@@ -187,7 +187,11 @@ def productos_abarrotes(driver, fecha):
             if category_link:
                 sub_categorias_links=category_link.find_all('a')
                 for sub_categoria_link in sub_categorias_links:
-                    category_url=URL+sub_categoria_link.get('href')
+                    url_cat=sub_categoria_link.get('href')
+                    if url_cat.startswith('https://'):
+                        category_url=URL+url_cat[7:]
+                    else:
+                        category_url=URL+url_cat
                     category_links.append(category_url)
 
     
