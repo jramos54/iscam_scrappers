@@ -113,7 +113,7 @@ def agregar_informacion(soup,informante,categoria,fecha):
             lines=descripcion_larga.text.splitlines()
             for line in lines:
                 if 'caja' in line:
-                    caja_loc=line.find('caja')
+                    caja_loc=line.lower().find('caja')
                     size=tamano_producto(line[caja_loc:])
                     product_information['TamañoMayoreo']=size.strip()
             product_information['DescripcionLarga']=' '.join(lines).strip()

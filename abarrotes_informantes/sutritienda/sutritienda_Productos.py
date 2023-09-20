@@ -222,6 +222,10 @@ def productos_abarrotes(driver, fecha):
             for product in products:
                 link_product=product.find('a',class_="dl-product-link")
                 link=link_product.get('href')
+                if not link.startswith('https://www.surtitienda.mx/'):
+                    
+                    link='https://www.surtitienda.mx/'+link[9:]
+
                 print(link)
                 driver.get(link)
                 time.sleep(5)

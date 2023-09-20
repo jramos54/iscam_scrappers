@@ -21,8 +21,8 @@ def sucursales_abarrotes(driver,fecha):
     """
     Funcion para el informante HS comercial
     """
-    INFORMANTE='Distribuidora almacenes de la Frontera (SUPERETTE)'
-    URL='https://superette.com.mx/ubicaciones/'
+    INFORMANTE='Tu Punto de Venta'
+    URL='http://tupuntodeventa.mx/sucursales.html'
     driver.get(URL)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
