@@ -49,7 +49,7 @@ def get_pdf_file():
 if __name__=='__main__':
     get_pdf_file()
     file='archivo.pdf'
-    INFORMANTE='Tu Punto de Venta'
+    INFORMANTE='Dunosusa'
     today=datetime.datetime.now()
     stamped_today=today.strftime("%Y-%m-%d")
 
@@ -83,5 +83,5 @@ if __name__=='__main__':
         print('-'*15,f'\t\t{i}\t\t','-'*15)
         print(json.dumps(sucursal,indent=4))
         
-    filename='puntoventa_tiendas_'+stamped_today+'.csv'
+    filename='dunosusa_tiendas_'+stamped_today+'.csv'
     funciones.exportar_csv(list_sucursales,filename)

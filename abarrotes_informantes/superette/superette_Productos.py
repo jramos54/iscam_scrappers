@@ -155,21 +155,29 @@ def productos_abarrotes(driver, fecha):
 
     menu = soup.find(class_="ion-page")
 
-   
-    # print(menu.prettify())
-
-    shadow=driver.execute_script("return document.querySelector('ion-content').shadowRoot.querySelector('main')")
-    print(dir(shadow))
-    print(shadow.get_property('innerHTML'))
-    containers=menu.find_all('div', class_="col-6 col-sm-6 col-md-4 col-lg-3 p-2 d-flex flex-column")
+    content_page=menu.find(class_="hydrated")
     
-    categories=[]
-    for container in containers:
-        print(container)
-        elemento = driver.find_element(By.CLASS_NAME, "w-100")
-        elemento.click()
-        link=driver.current_url
-        print(link)
+    shadow_hydrated=driver.execute_script("return document.querySelector('ion-router-outlet').shadowRoot.querySelector('slot')")
+   
+   
+    shadow=driver.execute_script("return document.querySelector('ion-content').shadowRoot.querySelector('main')")
+    
+    assigned_nodes = driver.execute_script('return arguments[0].querySelector("slot").assignedNodes()', shadow)
+    app_home = next(node for node in assigned_nodes if node.tag_name == "app-home")
+    
+    element_present = EC.presence_of_element_located((By.CSS_SELECTOR, 'col-6 col-sm-6 col-md-4 col-lg-3 p-2 d-flex flex-column'))
+    WebDriverWait(driver, 10).until(element_present)
+   
+
+    # containers=shadow.find_all('div', class_="col-6 col-sm-6 col-md-4 col-lg-3 p-2 d-flex flex-column")
+
+    # categories=[]
+    # for container in containers:
+    #     print(container)
+    #     elemento = driver.find_element(By.CLASS_NAME, "w-100")
+    #     elemento.click()
+    #     link=driver.current_url
+    #     print(link)
 
 
     # counter=0
