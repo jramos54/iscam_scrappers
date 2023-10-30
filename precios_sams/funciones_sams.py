@@ -14,13 +14,18 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
 from bs4 import BeautifulSoup
+def limpiar_precio(texto):
+    caracteres_a_eliminar=['$',',']
+    for char in caracteres_a_eliminar:
+        texto = texto.replace(char, "")
+    return texto
 
 #  1. Loads the html data
 #  2. Turns it into soup
 def load_data(driver, linkPage):
     # Get the contents of the URL
     driver.get(linkPage)
-    time.sleep(35)
+    time.sleep(60)
     # returns the inner HTML as a string
     innerHTML = driver.page_source
     # turns the html into an object to use with BeautifulSoup library
@@ -47,10 +52,10 @@ def get_data_list(soup):
         new_price = new_price + '.' + items.find('div', class_="item-newprice new-price-content").find("span", class_="sup").getText()
 
         if old_price is not None:
-            price = old_price
-            promo = new_price
+            price = limpiar_precio(old_price)
+            promo = limpiar_precio(new_price)
         else:
-            price = new_price
+            price = limpiar_precio(new_price)
             promo = ""
 
         collected_data_clicores = collected_data_clicores + [
@@ -107,15 +112,28 @@ if __name__=='__main__':
         'https://www.sams.com.mx/vinos-licores-y-cervezas/licores/tequila/_/N-8xy',
         'https://www.sams.com.mx/vinos-licores-y-cervezas/licores/vodka/_/N-8yb',
         'https://www.sams.com.mx/vinos-licores-y-cervezas/licores/whisky/_/N-8xu',
-        'https://www.sams.com.mx/vinos-licores-y-cervezas/cocteleria/jarabes-y-mezcladores/_/N-a9k'
+        'https://www.sams.com.mx/vinos-licores-y-cervezas/cocteleria/jarabes-y-mezcladores/_/N-a9k',
+        'https://www.sams.com.mx/vinos-licores-y-cervezas/licores/ginebra/_/N-8xw',
+        'https://www.sams.com.mx/vinos-licores-y-cervezas/vinos/vino-rosado/_/N-8y5',
+        'https://www.sams.com.mx/vinos-licores-y-cervezas/vinos/vino-tinto/_/N-8y6',
+        'https://www.sams.com.mx/vinos-licores-y-cervezas/vinos/vino-blanco/_/N-8y7',
+        'https://www.sams.com.mx/vinos-licores-y-cervezas/vinos/champagne-y-vinos-espumosos/_/N-8y8',
+        'https://www.sams.com.mx/vinos-licores-y-cervezas/cervezas/clara/_/N-95v',
+        'https://www.sams.com.mx/vinos-licores-y-cervezas/cervezas/obscura/_/N-95w',
+        'https://www.sams.com.mx/vinos-licores-y-cervezas/cervezas/cerveza-artesanal-e-importada/_/N-ag3',
+        'https://www.sams.com.mx/vinos-licores-y-cervezas/cocteleria/jarabes-y-mezcladores/_/N-a9k',
+        'https://www.sams.com.mx/vinos-licores-y-cervezas/cocteleria/bebidas-preparadas/_/N-a9l'
     ]
 
     collected_data_clicores=[]
 
     for link in links:
+        print('='*60)
         print(link)
+        time.sleep(30)
         load_data(driver,link)
         create_output_file()
+        print('='*60)
     
     driver.quit()
 

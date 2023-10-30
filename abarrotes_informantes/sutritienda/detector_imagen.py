@@ -187,16 +187,16 @@ def verificar_colores_base64(imagen_base64, valor_1, valor_2, valor_3):
     light=False
     for color, porcentaje in resultados.items():
         
-        
+        print(f'{color} {porcentaje}')
         if color == (254, 254, 254) and porcentaje >= valor_1:
             print(f'{color} {porcentaje}')
             negro=True
             # print(negro)
-        elif color == (207, 52, 59) and porcentaje >= valor_2:
+        elif color == (207, 52, 59) or color == (207, 51, 58) and porcentaje >= valor_2:
             print(f'{color} {porcentaje}')
             gris=True
             # print(gris)
-        elif color == (61, 202, 55) and porcentaje >= valor_3:
+        elif color == (61, 202, 55) or color == (60, 203, 52) and porcentaje >= valor_3:
             print(f'{color} {porcentaje}')
             light=True
             # print(light)
@@ -207,7 +207,7 @@ def verificar_colores_base64(imagen_base64, valor_1, valor_2, valor_3):
         return True
 
 if __name__=='__main__':
-    imagen_path = ['productosinimagen.webp','07503000555097.1.webp','07501018310592.1.webp']  # , Reemplaza con la ruta de tu imagen
+    imagen_path = ['productosinimagen1.webp']  # , Reemplaza con la ruta de tu imagen
     num_clusters = 10  # Número de clusters deseados
 
     # for imagen in imagen_path:
@@ -219,15 +219,13 @@ if __name__=='__main__':
     #     print(resultado)
     
     # links=[
-    #     'https://www.elreydeldulce.com/web/image/product.product/2058/image_1024/%5BCLMOZ%5D%20CHOC%20RICOLINO%20MONEDA%2024-45%20PZS?unique=28f9d51',
-    #     'https://www.elreydeldulce.com/web/image/product.product/2057/image_1024/%5BCLBLUM%5D%20CHOC%20RICOLINO%20MINI%20LUNETA%2014-16%20PZS?unique=28f9d51',
-    #     'https://www.elreydeldulce.com/web/image/product.product/63/image_1024/%5BBESIS%5D%20BEBIDA%20SABOREX%20INFANTIL%20SURTIDO%2024-250%20ML?unique=28f9d51'
+    #     'https://surtitienda.vteximg.com.br/arquivos/ids/176387-750-750/productosinimagen.jpg?v=637062387149800000'
     #     ]
     # for link in links:
     #     imagen_base64=base_image(link)
-    #     #colores = agrupar_colores_base64(imagen_base64, num_clusters)
-    #     #porcentaje_colores = calcular_porcentaje_colores_base64(imagen_base64, num_clusters)
-    #     es_valido = verificar_colores_base64(imagen_base64, 66, 31, 1)
+    #     colores = agrupar_colores_base64(imagen_base64, num_clusters)
+    #     porcentaje_colores = calcular_porcentaje_colores_base64(imagen_base64, num_clusters)
+    #     es_valido = verificar_colores_base64(imagen_base64, 87, 3, 3)
     #     print('='*50)
     #     print(es_valido)
     #     print('='*50)
@@ -238,7 +236,7 @@ if __name__=='__main__':
     archivo_salida = 'sutritienda_productos_2023-09-20_imagen.csv'
 
 # Abre el archivo CSV de entrada y crea uno nuevo para escribir los resultados
-    with open(archivo_entrada, 'r') as entrada, open(archivo_salida, 'w', newline='') as salida:
+    with open(archivo_entrada, 'r',encoding='utf-8') as entrada, open(archivo_salida, 'w', newline='') as salida:
         lector_csv = csv.DictReader(entrada, delimiter='|')
         campos = lector_csv.fieldnames
 
