@@ -234,8 +234,8 @@ if __name__=='__main__':
 
 
 
-    archivo_entrada = 'reydulce_productos_2023-09-07.csv'
-    archivo_salida = 'reydulce_productos_2023-09-12.csv'
+    archivo_entrada = 'sutritienda_productos_2023-09-20.csv'
+    archivo_salida = 'sutritienda_productos_2023-09-20_imagen.csv'
 
 # Abre el archivo CSV de entrada y crea uno nuevo para escribir los resultados
     with open(archivo_entrada, 'r') as entrada, open(archivo_salida, 'w', newline='') as salida:
