@@ -46,7 +46,6 @@ def productos_categorias(category_list,driver):
         driver.get(link)
         time.sleep(3)
         
-        #element_xpath = "//a[contains(@class, 'vtex-button') and contains(text(), 'Mostrar más')]"
         xpath='/html/body/div[2]/div/div[1]/div/div[2]/div/div/section/div[2]/div/div[3]/div/div[2]/div/div[4]/div/div/div/div/div/a'
         finish_scroll=True
         while finish_scroll:
@@ -56,6 +55,7 @@ def productos_categorias(category_list,driver):
         soup = BeautifulSoup(html_code,'html.parser')
         elements=soup.find_all(class_="vtex-search-result-3-x-galleryItem vtex-search-result-3-x-galleryItem--normal vtex-search-result-3-x-galleryItem--grid pa4")
         print(f'productos totales {len(elements)}')
+        
         informacion.append((category[0],elements))
     return informacion
 
@@ -101,6 +101,8 @@ def producto_informacion(soup_product,informante,categoria,fecha):
     }
     url_base='https://www.tiendaenlinea.7-eleven.com.mx'
     
+    print('='*50)
+    print('producto informacion')
     
     descripcion_corta=soup_product.find('h3')
     if descripcion_corta:
@@ -119,7 +121,7 @@ def producto_informacion(soup_product,informante,categoria,fecha):
         
     link_producto=soup_product.find('a')
     if link_producto:
-        product_link['LinkProducto']=url_base=link_producto.get('href')
+        product_link['LinkProducto']=url_base+link_producto.get('href')
         
     print(json.dumps(product_information,indent=4))
     print(json.dumps(product_link,indent=4))
@@ -159,12 +161,18 @@ def productos_informante(url,driver,fecha):
     
     products=productos_categorias(category_list,driver)
     
+    counter=0
     for product in products:
+        
         categoria=product[0]
-        soup_product=product[-1]
-        product_info,product_link=producto_informacion(soup_product,informante,categoria,fecha)
-        informacion.append(product_info)
-        product_links.append(product_link)
+        print(categoria)
+        soup_products=product[-1]
+        for soup_product in soup_products:
+            product_info,product_link=producto_informacion(soup_product,informante,categoria,fecha)
+            informacion.append(product_info)
+            product_links.append(product_link)
+            counter+=1
+            print(counter)
     
     return informacion,product_links
     
@@ -194,5 +202,19 @@ if __name__=='__main__':
     
     products,links=productos_informante(URL,driver,stamped_today)
     exportar_csv(products,file_name)
+    
+    file_name='links_7-eleven'+stamped_today+'.csv'
+    exportar_csv(links,file_name)
+    
+    # url='https://www.tiendaenlinea.7-eleven.com.mx/galletas'
+    # driver.get(url)
+    # time.sleep(6)
+    # html_code=driver.page_source
+    # soup = BeautifulSoup(html_code,'html.parser')
+    # elements=soup.find_all(class_="vtex-search-result-3-x-galleryItem vtex-search-result-3-x-galleryItem--normal vtex-search-result-3-x-galleryItem--grid pa4")
+    # print(f'productos totales {len(elements)}')
+    # for element in elements:
+        
+    #     producto_informacion(element,'informante','element[0]',stamped_today)
     
     driver.quit()
