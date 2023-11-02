@@ -37,26 +37,36 @@ def scroll(driver, element_xpath):
 
 
 def productos_categorias(category_list,driver):
+    # print('='*50,'\n','='*50)
     informacion=[]
     for category in category_list:
+        print(category)
         link=category[-1]
-        print(category[0])
+        print(f"categoria {category[0]} en sub categoria {category[1]}")
         print(link)
         
+        marcas=[]
+               
         driver.get(link)
-        time.sleep(3)
+        time.sleep(5)
+            
+        checkboxes = driver.find_elements(By.CSS_SELECTOR, "input[type='checkbox'].vtex-checkbox__input")
+        for checkbox in checkboxes:
+            marcas.append(checkbox.get_attribute('name'))
         
         xpath='/html/body/div[2]/div/div[1]/div/div[2]/div/div/section/div[2]/div/div[3]/div/div[2]/div/div[4]/div/div/div/div/div/a'
         finish_scroll=True
         while finish_scroll:
             finish_scroll=scroll(driver, xpath)
-            
+        
         html_code=driver.page_source
         soup = BeautifulSoup(html_code,'html.parser')
         elements=soup.find_all(class_="vtex-search-result-3-x-galleryItem vtex-search-result-3-x-galleryItem--normal vtex-search-result-3-x-galleryItem--grid pa4")
         print(f'productos totales {len(elements)}')
-        
-        informacion.append((category[0],elements))
+
+        informacion.append((category[0],category[1],marcas,elements))
+       
+            
     return informacion
 
 
@@ -84,13 +94,14 @@ def exportar_csv(diccionarios, nombre_archivo):
             writer.writerow(diccionario)
 
 
-def producto_informacion(soup_product,informante,categoria,fecha):
+def producto_informacion(soup_product,informante,categoria,subcategoria,marcas,fecha):
     product_information = {
         'Informante': informante,
         'Categoria':categoria,
+        'SubCategoria':subcategoria,
+        'Marca':'',
         'DescripcionCorta':'',
         'Precio':'',
-        'DescripcionLarga':'',
         'Tamaño':'',
         'Img':'',
         'Fecha':fecha
@@ -107,7 +118,7 @@ def producto_informacion(soup_product,informante,categoria,fecha):
     descripcion_corta=soup_product.find('h3')
     if descripcion_corta:
         product_information['DescripcionCorta']=descripcion_corta.text.strip()
-        product_information['DescripcionLarga']=product_information['DescripcionCorta']
+        # product_information['DescripcionLarga']=product_information['DescripcionCorta']
         product_information['Tamaño']=tamano_producto(product_information['DescripcionCorta'])
         product_link['DescripcionCorta']=product_information['DescripcionCorta']
     
@@ -122,6 +133,11 @@ def producto_informacion(soup_product,informante,categoria,fecha):
     link_producto=soup_product.find('a')
     if link_producto:
         product_link['LinkProducto']=url_base+link_producto.get('href')
+    
+    for marca in marcas:
+        if product_information['DescripcionCorta'].startswith(marca):
+            product_information['Marca'] = marca
+            break
         
     print(json.dumps(product_information,indent=4))
     print(json.dumps(product_link,indent=4))
@@ -145,30 +161,63 @@ def productos_informante(url,driver,fecha):
     
     print(menu_button.text)
     
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'html.parser')
-    
-    section_1=soup.find(class_="render-container render-route-store-home")
-    section_2=section_1.find(class_="flex flex-column min-vh-100 w-100")
-    section_3=section_2.find(class_="vtex-flex-layout-0-x-flexRow vtex-flex-layout-0-x-flexRow--main-header")
+    # html = driver.page_source
+    # soup = BeautifulSoup(html, 'html.parser')
+    # section_1=soup.find(class_="render-container render-route-store-home")
+    # section_2=section_1.find(class_="flex flex-column min-vh-100 w-100")
 
-    categories=section_2.find_all('li',class_="vtex-mega-menu-2-x-menuItem")
-    
+    # categories=section_2.find_all('li',class_="vtex-mega-menu-2-x-menuItem")
+    categories=driver.find_elements(By.CSS_SELECTOR,"li.vtex-mega-menu-2-x-menuItem")
     category_list=[]
+    sub_category_list=[]
     for category in categories:
-        category_link=category.find('a')
-        category_list.append((category.text,category_link.get('href')))
-    
-    products=productos_categorias(category_list,driver)
+        # category_link=category.find('a')
+        # category_list.append((category.text,category_link.get('href')))
+        
+        driver.execute_script("arguments[0].scrollIntoView();", category)
+        category_link = category.find_element(By.TAG_NAME, "a").get_attribute("href")
+        category_list.append((category.text,category_link))
+        ActionChains(driver).move_to_element(category).perform()
+        time.sleep(3)
+        
+        if category.text == '7-Select':
+            continue
+        
+        html = driver.page_source
+        soup = BeautifulSoup(html, 'html.parser')
+        section_1=soup.find(class_="render-container render-route-store-home")
+        section_2=section_1.find(class_="flex flex-column min-vh-100 w-100")
+        section_3=section_2.find(class_="vtex-mega-menu-2-x-submenuContainer pa5 w-100")
+        if section_3:
+            sub_categories=section_2.find_all(class_="vtex-mega-menu-2-x-submenuItem mt3")
+            if sub_categories:
+                
+                for sub_category in sub_categories:
+                    sub_category_link=sub_category.find('a')
+                    sub_category_list.append((category.text,sub_category.text,sub_category_link.get('href')))
+                    print((category.text,sub_category.text,sub_category_link.get('href')))
+            else:
+                sub_categories=section_2.find_all(class_="vtex-mega-menu-2-x-styledLinkContainer")
+                for sub_category in sub_categories:
+                    sub_category_link=sub_category.find('a')
+                    sub_category_list.append((category.text,sub_category.text,sub_category_link.get('href')))
+                    print((category.text,sub_category.text,sub_category_link.get('href')))
+        else:
+            sub_category_list.append((category.text,category.text,category_link))
+            print((category.text,category.text,category_link))
+            
+    products=productos_categorias(sub_category_list,driver)
     
     counter=0
     for product in products:
         
         categoria=product[0]
+        subcategoria=product[1]
+        marcas=product[2]
         print(categoria)
         soup_products=product[-1]
         for soup_product in soup_products:
-            product_info,product_link=producto_informacion(soup_product,informante,categoria,fecha)
+            product_info,product_link=producto_informacion(soup_product,informante,categoria,subcategoria,marcas,fecha)
             informacion.append(product_info)
             product_links.append(product_link)
             counter+=1
@@ -206,6 +255,13 @@ if __name__=='__main__':
     file_name='links_7-eleven'+stamped_today+'.csv'
     exportar_csv(links,file_name)
     
+    # elements=[('Abarrotes', 'Instantaneo', 'https://www.tiendaenlinea.7-eleven.com.mx/abarrotes/arroz-y-frijol/instantaneo')]
+    # categorias = productos_categorias(elements,driver)
+    # for categoria in categorias:
+    #     for soup in categoria[-1]:
+            
+    #         producto_informacion(soup_product=soup,categoria=categoria[0],subcategoria=categoria[1],marcas=categoria[2],informante='7-eleven',fecha=stamped_today)
+    
     # url='https://www.tiendaenlinea.7-eleven.com.mx/galletas'
     # driver.get(url)
     # time.sleep(6)
@@ -216,5 +272,5 @@ if __name__=='__main__':
     # for element in elements:
         
     #     producto_informacion(element,'informante','element[0]',stamped_today)
-    
+
     driver.quit()
