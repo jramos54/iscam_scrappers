@@ -189,19 +189,24 @@ def productos_informante(url,driver,fecha):
         section_2=section_1.find(class_="flex flex-column min-vh-100 w-100")
         section_3=section_2.find(class_="vtex-mega-menu-2-x-submenuContainer pa5 w-100")
         if section_3:
-            sub_categories=section_2.find_all(class_="vtex-mega-menu-2-x-submenuItem mt3")
-            if sub_categories:
-                
-                for sub_category in sub_categories:
-                    sub_category_link=sub_category.find('a')
-                    sub_category_list.append((category.text,sub_category.text,sub_category_link.get('href')))
-                    print((category.text,sub_category.text,sub_category_link.get('href')))
-            else:
-                sub_categories=section_2.find_all(class_="vtex-mega-menu-2-x-styledLinkContainer")
-                for sub_category in sub_categories:
-                    sub_category_link=sub_category.find('a')
-                    sub_category_list.append((category.text,sub_category.text,sub_category_link.get('href')))
-                    print((category.text,sub_category.text,sub_category_link.get('href')))
+            
+            sub_categories_container = section_3.find_all(class_="vtex-mega-menu-2-x-submenuItem vtex-mega-menu-2-x-submenuItem--isClosed")
+            
+            for container in sub_categories_container:
+            
+                sub_categories=container.find_all(class_="vtex-mega-menu-2-x-submenuItem mt3")
+                if sub_categories:
+                    
+                    for sub_category in sub_categories:
+                        sub_category_link=sub_category.find('a')
+                        sub_category_list.append((category.text,sub_category.text,sub_category_link.get('href')))
+                        print((category.text,sub_category.text,sub_category_link.get('href')))
+                else:
+                    sub_categories=container.find_all(class_="vtex-mega-menu-2-x-styledLinkContainer")
+                    for sub_category in sub_categories:
+                        sub_category_link=sub_category.find('a')
+                        sub_category_list.append((category.text,sub_category.text,sub_category_link.get('href')))
+                        print((category.text,sub_category.text,sub_category_link.get('href')))
         else:
             sub_category_list.append((category.text,category.text,category_link))
             print((category.text,category.text,category_link))
