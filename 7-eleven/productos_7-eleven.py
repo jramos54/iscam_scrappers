@@ -135,7 +135,7 @@ def producto_informacion(soup_product,informante,categoria,subcategoria,marcas,f
         product_link['LinkProducto']=url_base+link_producto.get('href')
     
     for marca in marcas:
-        if product_information['DescripcionCorta'].startswith(marca):
+        if marca in product_information['DescripcionCorta']:
             product_information['Marca'] = marca
             break
         
