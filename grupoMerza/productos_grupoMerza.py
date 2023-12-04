@@ -357,32 +357,32 @@ if __name__=='__main__':
     URL="https://www.merzava.com/es"
     file_name='productos_grupoMerza_'+stamped_today+'.csv'
     
-    # products,links=productos_informante(URL,driver,stamped_today)
-    # exportar_csv(products,file_name)
+    products,links=productos_informante(URL,driver,stamped_today)
+    exportar_csv(products,file_name)
     
-    # file_name='links_grupoMerza_'+stamped_today+'.csv'
-    # exportar_csv(links,file_name)
+    file_name='links_grupoMerza_'+stamped_today+'.csv'
+    exportar_csv(links,file_name)
     
     
-    elements=[('Alimentacion', 'Aceites y grasas comestibles', 'https://www.merzava.com/es/c/alimentos-preparados-y-congelados/102')]
-    products = productos_categorias(elements,driver)
+    # elements=[('Alimentacion', 'Aceites y grasas comestibles', 'https://www.merzava.com/es/c/alimentos-preparados-y-congelados/102')]
+    # products = productos_categorias(elements,driver)
     
-    for product in products:
+    # for product in products:
         
-        categoria=product[0]
-        subcategoria=product[1]
-        print(categoria, print(len(products)))
-        soup_products=product[-1]
-        for soup_product in soup_products:
+    #     categoria=product[0]
+    #     subcategoria=product[1]
+    #     print(categoria, print(len(products)))
+    #     soup_products=product[-1]
+    #     for soup_product in soup_products:
             
-            product_link_container=soup_product.find('a')
-            product_link=URL[:-3]+product_link_container.get('href')
-            print(product_link)
-            driver.get(product_link)
-            time.sleep(5)
-            html = driver.page_source
-            soup = BeautifulSoup(html, 'html.parser')                        
-            product_info=producto_informacion(soup,'merza',categoria,subcategoria,'hoy')  
+    #         product_link_container=soup_product.find('a')
+    #         product_link=URL[:-3]+product_link_container.get('href')
+    #         print(product_link)
+    #         driver.get(product_link)
+    #         time.sleep(5)
+    #         html = driver.page_source
+    #         soup = BeautifulSoup(html, 'html.parser')                        
+    #         product_info=producto_informacion(soup,'merza',categoria,subcategoria,'hoy')  
               
               
               
