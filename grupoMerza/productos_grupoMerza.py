@@ -357,11 +357,11 @@ if __name__=='__main__':
     URL="https://www.merzava.com/es"
     file_name='productos_grupoMerza_'+stamped_today+'.csv'
     
-    products,links=productos_informante(URL,driver,stamped_today)
+    products=productos_informante(URL,driver,stamped_today)
     exportar_csv(products,file_name)
     
-    file_name='links_grupoMerza_'+stamped_today+'.csv'
-    exportar_csv(links,file_name)
+    # file_name='links_grupoMerza_'+stamped_today+'.csv'
+    # exportar_csv(links,file_name)
     
     
     # elements=[('Alimentacion', 'Aceites y grasas comestibles', 'https://www.merzava.com/es/c/alimentos-preparados-y-congelados/102')]
