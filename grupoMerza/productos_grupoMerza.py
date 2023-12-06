@@ -24,12 +24,17 @@ from bs4 import BeautifulSoup
 
 
 def get_image(imagen_url):
-    respuesta = requests.get(imagen_url)
+    
+    try:
+        respuesta = requests.get(imagen_url)
 
-    if respuesta.status_code == 200:
-        imagen_base64 = base64.b64encode(respuesta.content).decode('utf-8')
-        
-    return imagen_base64
+        if respuesta.status_code == 200:
+            imagen_base64 = base64.b64encode(respuesta.content).decode('utf-8')
+            
+        return imagen_base64
+    except Exception as e:
+        time.sleep(60)
+        return False
 
 
 def base64_to_numpy(imagen_base64):
@@ -94,11 +99,16 @@ def verificar_colores_base64(imagen_base64, valor_1, valor_2, valor_3):
 
 def check_image(link_image):
     imagen_base64=get_image(link_image)
-    if verificar_colores_base64(imagen_base64, 82, 9, 4):
-        return link_image
-                
+    
+    if imagen_base64:
+        
+        if verificar_colores_base64(imagen_base64, 82, 9, 4):
+            return link_image
+                    
+        else:
+            return ''
     else:
-        return ''
+        return link_image
 
 
 def scroll(driver, element_xpath, last_height):
@@ -364,7 +374,7 @@ if __name__=='__main__':
     # exportar_csv(links,file_name)
     
     
-    # elements=[('Alimentacion', 'Aceites y grasas comestibles', 'https://www.merzava.com/es/c/alimentos-preparados-y-congelados/102')]
+    # elements=[('Alimentacion', 'Aceites y grasas comestibles', 'https://www.merzava.com/es/c/desinfectantes-de-verduras/107')]
     # products = productos_categorias(elements,driver)
     
     # for product in products:
