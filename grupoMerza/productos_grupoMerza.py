@@ -324,22 +324,28 @@ def productos_informante(url,driver,fecha):
         
         categoria=product[0]
         subcategoria=product[1]
-        print(categoria, print(len(products)))
+        print(categoria, '---',subcategoria,print(len(products)))
         soup_products=product[-1]
         for soup_product in soup_products:
             
             product_link_container=soup_product.find('a')
             product_link=url[:-3]+product_link_container.get('href')
             print(product_link)
-            driver.get(product_link)
-            time.sleep(5)
-            html = driver.page_source
-            soup = BeautifulSoup(html, 'html.parser')
-                                  
-            product_info=producto_informacion(soup,informante,categoria,subcategoria,fecha)
-            informacion.append(product_info)
-            counter+=1
-            print(counter)
+            data_product=(informante,categoria,subcategoria,product_link)
+            informacion.append(data_product)
+            
+    
+    return informacion
+
+def product_scrapping(driver,product_link,informante,categoria,subcategoria,fecha):
+    informacion=[]
+    driver.get(product_link)
+    time.sleep(5)
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+                            
+    product_info=producto_informacion(soup,informante,categoria,subcategoria,fecha)
+    informacion.append(product_info)
     
     return informacion
     
@@ -365,13 +371,35 @@ if __name__=='__main__':
     stamped_today = today.strftime("%Y-%m-%d")
     
     URL="https://www.merzava.com/es"
+    file_name='links_productos_grupoMerza_'+stamped_today+'.csv'
+    
+    product_links=productos_informante(URL,driver,stamped_today)
+    exportar_csv(product_links,file_name)
+    
+    productosTotales=len(product_links)
+    print('productos totales por scrapping ',productosTotales)
     file_name='productos_grupoMerza_'+stamped_today+'.csv'
     
-    products=productos_informante(URL,driver,stamped_today)
-    exportar_csv(products,file_name)
+    counter=0
+    informacion_productos=[]
+    for product_link in product_links:
+        link=product_link[-1]
+        informante=product_link[0]
+        categoria=product_link[1]
+        sub_categoria=product_link[2]
+        try:
+            producto=product_scrapping(driver,link,informante,categoria,sub_categoria,stamped_today)
+            informacion_productos.append(producto)
+            counter=+1
+            print(counter,'/',productosTotales)
+        except Exception as e:
+            time.sleep(5*60)
+            print(link)
+            print('='*50)
+            print(e)
+            print('='*50)
     
-    # file_name='links_grupoMerza_'+stamped_today+'.csv'
-    # exportar_csv(links,file_name)
+    exportar_csv(product_links,file_name)
     
     
     # elements=[('Alimentacion', 'Aceites y grasas comestibles', 'https://www.merzava.com/es/c/desinfectantes-de-verduras/107')]
