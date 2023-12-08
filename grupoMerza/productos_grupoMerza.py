@@ -176,7 +176,8 @@ def productos_categorias(category_list,driver):
         
         elements=container.find_all("cmp-widget-product")
         totales=container.find(id="grid-totalproducts")
-        print(totales.text)
+        if totales:
+            print(totales.text)
         print(f'productos totales {len(elements)}')
 
         informacion.append((category[0],category[1],elements))
