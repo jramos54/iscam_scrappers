@@ -325,30 +325,33 @@ def productos_informante(url,driver,fecha):
         
         categoria=product[0]
         subcategoria=product[1]
-        print(categoria, '---',subcategoria,print(len(products)))
         soup_products=product[-1]
+        print(categoria, '---', subcategoria, print(len(soup_products)))
+        
         for soup_product in soup_products:
             
             product_link_container=soup_product.find('a')
             product_link=url[:-3]+product_link_container.get('href')
             print(product_link)
-            data_product=(informante,categoria,subcategoria,product_link)
+            data_product={
+                'informante':informante,
+                'categoria':categoria,
+                'subcategoria':subcategoria,
+                'product_link':product_link}
             informacion.append(data_product)
             
     
     return informacion
 
 def product_scrapping(driver,product_link,informante,categoria,subcategoria,fecha):
-    informacion=[]
     driver.get(product_link)
     time.sleep(5)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
                             
     product_info=producto_informacion(soup,informante,categoria,subcategoria,fecha)
-    informacion.append(product_info)
     
-    return informacion
+    return product_info
     
     
 if __name__=='__main__':
@@ -379,15 +382,16 @@ if __name__=='__main__':
     
     productosTotales=len(product_links)
     print('productos totales por scrapping ',productosTotales)
-    file_name='productos_grupoMerza_'+stamped_today+'.csv'
+    file_name_productos='productos_grupoMerza_'+stamped_today+'.csv'
     
     counter=0
     informacion_productos=[]
     for product_link in product_links:
-        link=product_link[-1]
-        informante=product_link[0]
-        categoria=product_link[1]
-        sub_categoria=product_link[2]
+        link=product_link['product_link']
+        informante=product_link['informante']
+        categoria=product_link['categoria']
+        sub_categoria=product_link['subcategoria']
+        
         try:
             producto=product_scrapping(driver,link,informante,categoria,sub_categoria,stamped_today)
             informacion_productos.append(producto)
@@ -400,7 +404,7 @@ if __name__=='__main__':
             print(e)
             print('='*50)
     
-    exportar_csv(product_links,file_name)
+    exportar_csv(informacion_productos,file_name_productos)
     
     
     # elements=[('Alimentacion', 'Aceites y grasas comestibles', 'https://www.merzava.com/es/c/desinfectantes-de-verduras/107')]
