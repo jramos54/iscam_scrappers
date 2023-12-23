@@ -1,7 +1,12 @@
 import os
 import datetime
-import json,re,csv
+import json,re,csv,requests,base64
 import time
+from PIL import Image
+from collections import defaultdict
+import numpy as np
+from sklearn.cluster import KMeans
+from io import BytesIO
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -15,25 +20,101 @@ from selenium.webdriver.common.action_chains import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 
-def scroll(driver, element_xpath):
+
+def get_image(imagen_url):
+    respuesta = requests.get(imagen_url)
+
+    if respuesta.status_code == 200:
+        imagen_base64 = base64.b64encode(respuesta.content).decode('utf-8')
+        
+    return imagen_base64
+
+
+def base64_to_numpy(imagen_base64):
+    imagen_bytes = base64.b64decode(imagen_base64)
+    imagen = Image.open(BytesIO(imagen_bytes))
+
+    imagen_np = np.array(imagen)
+
+    return imagen_np
+
+
+def color_percentage(imagen_base64, num_clusters):
+    imagen_np = base64_to_numpy(imagen_base64)
+    if imagen_np.size % 4 != 0:
+        print("La imagen no tiene un tamaño válido para reshape.")
+        return {(0, 0, 0): 100.0}  # Valor por defecto
+    pixeles = imagen_np.reshape(-1, 4)  # 4 para RGBA
+
+    kmeans = KMeans(n_clusters=num_clusters, random_state=0).fit(pixeles)
+
+    labels = kmeans.labels_
+
+    colores = defaultdict(int)
+
+    total_pixeles = len(labels)
+    for label in labels:
+        color = tuple(map(int, kmeans.cluster_centers_[label][:3]))  
+        colores[color] += 1
+
+    colores_porcentaje = {}
+    for color, count in colores.items():
+        porcentaje = (count / total_pixeles) * 100
+        colores_porcentaje[color] = porcentaje
+
+    return colores_porcentaje
+
+
+def verificar_colores_base64(imagen_base64, valor_1, valor_2, valor_3):
+    resultados = color_percentage(imagen_base64, 10)  
+    negro=False
+    gris=False
+    light=False
+    for color, porcentaje in resultados.items():
+        
+        print(f'{color} {porcentaje}')
+        if color == (54, 54, 54) and porcentaje >= valor_1:
+            print(f'{color} {porcentaje}')
+            negro=True
+        elif color == (5, 5, 5) and porcentaje >= valor_2:
+            print(f'{color} {porcentaje}')
+            gris=True
+           
+    print(f'negro:{negro} gris:{gris} light:{light}')
+    if negro and gris:
+        return False
+    else:
+        return True
+    
+
+def check_image(link_image):
+    imagen_base64=get_image(link_image)
+    if verificar_colores_base64(imagen_base64, 90, 3, 3):
+        return link_image
+                
+    else:
+        return ''
+
+
+def scroll(driver, element_xpath,last_height):
     
     total_height = int(driver.execute_script("return document.body.scrollHeight"))
     
-    for i in range(1, total_height, 50):
+    for i in range(last_height, total_height, 50):
         driver.execute_script("window.scrollTo(0, {});".format(i))
         time.sleep(0.25)
     
     # driver.save_screenshot("bottom_page.png")
-    
+    last_height = total_height
     try:
         link = driver.find_element(By.XPATH, element_xpath)
         ActionChains(driver).move_to_element(link).click().perform()
         time.sleep(5)
         print('Saltando a la siguiente pagina')
-        return True
+        return last_height,True
     except Exception as e:
         print('Fin de paginacion')
-        return False
+        return last_height,False
 
 
 def productos_categorias(category_list,driver):
@@ -51,13 +132,17 @@ def productos_categorias(category_list,driver):
         time.sleep(5)
             
         checkboxes = driver.find_elements(By.CSS_SELECTOR, "input[type='checkbox'].vtex-checkbox__input")
+        # print('checkboxes',checkboxes)
         for checkbox in checkboxes:
+            # print(checkbox.get_attribute('name'))
             marcas.append(checkbox.get_attribute('name'))
         
         xpath='/html/body/div[2]/div/div[1]/div/div[2]/div/div/section/div[2]/div/div[3]/div/div[2]/div/div[4]/div/div/div/div/div/a'
         finish_scroll=True
+        last_height = driver.execute_script("return window.innerHeight")
+        
         while finish_scroll:
-            finish_scroll=scroll(driver, xpath)
+            last_height,finish_scroll=scroll(driver, xpath,last_height)
         
         html_code=driver.page_source
         soup = BeautifulSoup(html_code,'html.parser')
@@ -128,15 +213,17 @@ def producto_informacion(soup_product,informante,categoria,subcategoria,marcas,f
         
     imagen=soup_product.find('img')
     if imagen:
-        product_information['Img']=imagen.get('src')
+        link_image=imagen.get('src')
+        imagen_link=check_image(link_image)
+        product_information['Img']=imagen_link
         
     link_producto=soup_product.find('a')
     if link_producto:
         product_link['LinkProducto']=url_base+link_producto.get('href')
     
     for marca in marcas:
-        if marca in product_information['DescripcionCorta']:
-            product_information['Marca'] = marca
+        if marca.lower() in product_information['DescripcionCorta'].lower():
+            product_information['Marca'] = marca.title()
             break
         
     print(json.dumps(product_information,indent=4))
