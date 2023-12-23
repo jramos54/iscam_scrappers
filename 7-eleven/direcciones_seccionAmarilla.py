@@ -85,8 +85,10 @@ def direcciones(soup,informante,fecha):
         'fecha':fecha
     }
 
-    titulo= soup.find('span', {'itemprop': 'name'})
-    if informante in titulo:
+    titulo_element= soup.find('span', {'itemprop': 'name'})
+    titulo=titulo_element.text.strip()
+    
+    if informante.lower() in titulo.lower():
         direccion_texto=soup.find('div', class_='l-address')
         if direccion_texto:
             direccion_=direccion_texto.text.strip()   
@@ -139,9 +141,9 @@ def get_results(driver):
     html_code=driver.page_source
     soup=BeautifulSoup(html_code,'html.parser')
     not_found=soup.find(class_='noFound')
-    
     if not_found:
         return []
+    
     while paginacion:
         
         html_code=driver.page_source
@@ -149,7 +151,6 @@ def get_results(driver):
         soups.append(soup)
         driver,paginacion=next_page(driver)
         time.sleep(5)
-        
     return soups
 
 
