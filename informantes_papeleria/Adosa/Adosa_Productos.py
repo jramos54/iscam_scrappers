@@ -1,21 +1,65 @@
-"""
-Scripts para obtener los productos de los informantes
-"""
-import os
-import datetime
-import json
-import time
-import requests
 
-# Importar Selenium webdriver
+import os,datetime,json,time,requests,csv,re
+import googlemaps
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-# importar webdriver manager
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import NoSuchElementException
 
-import funciones
+from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
+
+
+def exportar_csv(diccionarios, nombre_archivo):
+    encabezados = diccionarios[0].keys()
+
+    with open(nombre_archivo, 'w', newline='',encoding='utf-8') as archivo_csv:
+        writer = csv.DictWriter(archivo_csv, fieldnames=encabezados, delimiter='|')
+        writer.writeheader()
+        for diccionario in diccionarios:
+            writer.writerow(diccionario)
+
+
+def obtencion_cp(direccion):
+
+    cp_pattern = r'(?:C\.?P\.?|c\.?p\.?)\.?\s+(\d+)'
+    match = re.search(cp_pattern, direccion, re.IGNORECASE)
+    if match:
+        cp = match.group(1)
+        return cp
+    else:
+        gmaps = googlemaps.Client(key='AIzaSyAGm8QGB5w0rp0EiRujJjt_e4wgcwhlKug')
+        geocode_result = gmaps.geocode(direccion,components={'country': 'MX'})
+
+        if geocode_result:  
+            lista_de_diccionarios=geocode_result[0]['address_components']
+            diccionarios_filtrados = [diccionario for diccionario in lista_de_diccionarios if diccionario.get('types') == ['postal_code']]
+            if diccionarios_filtrados:
+                return diccionarios_filtrados[0]['long_name']
+            else:
+                return ''
+            
+
+def geolocalizacion(direccion):
+    gmaps = googlemaps.Client(key='AIzaSyAGm8QGB5w0rp0EiRujJjt_e4wgcwhlKug')
+
+    geocode_result = gmaps.geocode(direccion,components={'country': 'MX'})
+
+    if geocode_result:
+        # Extrae la latitud y longitud del resultado
+        latitud = geocode_result[0]['geometry']['location']['lat']
+        longitud =geocode_result[0]['geometry']['location']['lng']
+
+        return longitud,latitud
+    
+    else:
+        return None,None
+
 
 def agregar_informacion(soup,informante,categoria,fecha):
     product_information = {
@@ -59,6 +103,7 @@ def agregar_informacion(soup,informante,categoria,fecha):
 
     return product_information
 
+
 def pagination(driver,link):
     URL = 'https://www.adosa.com.mx/'
     
@@ -85,16 +130,18 @@ def pagination(driver,link):
         
     return tuple(set(pages))
 
+
 def productos_adosa(driver, fecha):
     INFORMANTE = 'ADOSA'
     URL = 'https://www.adosa.com.mx/'
     informacion = []
 
     driver.get(URL)
+    time.sleep(2)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
 
-    menu = soup.find(id="store.menu")
+    menu = soup.find(class_="navigation")
     items_level0=menu.find_all('li')
     
     counter=0
@@ -154,37 +201,82 @@ def productos_adosa(driver, fecha):
                             counter+=1
                             print(counter)
     return informacion
+
+
+def sucursales_adosa(driver,fecha):
+    """
+    Funcion para el informante ifp03, ADOSA
+    """
+    INFORMANTE='ADOSA'
+    URL='https://www.adosa.com.mx/sucursales'
+    driver.get(URL)
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+
+    main=soup.find('main')
+
+    sucursales=main.find_all('div',class_="pagebuilder-column")
+    directorio=[]
+
+    print(len(sucursales))
+
+    for sucursal in sucursales:
+        
+        tienda={
+            'Informante':INFORMANTE,
+            'Sucursal':'',
+            'Direccion':'',
+            'CP':'',
+            'Latitud':'',
+            'Longitud':'',
+            'fecha':fecha
+        }
+
+        nombre=sucursal.find(attrs={"data-content-type": "heading"})
+        if nombre:
+            tienda['Sucursal']=nombre.get_text()
+        direccion=sucursal.find(attrs={"data-content-type": "text"})
+        if direccion:
+            direccion_=direccion.get_text()
+            tienda['Direccion']=direccion_.splitlines()[0]
+            tienda['CP']=obtencion_cp(tienda['Direccion'])
+            directorio.append(tienda)
+            longitud,latitud = geolocalizacion(tienda['Direccion'])
+            tienda['Latitud'] = latitud
+            tienda['Longitud'] = longitud
+
+    return directorio
+
                     
 if __name__=='__main__':
     inicio=time.time()
-    # Obtener la ruta absoluta del directorio actual del script
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    parent_dir = os.path.dirname(script_dir)
-
-    # Configurar Selenium
+    
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Ejecutar en segundo plano
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument("--log-level=3") # no mostar log
+    chrome_options.add_argument("--log-level=3")
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--ignore-urlfetcher-cert-requests")
+    chrome_options.add_argument("--start-maximized")
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
 
-    driver_path = os.path.join(parent_dir, "chromedriver")  # Ruta al chromedriver
-
-    driver_manager = ChromeDriverManager(path=driver_path)
-    driver_manager.install()
-
-    driver = webdriver.Chrome(service=Service(executable_path=driver_path), options=chrome_options)
+    # Instalar o cargar el controlador Chrome WebDriver
+    driver_manager = ChromeDriverManager()
+    driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
 
     today=datetime.datetime.now()
     stamped_today=today.strftime("%Y-%m-%d")
 
     datos=productos_adosa(driver,stamped_today)
     filename='adosa_productos_'+stamped_today+'.csv'
-    funciones.exportar_csv(datos,filename)
-    # link='https://www.adosa.com.mx/papeleria.html'
-    # for i in pagination(driver,link):
-    #     response=requests.get(i)
-    #     print(response.status_code)
+    exportar_csv(datos,filename)
+    
+    sucursal_datos=sucursales_adosa(driver,stamped_today)
+    filename='adosa_tiendas_'+stamped_today+'.csv'
+    exportar_csv(sucursal_datos,filename)
+    
     driver.quit()
 
     print(f"{time.time()-inicio}")

@@ -395,7 +395,7 @@ if __name__=='__main__':
         try:
             producto=product_scrapping(driver,link,informante,categoria,sub_categoria,stamped_today)
             informacion_productos.append(producto)
-            counter=+1
+            counter=+1 
             print(counter,'/',productosTotales)
         except Exception as e:
             time.sleep(5*60)
