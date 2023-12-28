@@ -1,22 +1,20 @@
-"""
-Scripts para obtener los productos de los informantes
-"""
-import os
-import datetime
-import json
-import time
-import requests
-import re
+import os,datetime,json,time,requests,re,csv
 
-# Importar Selenium webdriver
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import NoSuchElementException
+
+
 # importar webdriver manager
 from webdriver_manager.chrome import ChromeDriverManager
-
-import funciones
 from bs4 import BeautifulSoup
+
 
 def text_segments(texto,word):
     segmentos_encontrados = []
@@ -25,10 +23,8 @@ def text_segments(texto,word):
     alc_pos = text.find(word, inicio)
 
     while alc_pos != -1:
-        # Buscar la posición del próximo "alc" a partir de la posición después de la última ocurrencia
         siguiente_alc_pos = text.find(word, alc_pos + 1)
 
-        # Si no se encuentra más "alc", tomar el resto del texto
         if siguiente_alc_pos == -1:
             segmento = text[alc_pos:]
         else:
@@ -229,6 +225,17 @@ def pagination(driver,link):
     return tuple(pages)
 
 
+def exportar_csv(diccionarios, nombre_archivo):
+    encabezados = diccionarios[0].keys()
+
+    with open(nombre_archivo, 'w', newline='',encoding='utf-8') as archivo_csv:
+        writer = csv.DictWriter(archivo_csv, fieldnames=encabezados, delimiter='|')
+
+        writer.writeheader()
+        for diccionario in diccionarios:
+            writer.writerow(diccionario)
+            
+
 def productos_vinos(driver, fecha):
     INFORMANTE = 'Liquor Store'
     URL = 'https://elliquorstore.com/productos'
@@ -270,41 +277,29 @@ def productos_vinos(driver, fecha):
 
 if __name__=='__main__':
     inicio=time.time()
-    # Obtener la ruta absoluta del directorio actual del script
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    parent_dir = os.path.dirname(script_dir)
-
-    # Configurar Selenium
+    
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Ejecutar en segundo plano
+    # chrome_options.add_argument("--headless")
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument("--log-level=3") # no mostar log
+    chrome_options.add_argument("--log-level=3")
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--ignore-urlfetcher-cert-requests")
+    chrome_options.add_argument("--start-maximized")
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
 
-    driver_path = os.path.join(parent_dir, "chromedriver")  # Ruta al chromedriver
-
-    os.environ["WDM_LOCAL"] = '1'
-    os.environ["WDM_PATH"] = driver_path
-
-    driver_manager = ChromeDriverManager(version="114.0.5735.90")
-    driver_manager.install()
-
-    driver = webdriver.Chrome(service=Service(executable_path=driver_path), options=chrome_options)
+    # Instalar o cargar el controlador Chrome WebDriver
+    driver_manager = ChromeDriverManager()
+    driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
 
     today=datetime.datetime.now()
     stamped_today=today.strftime("%Y-%m-%d")
 
     datos=productos_vinos(driver,stamped_today)
     filename='Liquorstore_productos_'+stamped_today+'.csv'
-    funciones.exportar_csv(datos,filename)
+    exportar_csv(datos,filename)
     
-    # link='https://www.contrabarra.com.mx/collections/vinos'
-    # pages=pagination(driver,link)
-    # for page in pages:
-    #     print(page)
-    #     response=requests.get(page)
-    #     print(response.status_code)
-
     driver.quit()
 
     print(f"{time.time()-inicio}")

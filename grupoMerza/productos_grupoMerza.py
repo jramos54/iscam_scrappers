@@ -196,16 +196,12 @@ def tamano_producto(cadena):
 
 
 def exportar_csv(diccionarios, nombre_archivo):
-    # Obtener las claves del primer diccionario para definir los encabezados del CSV
     encabezados = diccionarios[0].keys()
 
     with open(nombre_archivo, 'w', newline='',encoding='utf-8') as archivo_csv:
         writer = csv.DictWriter(archivo_csv, fieldnames=encabezados, delimiter='|')
 
-        # Escribir los encabezados en la primera línea del CSV
         writer.writeheader()
-
-        # Escribir cada diccionario como una línea en el CSV
         for diccionario in diccionarios:
             writer.writerow(diccionario)
 

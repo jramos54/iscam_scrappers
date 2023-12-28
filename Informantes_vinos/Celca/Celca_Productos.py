@@ -185,7 +185,6 @@ def agregar_informacion(soup,informante,categoria,fecha):
             patron=r'(\d+\s*ml)'
             coincidencia = re.search(patron, product_information['DescripcionCorta'].lower()+'\n'+total_lines.lower())
             if coincidencia:
-    # Si se encontró una coincidencia, obtenemos el resultado completo
                 resultado = coincidencia.group(1)
                 product_information['Tamaño']=resultado
 
