@@ -1,22 +1,30 @@
-"""
-Scripts para obtener los productos de los informantes
-"""
-import os
-import datetime
-import json
-import time
-import requests
-import re
+import os,datetime,json,time,requests,re,csv
 
 # Importar Selenium webdriver
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import NoSuchElementException
+
 # importar webdriver manager
 from webdriver_manager.chrome import ChromeDriverManager
-
-import funciones
 from bs4 import BeautifulSoup
+
+
+def exportar_csv(diccionarios, nombre_archivo):
+    encabezados = diccionarios[0].keys()
+
+    with open(nombre_archivo, 'w', newline='',encoding='utf-8') as archivo_csv:
+        writer = csv.DictWriter(archivo_csv, fieldnames=encabezados, delimiter='|')
+
+        writer.writeheader()
+        for diccionario in diccionarios:
+            writer.writerow(diccionario)
+
 
 def text_segments(texto,word):
     segmentos_encontrados = []
@@ -25,10 +33,8 @@ def text_segments(texto,word):
     alc_pos = text.find(word, inicio)
 
     while alc_pos != -1:
-        # Buscar la posición del próximo "alc" a partir de la posición después de la última ocurrencia
         siguiente_alc_pos = text.find(word, alc_pos + 1)
 
-        # Si no se encuentra más "alc", tomar el resto del texto
         if siguiente_alc_pos == -1:
             segmento = text[alc_pos:]
         else:
@@ -39,6 +45,7 @@ def text_segments(texto,word):
         alc_pos = text.find(word, inicio)
 
     return segmentos_encontrados
+
 
 def agregar_informacion(soup,informante,categoria,fecha):
     URL = 'https:'
@@ -288,12 +295,16 @@ def productos_vinos(driver, fecha):
 if __name__=='__main__':
     inicio = time.time()
 
-    # Configurar Selenium
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument("--log-level=3")
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--ignore-urlfetcher-cert-requests")
+    chrome_options.add_argument("--start-maximized")
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
 
     # Instalar o cargar el controlador Chrome WebDriver
     driver_manager = ChromeDriverManager()
@@ -302,18 +313,10 @@ if __name__=='__main__':
     today = datetime.datetime.now()
     stamped_today = today.strftime("%Y-%m-%d")
 
-    # Suponiendo que la función productos_vinos() devuelve los datos deseados
     datos = productos_vinos(driver, stamped_today)
     filename = f'celca_productos_{stamped_today}.csv'
-    funciones.exportar_csv(datos, filename)
+    exportar_csv(datos, filename)
 
-    
-    # link='https://www.contrabarra.com.mx/collections/vinos'
-    # pages=pagination(driver,link)
-    # for page in pages:
-    #     print(page)
-    #     response=requests.get(page)
-    #     print(response.status_code)
     driver.quit()
 
     print(f"Tiempo de ejecución: {time.time() - inicio} segundos")
