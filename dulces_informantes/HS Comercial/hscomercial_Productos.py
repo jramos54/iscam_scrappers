@@ -208,9 +208,10 @@ def productos_dulces(driver, fecha):
             link=product.find('a')
             driver.get(link.get('href'))
             dato=agregar_informacion(BeautifulSoup(driver.page_source,'html.parser'),INFORMANTE,categoria,fecha)
-            informacion.append(dato)
-            counter+=1
-            print(counter)
+            if dato:
+                informacion.append(dato)
+                counter+=1
+                print(counter)
         
     return informacion           
                 
