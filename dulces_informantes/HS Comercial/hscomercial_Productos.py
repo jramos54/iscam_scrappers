@@ -219,7 +219,7 @@ def productos_dulces(driver, fecha):
 def sucursales_dulces(driver,fecha):
     
     INFORMANTE='H.S. Comercial'
-    URL='https://hscomercial.mx/sucursal2021/'
+    URL='https://hscomercial.mx/sucursales-dulcerias-hs-comercial/'
     driver.get(URL)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')

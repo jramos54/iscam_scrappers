@@ -337,7 +337,30 @@ def product_scrapping(driver,pages,INFORMANTE,categoria,fecha):
                     informacion.append(producto)
                     
     return informacion            
-                
+
+
+def no_duplicates(archivo_entrada):
+    archivo_salida = archivo_entrada[:-4]+'_noduplicates.csv'
+    lineas_unicas = []
+    lineas_vistas = set()
+
+    with open(archivo_entrada, 'r', newline='',encoding='utf-8') as csvfile:
+        lector_csv = csv.DictReader(csvfile, delimiter='|')
+        encabezados = lector_csv.fieldnames
+
+        lineas_unicas.append(encabezados)  # Agrega los encabezados al archivo de salida
+
+        for fila in lector_csv:
+            descripcion_corta = fila['DescripcionCorta']
+            if descripcion_corta not in lineas_vistas:
+                lineas_unicas.append([fila[campo] for campo in encabezados])
+                lineas_vistas.add(descripcion_corta)
+
+    # Escribe las líneas únicas en un nuevo archivo CSV
+    with open(archivo_salida, 'w', newline='',encoding='utf-8') as csvfile:
+        escritor_csv = csv.writer(csvfile, delimiter='|')
+        escritor_csv.writerows(lineas_unicas)
+
 
 if __name__=='__main__':
     inicio = time.time()
@@ -362,8 +385,8 @@ if __name__=='__main__':
 
     datos = productos_vinos(driver, stamped_today)
     filename = f'majorperu_productos_{stamped_today}.csv'
-    datos_sin_duplicados = list(set(datos))
-    exportar_csv(datos_sin_duplicados, filename)
+    exportar_csv(datos, filename)
+    no_duplicates(filename)
 
     
     # link='https://majorperu.com/vino-tinto/'

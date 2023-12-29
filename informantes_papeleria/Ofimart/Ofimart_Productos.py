@@ -184,7 +184,6 @@ if __name__=='__main__':
     # Instalar o cargar el controlador Chrome WebDriver
     driver_manager = ChromeDriverManager()
     driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
-
     
     today=datetime.datetime.now()
     stamped_today=today.strftime("%Y-%m-%d")
