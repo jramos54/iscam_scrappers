@@ -82,9 +82,10 @@ def agregar_informacion(soup,informante,categoria,fecha):
         if descripcion_corta:
             product_information['DescripcionCorta']=descripcion_corta.text
 
-        descripcion_larga=container.find('table',class_="woocommerce-product-attributes shop_attributes").text
-        descripcion_larga_=descripcion_larga.splitlines()
+        descripcion_larga=container.find('table',class_="woocommerce-product-attributes shop_attributes")
         if descripcion_larga:
+            descripcion_larga_text=descripcion_larga.text
+            descripcion_larga_=descripcion_larga_text.splitlines()
             product_information['DescripcionLarga']=product_information['DescripcionCorta']+'. '.join(elemento for elemento in descripcion_larga_ if elemento.strip() != '')
 
         sku=container.find('span',class_="sku")
