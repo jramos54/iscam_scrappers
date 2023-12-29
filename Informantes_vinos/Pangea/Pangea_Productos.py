@@ -262,13 +262,13 @@ def productos_vinos(driver, fecha):
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
 
-    menu = soup.find(id="products_grid_before")
+    menu = soup.find(id="top_menu")
 
-    itemslevel0=menu.find('ul').find_all('li',recursive=False)
+    itemslevel0=menu.find_all('li',recursive=False)
     counter=0
     total_pages=0
 
-    for itemlevel0 in itemslevel0[1:]:
+    for itemlevel0 in itemslevel0[:-1]:
         link_itemlevel0=itemlevel0.find('a')
         categoria=link_itemlevel0.text.strip()
         print(categoria)
