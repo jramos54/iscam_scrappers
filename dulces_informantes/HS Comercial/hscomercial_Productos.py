@@ -184,15 +184,15 @@ def productos_dulces(driver, fecha):
     soup = BeautifulSoup(html, 'html.parser')
 
     menu = soup.find(id="main")
-    categories=menu.find_all('div', class_=lambda value: value and value.endswith('column'))
+    categories=menu.find_all('a')
     
     counter=0
     for category in categories:
         #
         # categoria_container=category.find(class_="has-text-align-center has-woostify-heading-6-font-size")
-        categoria_container=category.find(lambda tag:tag.name != 'div')
-        categoria=categoria_container.text
-        link_categoria=category.find('figcaption').find('a').get('href')
+        categoria_container=category.find('img')
+        categoria=categoria_container.get('alt')
+        link_categoria=category.get('href')
         print(categoria)
         print(link_categoria)
         
