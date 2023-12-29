@@ -1,22 +1,68 @@
-"""
-Scripts para obtener los productos de los informantes
-"""
-import os
-import datetime
-import json
-import time
-import requests
-import re
+import os,datetime,json,time,requests,re,csv
 
-# Importar Selenium webdriver
+import googlemaps
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.keys import Keys
+
 # importar webdriver manager
 from webdriver_manager.chrome import ChromeDriverManager
-
-import funciones
 from bs4 import BeautifulSoup
+
+
+def exportar_csv(diccionarios, nombre_archivo):
+    encabezados = diccionarios[0].keys()
+
+    with open(nombre_archivo, 'w', newline='',encoding='utf-8') as archivo_csv:
+        writer = csv.DictWriter(archivo_csv, fieldnames=encabezados, delimiter='|')
+        writer.writeheader()
+        for diccionario in diccionarios:
+            writer.writerow(diccionario)
+
+
+def obtencion_cp(direccion):
+
+    cp_pattern = r'(?:C\.?P\.?|c\.?p\.?)\.?\s+(\d+)'
+    match = re.search(cp_pattern, direccion, re.IGNORECASE)
+    if match:
+        cp = match.group(1)
+        return cp
+    else:
+        gmaps = googlemaps.Client(key='AIzaSyAGm8QGB5w0rp0EiRujJjt_e4wgcwhlKug')
+        geocode_result = gmaps.geocode(direccion,components={'country': 'MX'})
+
+        if geocode_result:  
+            lista_de_diccionarios=geocode_result[0]['address_components']
+            diccionarios_filtrados = [diccionario for diccionario in lista_de_diccionarios if diccionario.get('types') == ['postal_code']]
+            if diccionarios_filtrados:
+                return diccionarios_filtrados[0]['long_name']
+            else:
+                return ''
+            
+
+def geolocalizacion(direccion):
+    gmaps = googlemaps.Client(key='AIzaSyAGm8QGB5w0rp0EiRujJjt_e4wgcwhlKug')
+
+    geocode_result = gmaps.geocode(direccion,components={'country': 'MX'})
+
+    if geocode_result:
+        # Extrae la latitud y longitud del resultado
+        latitud = geocode_result[0]['geometry']['location']['lat']
+        longitud =geocode_result[0]['geometry']['location']['lng']
+
+        return longitud,latitud
+    
+    else:
+        return None,None
+
 
 def text_segments(texto,word):
     segmentos_encontrados = []
@@ -221,37 +267,96 @@ def productos_dulces(driver, fecha):
                     print(counter)
             
     return informacion           
+           
                 
+def sucursales_dulces(driver,fecha):
+    """
+    Funcion para el informante HS comercial
+    """
+    INFORMANTE='Dulceria Salazar'
+    URL='https://www.dulceriasalazar.com/pages/sucursales'
+    driver.get(URL)
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+
+    main=soup.find(id="main")
+
+    sucursales_tags=main.find_all('h1')
+    sucursales=[h1 for h1 in sucursales_tags if h1.get_text(strip=True)]
+    sucursales.pop(0)
+  
+    directorio=[]
+    direcciones=main.find_all(class_="SALvLe")
+
+    telefonos_tags=main.find_all(class_="LrzXr zdqRlf kno-fv")
+    telefonos=[tel for tel in telefonos_tags if tel.get_text(strip=True)]
+
+    compresed=zip(sucursales,direcciones,telefonos)
+    
+
+    for sucursal in compresed:
+        
+        tienda={
+            'Informante':INFORMANTE,
+            'Sucursal':'',
+            'Direccion':'',
+            'CP':'',
+            'Latitud':'',
+            'Longitud':'',
+            'Telefono':'',
+            'Email':'',
+            'fecha':fecha
+        }
+
+        sucursal_texto=sucursal[0].text
+        tienda['Sucursal']=sucursal_texto
+
+        direccion_texto=sucursal[1].text.strip()
+        direccion_lineas=direccion_texto.splitlines()
+        for linea in direccion_lineas:
+            if 'Dirección' in linea:
+                tienda['Direccion']=linea[11:]
+
+        tienda['CP']=obtencion_cp(tienda['Direccion'])
+        
+        longitud,latitud = geolocalizacion(tienda['Direccion'])
+        tienda['Latitud'] = latitud
+        tienda['Longitud'] = longitud
+
+        tienda['Telefono']=sucursal[-1].text.strip()
+        directorio.append(tienda)
+
+    return directorio
+
 
 if __name__=='__main__':
     inicio=time.time()
-    # Obtener la ruta absoluta del directorio actual del script
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    parent_dir = os.path.dirname(script_dir)
-
-    # Configurar Selenium
+    
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Ejecutar en segundo plano
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument("--log-level=3") # no mostar log
+    chrome_options.add_argument("--log-level=3")
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--ignore-urlfetcher-cert-requests")
+    chrome_options.add_argument("--start-maximized")
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
 
-    driver_path = os.path.join(parent_dir, "chromedriver")  # Ruta al chromedriver
-
-    os.environ["WDM_LOCAL"] = '1'
-    os.environ["WDM_PATH"] = driver_path
-
-    driver_manager = ChromeDriverManager().install()
-    
-
-    driver = webdriver.Chrome(service=Service(driver_manager), options=chrome_options)
+    # Instalar o cargar el controlador Chrome WebDriver
+    driver_manager = ChromeDriverManager()
+    driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
 
     today=datetime.datetime.now()
     stamped_today=today.strftime("%Y-%m-%d")
 
     datos=productos_dulces(driver,stamped_today)
     filename='salazar_productos_'+stamped_today+'.csv'
-    funciones.exportar_csv(datos,filename)
+    exportar_csv(datos,filename)
+    
+    sucursal_datos=sucursales_dulces(driver,stamped_today)
+    filename='salazar_tiendas_'+stamped_today+'.csv'
+    exportar_csv(sucursal_datos,filename)
     
     # link='https://lamediterranea.mx/categoria-producto/licores-y-destilados'
     # pages=pagination(driver,link)

@@ -261,8 +261,8 @@ if __name__=='__main__':
     products,links=productos_informante(URL,driver,stamped_today)
     exportar_csv(products,file_name)
     
-    file_name='links_circuloK_'+stamped_today+'.csv'
-    exportar_csv(links,file_name)
+    # file_name='links_circuloK_'+stamped_today+'.csv'
+    # exportar_csv(links,file_name)
     
     
  # ------------------------------------
