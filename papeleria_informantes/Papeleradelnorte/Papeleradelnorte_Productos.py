@@ -99,8 +99,8 @@ def agregar_informacion(soup,informante,categoria,fecha):
     if precio:
         product_information['Precio']=precio.text.strip()
 
-    # json_prod=json.dumps(product_information,indent=4)
-    # print(json_prod)
+    json_prod=json.dumps(product_information,indent=4)
+    print(json_prod)
 
     return product_information
 
@@ -126,121 +126,65 @@ def pagination(driver,link):
     return tuple(set(pages))
 
 
+def links_categorias(soup):
+    informacion=[]
+    menu = soup.find('ul',class_='nav navbar-nav')
+    itemslevel0=menu.find_all('li',recursive=False)
+
+    for itemlevel0 in itemslevel0:
+                
+        menulevel1=itemlevel0.find('ul')
+        itemslevel1=menulevel1.find_all('li',recursive=False)
+        
+        for itemlevel1 in itemslevel1:
+            
+            menulevel2=itemlevel1.find('ul')
+            itemslevel2=menulevel2.find_all('li',recursive=False)
+            
+            for itemlevel2 in itemslevel2:
+                #print(itemlevel2.find('a').get_text())
+                categoria=itemlevel2.find('a').get_text()
+                link=itemlevel2.find('a').get('href')
+                #print(link)
+                #pages=pagination(driver,link)
+                informacion.append((categoria,link))
+    return informacion
+
+
 def productos_papelera(driver, fecha):
     INFORMANTE = 'Papelera del Norte'
     URL = 'https://www.papeleradelnorte.com.mx/'
     informacion = []
 
     driver.get(URL)
+    time.sleep(5)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
 
-    menu = soup.find('ul',class_='nav navbar-nav')
-    itemslevel0=menu.find_all('li',recursive=False)
-
+    links_categories=links_categorias(soup)
     counter=0
-    for itemlevel0 in itemslevel0:
-        
-        #print(itemlevel0.find('a').get_text())
-        #print('-'*40)
-        
-        menulevel1=itemlevel0.find('ul')
-        itemslevel1=menulevel1.find_all('li',recursive=False)
-        
-        for itemlevel1 in itemslevel1:
-            #print(itemlevel1.find('a').get_text())
-            #print('-  - '*10)
-            menulevel2=itemlevel1.find('ul')
-            itemslevel2=menulevel2.find_all('li',recursive=False)
-            
-            for itemlevel2 in itemslevel2:
-                print(itemlevel2.find('a').get_text())
-                categoria=itemlevel2.find('a').get_text()
-                link=itemlevel2.find('a').get('href')
-                #print(link)
-                #pages=pagination(driver,link)
-                
-                driver.get(link)
-                page_html=BeautifulSoup(driver.page_source,'html.parser')
 
-                products=page_html.find('div',class_="col-lg-8 col-sm-6").find_all('h4')
-                for product in products:
-                    
-                    product_link=product.find('a')
-                    #print(product_link.text)
-                    driver.get(product_link.get('href'))
-                    
-                    producto=agregar_informacion(
-                        BeautifulSoup(driver.page_source, 'html.parser'),
-                        INFORMANTE,categoria,fecha)
-                    informacion.append(producto)
-                    counter+=1
-                    print(counter)
+    for category in links_categories:
+        categoria=category[0]
+        link=category[-1]    
+        driver.get(link)
+        time.sleep(5)
+        page_html=BeautifulSoup(driver.page_source,'html.parser')
+
+        products=page_html.find('div',class_="col-lg-8 col-sm-6").find_all('h4')
+        for product in products:
+            
+            product_link=product.find('a')
+            driver.get(product_link.get('href'))
+            time.sleep(5)
+            
+            producto=agregar_informacion(
+                BeautifulSoup(driver.page_source, 'html.parser'),
+                INFORMANTE,categoria,fecha)
+            informacion.append(producto)
+            counter+=1
+            print(counter)
     return informacion            
-
-
-def sucursales_papelera(driver,fecha):
-
-    INFORMANTE = 'Papelera del Norte'
-    URL = 'https://www.papeleradelnorte.com.mx/'
-    driver.get(URL)
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'html.parser')
-
-    menu=soup.find('div',id='modal-sucursales')
-    sitios=menu.find('div',class_='list-group')
-    directorio=[]
-
-    # for i,j in enumerate(sitios):
-    #     contenido=j.text
-    #     datos=contenido.splitlines()
-    #     if len(contenido)>1:
-
-    #         print(f"{i}--{contenido.splitlines()}")
-    #         contenido.strip('\n\n\n\n') 
-    #         print(contenido)   
-
-    for sitio in sitios:
-        
-        tienda={
-            'Informante':INFORMANTE,
-            'Sucursal':'',
-            'Direccion':'',
-            'CP':'',
-            'Latitud':'',
-            'Longitud':'',
-            'fecha':fecha
-        }
-
-        if sitio:
-
-            ubicacion=sitio.text
-            
-            if len(ubicacion)>1:
-                
-                tiendas=ubicacion.splitlines()
-                tiendas=tiendas[4:]
-                sucursal=tiendas.pop(0)
-                if sucursal:
-                    tienda['Sucursal']=sucursal
-
-                direccion=tiendas.pop(1)
-                if direccion:
-                    
-                    tienda['Direccion']=direccion
-                    tienda['CP']=obtencion_cp(direccion)
-                    
-                    longitud,latitud = geolocalizacion(tienda['Direccion'])
-                    tienda['Latitud'] = latitud
-                    tienda['Longitud'] = longitud
-
-                    # json_dato=json.dumps(tienda,indent=4)
-                    # print(json_dato)
-
-                    directorio.append(tienda)
-
-    return directorio
-
 
 
 def sucursales_papelera(driver,fecha):
@@ -253,16 +197,7 @@ def sucursales_papelera(driver,fecha):
 
     menu=soup.find('div',id='modal-sucursales')
     sitios=menu.find('div',class_='list-group')
-    directorio=[]
-
-    # for i,j in enumerate(sitios):
-    #     contenido=j.text
-    #     datos=contenido.splitlines()
-    #     if len(contenido)>1:
-
-    #         print(f"{i}--{contenido.splitlines()}")
-    #         contenido.strip('\n\n\n\n') 
-    #         print(contenido)   
+    directorio=[]  
 
     for sitio in sitios:
         
@@ -304,8 +239,7 @@ def sucursales_papelera(driver,fecha):
                     directorio.append(tienda)
 
     return directorio
-
-      
+    
 
 if __name__=='__main__':
     inicio=time.time()
