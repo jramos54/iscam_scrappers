@@ -249,16 +249,17 @@ def pagination(driver,link):
     pages=[]
 
     main_body=soup.find('div',class_="pagination-wrapper sixteen columns")
-    pagination_html=main_body.find_all('span',class_="page")
-            
-    if pagination_html:
-        pages_urls=pagination_html[-1].find('a')
-        last_page=pages_urls.get('href').split('=')[-1]
-        for i in range(1,int(last_page)+1):
-            page_link=link+f'?page={i}'
-            pages.append(page_link)
-    else:
-        pages.append(link)
+    if main_body:
+        pagination_html=main_body.find_all('span',class_="page")
+                
+        if pagination_html:
+            pages_urls=pagination_html[-1].find('a')
+            last_page=pages_urls.get('href').split('=')[-1]
+            for i in range(1,int(last_page)+1):
+                page_link=link+f'?page={i}'
+                pages.append(page_link)
+        else:
+            pages.append(link)
 
     return tuple(pages)
 
