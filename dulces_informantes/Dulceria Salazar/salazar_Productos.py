@@ -270,9 +270,6 @@ def productos_dulces(driver, fecha):
            
                 
 def sucursales_dulces(driver,fecha):
-    """
-    Funcion para el informante HS comercial
-    """
     INFORMANTE='Dulceria Salazar'
     URL='https://www.dulceriasalazar.com/pages/sucursales'
     driver.get(URL)
@@ -354,16 +351,9 @@ if __name__=='__main__':
     filename='salazar_productos_'+stamped_today+'.csv'
     exportar_csv(datos,filename)
     
-    sucursal_datos=sucursales_dulces(driver,stamped_today)
-    filename='salazar_tiendas_'+stamped_today+'.csv'
-    exportar_csv(sucursal_datos,filename)
-    
-    # link='https://lamediterranea.mx/categoria-producto/licores-y-destilados'
-    # pages=pagination(driver,link)
-    # for page in pages:
-    #     print(page)
-    #     response=requests.get(page)
-    #     print(response.status_code)
+    # sucursal_datos=sucursales_dulces(driver,stamped_today)
+    # filename='salazar_tiendas_'+stamped_today+'.csv'
+    # exportar_csv(sucursal_datos,filename)
 
     driver.quit()
 

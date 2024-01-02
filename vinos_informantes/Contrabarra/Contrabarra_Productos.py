@@ -294,24 +294,24 @@ def productos_vinos(driver, fecha):
             page_html=BeautifulSoup(driver.page_source,'html.parser')
             main_body=page_html.find('div',class_="container mainContentArea")
 
-            product_section=main_body.find('div',class_="product-list collection-matrix clearfix collection__grid collection__featuredImage--")
-            products=product_section.find_all('div',class_="product-wrap")
-            for product in products:
-                product_link=URL+product.find('a').get('href')
-                # print(product.find('a').text)
-                # print(product_link)
-                time.sleep(2)
-                driver.get(product_link)
+            if main_body:
+                product_section=main_body.find('div',class_="product-list collection-matrix clearfix collection__grid collection__featuredImage--")
+                products=product_section.find_all('div',class_="product-wrap")
+                for product in products:
+                    product_link=URL+product.find('a').get('href')
+                    # print(product.find('a').text)
+                    # print(product_link)
+                    time.sleep(2)
+                    driver.get(product_link)
 
-                producto=agregar_informacion(
-                    BeautifulSoup(driver.page_source, 'html.parser'),
-                    INFORMANTE,categoria,fecha)
-                
-                if producto:
-                    informacion.append(producto)
-                    counter+=1
-                    print(counter)
-    print(total_pages)
+                    producto=agregar_informacion(
+                        BeautifulSoup(driver.page_source, 'html.parser'),
+                        INFORMANTE,categoria,fecha)
+                    
+                    if producto:
+                        informacion.append(producto)
+                        counter+=1
+                        print(counter)
     return informacion            
                 
 

@@ -133,8 +133,12 @@ def productos_marchand(driver, fecha):
     driver.get(URL)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
-
-    menu = soup.find('div',class_='category-table-horizontal-up dropdown')
+    iframes=soup.find_all('iframe')
+    print(iframes)
+    print(soup)
+    header=soup.find(class_='header')
+    menu = header.find('div',class_='category-table-horizontal-up dropdown')
+    #print(menu)
     category_menu=menu.find_next('div')
     
     itemslevel0=category_menu.find_next().find_all('nav',recursive=False)
@@ -172,7 +176,7 @@ def productos_marchand(driver, fecha):
                         counter+=1
                         print(counter)
     return informacion            
-                
+
 
 if __name__=='__main__':
     inicio=time.time()
@@ -199,13 +203,6 @@ if __name__=='__main__':
     datos=productos_marchand(driver,stamped_today)
     filename='marchand_productos_'+stamped_today+'.csv'
     exportar_csv(datos,filename)
-    
-    datos=sucursales_marchand(driver,stamped_today)
-    filename='marchand_productos_'+stamped_today+'.csv'
-
-    json_datos=json.dumps(datos,indent=4)
-    print(json_datos)
-    #funciones.exportar_csv(datos,filename)
     
     driver.quit()
 

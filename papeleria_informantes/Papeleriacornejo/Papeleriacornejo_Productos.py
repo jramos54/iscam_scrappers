@@ -1,22 +1,68 @@
-"""
-Scripts para obtener los productos de los informantes
-"""
-import os
-import datetime
-import json
-import time
-import requests
+import os,datetime,json,time,requests,re,csv
 
-# Importar Selenium webdriver
+import googlemaps
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.keys import Keys
+
 # importar webdriver manager
 from webdriver_manager.chrome import ChromeDriverManager
-
-import funciones
 from bs4 import BeautifulSoup
 
+
+def exportar_csv(diccionarios, nombre_archivo):
+    encabezados = diccionarios[0].keys()
+
+    with open(nombre_archivo, 'w', newline='',encoding='utf-8') as archivo_csv:
+        writer = csv.DictWriter(archivo_csv, fieldnames=encabezados, delimiter='|')
+        writer.writeheader()
+        for diccionario in diccionarios:
+            writer.writerow(diccionario)
+
+
+def obtencion_cp(direccion):
+
+    cp_pattern = r'(?:C\.?P\.?|c\.?p\.?)\.?\s+(\d+)'
+    match = re.search(cp_pattern, direccion, re.IGNORECASE)
+    if match:
+        cp = match.group(1)
+        return cp
+    else:
+        gmaps = googlemaps.Client(key='AIzaSyAGm8QGB5w0rp0EiRujJjt_e4wgcwhlKug')
+        geocode_result = gmaps.geocode(direccion,components={'country': 'MX'})
+
+        if geocode_result:  
+            lista_de_diccionarios=geocode_result[0]['address_components']
+            diccionarios_filtrados = [diccionario for diccionario in lista_de_diccionarios if diccionario.get('types') == ['postal_code']]
+            if diccionarios_filtrados:
+                return diccionarios_filtrados[0]['long_name']
+            else:
+                return ''
+            
+
+def geolocalizacion(direccion):
+    gmaps = googlemaps.Client(key='AIzaSyAGm8QGB5w0rp0EiRujJjt_e4wgcwhlKug')
+
+    geocode_result = gmaps.geocode(direccion,components={'country': 'MX'})
+
+    if geocode_result:
+        # Extrae la latitud y longitud del resultado
+        latitud = geocode_result[0]['geometry']['location']['lat']
+        longitud =geocode_result[0]['geometry']['location']['lng']
+
+        return longitud,latitud
+    
+    else:
+        return None,None
+    
 
 def agregar_informacion(soup,informante,categoria,fecha):
     product_information = {
@@ -159,41 +205,86 @@ def productos_papelera(driver, fecha):
                         counter+=1
                         print(counter) 
     return informacion            
+
+
+def sucursales_cornejo(driver,fecha):
+
+    INFORMANTE = 'Papeleria Cornejo'
+    URL = 'https://www.papeleriacornejo.com/pc/index.php?route=information/contact'
+    driver.get(URL)
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+
+    menu=soup.find(id="content")
+    sitios=menu.find_all('div',class_='row')
+    directorio=[]
+   
+    for sitio in sitios:
+        
+        tienda={
+            'Informante':INFORMANTE,
+            'Sucursal':'',
+            'Direccion':'',
+            'CP':'',
+            'Latitud':'',
+            'Longitud':'',
+            'fecha':fecha
+        }
+
+        if sitio:
+            ubicacion=sitio.find('address').text
+            sucursal=sitio.find('strong')
+
+            direccion=ubicacion.strip().splitlines()
+            if sucursal:
+                tienda['Sucursal']=sucursal.text
+            
+            if direccion:
+                tienda['Direccion']='. '.join(elemento for elemento in direccion if '@' not in elemento)
+                tienda['CP']=obtencion_cp(tienda['Direccion'])
+                
+                longitud,latitud = geolocalizacion(tienda['Direccion'])
+                tienda['Latitud'] = latitud
+                tienda['Longitud'] = longitud
+
+                # json_dato=json.dumps(tienda,indent=4)
+                # print(json_dato)
+
+                directorio.append(tienda)
+
+    return directorio
                 
 
 if __name__=='__main__':
     inicio=time.time()
-    # Obtener la ruta absoluta del directorio actual del script
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    parent_dir = os.path.dirname(script_dir)
-
-    # Configurar Selenium
+    
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Ejecutar en segundo plano
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument("--log-level=3") # no mostar log
+    chrome_options.add_argument("--log-level=3")
     chrome_options.add_argument("--ignore-certificate-errors")
-
-    driver_path = os.path.join(parent_dir, "chromedriver")  # Ruta al chromedriver
-
-    driver_manager = ChromeDriverManager(path=driver_path)
-    driver_manager.install()
-
-    driver = webdriver.Chrome(service=Service(executable_path=driver_path), options=chrome_options)
+    chrome_options.add_argument("--ignore-urlfetcher-cert-requests")
+    chrome_options.add_argument("--start-maximized")
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
+    chrome_options.add_argument('--js-flags=--max-old-space-size=4096')
+    
+    # Instalar o cargar el controlador Chrome WebDriver
+    driver_manager = ChromeDriverManager()
+    driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
 
     today=datetime.datetime.now()
     stamped_today=today.strftime("%Y-%m-%d")
 
     datos=productos_papelera(driver,stamped_today)
     filename='Papeleriacornejo_productos_'+stamped_today+'.csv'
-    funciones.exportar_csv(datos,filename)
+    exportar_csv(datos,filename)
 
-    # link='https://www.papeleriacornejo.com/pc/index.php?route=product/category&path=275_287_502'
-    # for i in pagination(driver,link):
-    #     response=requests.get(i)
-    #     print(response.status_code)
-    #     print(i)
+    datos_sucursal=sucursales_cornejo(driver,stamped_today)
+    filename='Papeleriacornejo_sucursales_'+stamped_today+'.csv'
+
+    exportar_csv(datos,filename)
     
     driver.quit()
 
