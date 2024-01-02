@@ -320,7 +320,8 @@ if __name__=='__main__':
     chrome_options.add_argument("--start-maximized")
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     chrome_options.add_experimental_option('useAutomationExtension', False)
-
+    chrome_options.add_argument('--js-flags=--max-old-space-size=4096')
+    
     # Instalar o cargar el controlador Chrome WebDriver
     driver_manager = ChromeDriverManager()
     driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
