@@ -262,53 +262,46 @@ def productos_vinos(driver, fecha):
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
 
-    menu = soup.find(id="top_menu")
-
-    itemslevel0=menu.find_all('li',recursive=False)
+    menu = soup.find(class_="products_categories")
+    itemslevel0=menu.find_all('li')
     counter=0
     total_pages=0
 
-    for itemlevel0 in itemslevel0[:-1]:
+    for itemlevel0 in itemslevel0[1:]:
         link_itemlevel0=itemlevel0.find('a')
+        if not link_itemlevel0:
+            continue
         categoria=link_itemlevel0.text.strip()
         print(categoria)
+        link=BASE_URL+link_itemlevel0.get('href')
+        driver.get(link)
+        print(link)
+        time.sleep(5)
 
-        tipos=itemlevel0.find_all('li')
-        if not tipos:
-            tipos=[itemlevel0]
+        page_html=BeautifulSoup(driver.page_source,'html.parser')
+        body_container=page_html.find('div',id="wrap")
+        main_body=body_container.find(id="products_grid")
 
-        for tipo in tipos:
-            tipo_text=tipo.find('a').text
-            tipo_link=BASE_URL+tipo.find('a').get('href')
-            print(tipo_link)
-         
-            driver.get(tipo_link)
-            time.sleep(5)
+        product_section=main_body.find('table')
+        if product_section:
 
-            page_html=BeautifulSoup(driver.page_source,'html.parser')
-            body_container=page_html.find('div',id="wrap")
-            main_body=body_container.find(id="products_grid")
+            products=product_section.find_all('td',class_="oe_product te_shop_grid")
+            
+            for product in products:
+                product_link=BASE_URL+product.find('a',itemprop="name").get('href')
+                # print(product.find('a').text)
+                print(product_link)
+                time.sleep(2)
+                driver.get(product_link)
 
-            product_section=main_body.find('table')
-            if product_section:
-
-                products=product_section.find_all('td',class_="oe_product te_shop_grid")
+                producto=agregar_informacion(
+                    BeautifulSoup(driver.page_source, 'html.parser'),
+                    INFORMANTE,categoria,fecha)
                 
-                for product in products:
-                    product_link=BASE_URL+product.find('a',itemprop="name").get('href')
-                    # print(product.find('a').text)
-                    print(product_link)
-                    time.sleep(2)
-                    driver.get(product_link)
-
-                    producto=agregar_informacion(
-                        BeautifulSoup(driver.page_source, 'html.parser'),
-                        INFORMANTE,categoria,fecha)
-                    
-                    if producto:
-                        informacion.append(producto)
-                        counter+=1
-                        print(counter)
+                if producto:
+                    informacion.append(producto)
+                    counter+=1
+                    print(counter)
     print(total_pages)
     return informacion            
                 
