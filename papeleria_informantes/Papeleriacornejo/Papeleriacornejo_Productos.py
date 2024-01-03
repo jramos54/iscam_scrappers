@@ -284,7 +284,7 @@ if __name__=='__main__':
     datos_sucursal=sucursales_cornejo(driver,stamped_today)
     filename='Papeleriacornejo_sucursales_'+stamped_today+'.csv'
 
-    exportar_csv(datos,filename)
+    exportar_csv(datos_sucursal,filename)
     
     driver.quit()
 

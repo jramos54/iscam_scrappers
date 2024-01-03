@@ -127,6 +127,7 @@ def pagination(driver,link):
 
 
 def links_categorias(soup):
+    print("obteniendo categorias...")
     informacion=[]
     menu = soup.find('ul',class_='nav navbar-nav')
     itemslevel0=menu.find_all('li',recursive=False)
@@ -157,35 +158,51 @@ def productos_papelera(driver, fecha):
     informacion = []
 
     driver.get(URL)
-    time.sleep(5)
+    time.sleep(3)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
 
     links_categories=links_categorias(soup)
     counter=0
 
+    urls=[]
     for category in links_categories:
         categoria=category[0]
+        print(f"obteniendo links de categoria --> {categoria}")
+        
         link=category[-1]    
-        driver.get(link)
-        time.sleep(5)
-        page_html=BeautifulSoup(driver.page_source,'html.parser')
-
-        products=page_html.find('div',class_="col-lg-8 col-sm-6").find_all('h4')
-        for product in products:
-            
-            product_link=product.find('a')
-            driver.get(product_link.get('href'))
-            time.sleep(5)
-            
-            producto=agregar_informacion(
-                BeautifulSoup(driver.page_source, 'html.parser'),
-                INFORMANTE,categoria,fecha)
-            informacion.append(producto)
-            counter+=1
-            print(counter)
+        product_links=links_productos(link)
+        urls.append((categoria,product_links))
+        
+    for url in urls:
+        categoria=url[0]
+        links_products=url[-1]
+        for link in links_products:
+            try:
+                driver.get(link)
+                time.sleep(3)
+                producto=agregar_informacion(BeautifulSoup(driver.page_source, 'html.parser'),INFORMANTE,categoria,fecha)
+                informacion.append(producto)
+                counter+=1
+                print(counter)
+            except Exception as e:
+                print('-'*50)
+                print(e)
+                print('-'*50)
+                print(link)
+                time.sleep(30)
     return informacion            
 
+def links_productos(link):
+    product_links=[]
+    driver.get(link)
+    time.sleep(3)
+    page_html=BeautifulSoup(driver.page_source,'html.parser')
+    products=page_html.find('div',class_="col-lg-8 col-sm-6").find_all('h4')
+    for product in products:
+        product_link=product.find('a')
+        product_links.append(product_link.get('href'))
+    return product_links
 
 def sucursales_papelera(driver,fecha):
   
