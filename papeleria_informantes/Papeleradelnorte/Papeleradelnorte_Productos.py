@@ -190,7 +190,12 @@ def productos_papelera(driver, fecha):
                 print(e)
                 print('-'*50)
                 print(link)
-                time.sleep(30)
+                print('-'*50)
+                time.sleep(5)
+                driver.quit()
+                driver = iniciar_driver()
+                time.sleep(5)
+                
     return informacion            
 
 def links_productos(link):
@@ -257,6 +262,11 @@ def sucursales_papelera(driver,fecha):
 
     return directorio
     
+
+def iniciar_driver():
+    driver_manager = ChromeDriverManager()
+    driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
+    return driver
 
 if __name__=='__main__':
     inicio=time.time()

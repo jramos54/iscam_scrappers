@@ -1,3 +1,5 @@
+import sys
+print(sys.executable)
 import os,datetime,json,time,requests,re,csv
 
 import googlemaps
@@ -16,6 +18,7 @@ from selenium.webdriver.common.keys import Keys
 # importar webdriver manager
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
+
 
 
 def exportar_csv(diccionarios, nombre_archivo):

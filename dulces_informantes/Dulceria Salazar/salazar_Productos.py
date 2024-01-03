@@ -228,21 +228,19 @@ def productos_dulces(driver, fecha):
     for container in containers:
         cat_links=container.find_all('a')
         categories+=cat_links
-    
-    print(len(categories))
-  
+      
     counter=0
     for category in categories:
        
         categoria=category.text.strip()
         link_categoria=BASE_URL+category.get('href')
-        print(categoria)
-        print(link_categoria)
+        print(f'{INFORMANTE} --> {categoria}')
+        print(f'{INFORMANTE} --> {link_categoria}')
         time.sleep(2)
         pages=pagination(driver,link_categoria)
         
         for page in pages:
-            print(page)
+            print(f'{INFORMANTE} --> {page}')
 
             driver.get(page)
             time.sleep(2)
@@ -264,7 +262,7 @@ def productos_dulces(driver, fecha):
                     dato=agregar_informacion(BeautifulSoup(driver.page_source,'html.parser'),INFORMANTE,categoria,fecha)
                     informacion.append(dato)
                     counter+=1
-                    print(counter)
+                    print(f'{INFORMANTE} --> {counter}')
             
     return informacion           
            

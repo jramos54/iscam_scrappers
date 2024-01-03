@@ -1,0 +1,12 @@
+[
+    {
+        "informante":"Dulceria Salazar",
+        "script":"dulces_informantes\\Dulceria Salazar\\salazar_Productos.py",
+        "csvPath":"csv\\"
+    },
+    {
+        "informante":"Dunososa",
+        "script":"abarrotes_informantes\\dunosusa\\productos_dunosusa.py",
+        "csvPath":"csv\\"
+    }
+]
