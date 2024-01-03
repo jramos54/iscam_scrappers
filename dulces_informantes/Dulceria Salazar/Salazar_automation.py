@@ -176,6 +176,7 @@ def agregar_informacion(soup,informante,categoria,fecha):
                 
         time.sleep(2)
 
+        print(f"###> {informante} --> {categoria} ###> ")
         json_prod=json.dumps(product_information,indent=4)
         print(json_prod)
 
@@ -183,8 +184,10 @@ def agregar_informacion(soup,informante,categoria,fecha):
     return None
 
 
-def pagination(driver,link):
+def pagination(driver,link,informante):
     URL = ''
+    
+    print(f"###> Paginacion # {informante} # --> {link}")
     
     driver.get(link)
     time.sleep(2)
@@ -217,6 +220,8 @@ def productos_dulces(driver, fecha):
     BASE_URL='https://www.dulceriasalazar.com'
     informacion = []
 
+    print(f"###> Scrapping de # {INFORMANTE} ## {URL} #")
+    
     driver.get(URL)
     time.sleep(5)
     html = driver.page_source
@@ -234,13 +239,15 @@ def productos_dulces(driver, fecha):
        
         categoria=category.text.strip()
         link_categoria=BASE_URL+category.get('href')
-        print(f'{INFORMANTE} --> {categoria}')
-        print(f'{INFORMANTE} --> {link_categoria}')
+        
+        print(f'###> {INFORMANTE} --> {categoria}')
+        print(f'###> {INFORMANTE} --> {link_categoria}')
+        
         time.sleep(2)
-        pages=pagination(driver,link_categoria)
+        pages=pagination(driver,link_categoria,INFORMANTE)
         
         for page in pages:
-            print(f'{INFORMANTE} --> {page}')
+            print(f'###> {INFORMANTE} --> {page}')
 
             driver.get(page)
             time.sleep(2)
@@ -256,13 +263,13 @@ def productos_dulces(driver, fecha):
                 for product in products:
                     link_product=product.find('a',class_="product-item__title text--strong link")
                     link=BASE_URL+link_product.get('href')
-                    print(link)
+                    print(f"###> {INFORMANTE} Scrapping --> {link}")
                     driver.get(link)
                     time.sleep(2)
                     dato=agregar_informacion(BeautifulSoup(driver.page_source,'html.parser'),INFORMANTE,categoria,fecha)
                     informacion.append(dato)
                     counter+=1
-                    print(f'{INFORMANTE} --> {counter}')
+                    print(f'###> {INFORMANTE} --> {counter}')
             
     return informacion           
            
@@ -324,8 +331,22 @@ def sucursales_dulces(driver,fecha):
     return directorio
 
 
+def main(driver,stamped_today):
+    # Se toma el argumento del directorio destino
+    parser = argparse.ArgumentParser(description='Se incorpora la ruta destino del CSV')
+    parser.add_argument('ruta', help='Ruta personalizada para el archivo CSV')
+    args = parser.parse_args()
+
+    # Ejecucion normal del script
+    datos=productos_dulces(driver,stamped_today)
+    
+    filename=args.ruta + 'salazar_productos_'+stamped_today+'.csv' 
+    exportar_csv(datos,filename)
+
+
 if __name__=='__main__':
     inicio=time.time()
+    print(f"###> Se inicia la ejecucion de {__file__}")
     
     chrome_options = Options()
     chrome_options.add_argument("--headless")
@@ -345,11 +366,13 @@ if __name__=='__main__':
     today=datetime.datetime.now()
     stamped_today=today.strftime("%Y-%m-%d")
 
-    filename='salazar_productos_'+stamped_today+'.csv'
+    # Se debe ejecutar en la funcion main, para que tome como argumento el directorio destino del csv
     
-    datos=productos_dulces(driver,stamped_today)
-    exportar_csv(datos,filename)
+    main(driver,stamped_today)
     
+    # sucursal_datos=sucursales_dulces(driver,stamped_today)
+    # filename='salazar_tiendas_'+stamped_today+'.csv'
+    # exportar_csv(sucursal_datos,filename)
 
     driver.quit()
 

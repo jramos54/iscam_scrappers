@@ -274,9 +274,10 @@ def productos_abarrotes(driver, fecha):
                 driver.get(link)
                 time.sleep(5)
                 dato=agregar_informacion(BeautifulSoup(driver.page_source,'html.parser'),INFORMANTE,fecha)
-                informacion.append(dato)
-                counter+=1
-                print(counter)
+                if dato:
+                    informacion.append(dato)
+                    counter+=1
+                    print(counter)
         
     return informacion           
 

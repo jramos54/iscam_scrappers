@@ -1,6 +1,4 @@
-import sys
-print(sys.executable)
-import os,datetime,json,time,requests,re,csv
+import os,datetime,json,time,requests,re,csv,argparse
 
 import googlemaps
 
@@ -310,13 +308,7 @@ if __name__=='__main__':
     datos=productos_abarrotes(driver,stamped_today,categories_pages)
     filename='dunosusa_productos_'+stamped_today+'.csv'
     exportar_csv(datos,filename)
-    
-    # link='https://lamediterranea.mx/categoria-producto/licores-y-destilados'
-    # pages=pagination(driver,link)
-    # for page in pages:
-    #     print(page)
-    #     response=requests.get(page)
-    #     print(response.status_code)
+
 
     driver.quit()
 
