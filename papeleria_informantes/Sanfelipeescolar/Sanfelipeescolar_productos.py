@@ -77,8 +77,12 @@ def sucursales_sanfelipeescolar(driver,fecha):
 
     directorio=[]
 
-    for id in ids.keys():
-        data=soup.find('div', {'data-id': ids.get(id)})
+    sucursal_container=soup.find(class_="elementor-element elementor-element-85c3de0 e-flex e-con-boxed e-con e-parent")
+    ecoinner=sucursal_container.find('div').find('div')
+    
+    datas=ecoinner.find_all('div', recursive=False)
+    
+    for data in datas:
         lineas=data.find_all('p')
         tienda={
             'Informante':INFORMANTE,
@@ -103,7 +107,7 @@ def sucursales_sanfelipeescolar(driver,fecha):
         tienda['Latitud'] = latitud
         tienda['Longitud'] = longitud
         directorio.append(tienda)
-    
+
     return directorio
 
 

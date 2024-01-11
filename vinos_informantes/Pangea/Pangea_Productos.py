@@ -208,7 +208,7 @@ def agregar_informacion(soup,informante,categoria,fecha):
             time.sleep(1)
 
         # IMAGEN
-        imagen_container=container.find('div',id="mainSlider")
+        imagen_container=container.find('div',id="o-carousel-product")
         imagen=imagen_container.find('img')
         if imagen:
             if imagen.get('src') != '':
@@ -259,21 +259,28 @@ def productos_vinos(driver, fecha):
     # boton_entrar.click()
     
     # time.sleep(2)
+    # driver.save_screenshot("captura.png")
+    time.sleep(3)
+    
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
-
-    menu = soup.find(class_="products_categories")
+    main=soup.find('main')
+    menu = main.find(class_="products_categories")
     itemslevel0=menu.find_all('li')
     counter=0
     total_pages=0
+    
 
     for itemlevel0 in itemslevel0[1:]:
-        link_itemlevel0=itemlevel0.find('a')
+        print("ITERATING CATEGORIES...")
+        
+        link_itemlevel0=itemlevel0.find('div')
+        link=link_itemlevel0['data-link-href']
         if not link_itemlevel0:
             continue
         categoria=link_itemlevel0.text.strip()
         print(categoria)
-        link=BASE_URL+link_itemlevel0.get('href')
+        link=BASE_URL+link
         driver.get(link)
         print(link)
         time.sleep(5)
@@ -317,12 +324,25 @@ if __name__=='__main__':
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("--ignore-urlfetcher-cert-requests")
     chrome_options.add_argument("--start-maximized")
+    chrome_options.add_argument('--js-flags=--max-old-space-size=4096')
+    chrome_options.add_argument('--disable-notifications')
+    chrome_options.add_argument('--password-store=basic')
+    
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     chrome_options.add_experimental_option('useAutomationExtension', False)
-
+    chrome_options.add_experimental_option(
+        "prefs",
+        {
+            "credentials_enable_service":False,
+            "profile.password_manager_enabled":False
+        }
+    )
+    
+    
     # Instalar o cargar el controlador Chrome WebDriver
     driver_manager = ChromeDriverManager()
     driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
+    
 
     today=datetime.datetime.now()
     stamped_today=today.strftime("%Y-%m-%d")

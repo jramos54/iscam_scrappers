@@ -184,6 +184,7 @@ def productos_dulces(driver, fecha):
     soup = BeautifulSoup(html, 'html.parser')
 
     menu = soup.find(id="main")
+    menu_container=menu=menu.find('article')
     categories=menu.find_all('a')
     
     counter=0

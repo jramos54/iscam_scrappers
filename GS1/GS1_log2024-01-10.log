@@ -1,0 +1,51 @@
+2024-01-10 14:55:50,209 - GS1 Logging - INFO - ==> Driver configuration ...
+2024-01-10 14:55:58,907 - GS1 Logging - INFO - ==> Log in in page https://login.syncfonia.com/home
+2024-01-10 14:56:01,169 - GS1 Logging - INFO - Input username
+2024-01-10 14:56:06,010 - GS1 Logging - INFO - Input pasword
+2024-01-10 14:56:19,292 - GS1 Logging - INFO - ==> Click into search icon...
+2024-01-10 14:56:19,316 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-10 14:56:21,356 - GS1 Logging - INFO - Activating shadow-root APP
+2024-01-10 14:56:23,844 - GS1 Logging - INFO - Activating shadow-root MENU
+2024-01-10 14:56:25,868 - GS1 Logging - INFO - Activating shadow-root NAV MENU
+2024-01-10 14:56:27,888 - GS1 Logging - INFO - elements for the search icon activated...
+2024-01-10 14:56:27,952 - GS1 Logging - INFO - Showing the search button element
+2024-01-10 14:56:29,979 - GS1 Logging - INFO - Search Domain activated...
+2024-01-10 14:56:40,114 - GS1 Logging - INFO - ==> Checking all elements...
+2024-01-10 14:56:40,130 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-10 14:56:42,148 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-10 14:56:42,155 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-10 14:56:42,164 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-10 14:56:44,175 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-10 14:56:44,187 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-10 14:56:44,204 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-10 14:56:44,219 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-10 14:56:44,232 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-10 14:56:44,248 - GS1 Logging - INFO - Activating shadow-root ENTITYGRID
+2024-01-10 14:56:44,262 - GS1 Logging - INFO - Activating shadow-root PEBBLE-GRID
+2024-01-10 14:56:44,279 - GS1 Logging - INFO - Activating shadow-root GRID
+2024-01-10 14:56:44,293 - GS1 Logging - INFO - Activating shadow-root GRID-SELECTION-OPTIONS
+2024-01-10 14:56:44,307 - GS1 Logging - INFO - Activating shadow-root HEADERCHECKBOX
+2024-01-10 14:56:44,316 - GS1 Logging - INFO - Accessing to CHECKBOXCONTAINER
+2024-01-10 14:56:44,408 - GS1 Logging - INFO - Clicking to the button CHECKBOXCONTAINER
+2024-01-10 14:56:49,410 - GS1 Logging - INFO - ==> Clicking to the download icon...
+2024-01-10 14:56:49,425 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-10 14:56:51,443 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-10 14:56:51,451 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-10 14:56:51,456 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-10 14:56:53,465 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-10 14:56:53,473 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-10 14:56:53,487 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-10 14:56:53,498 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-10 14:56:53,510 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-10 14:56:53,544 - GS1 Logging - INFO - Activating shadow-root GRIDACTIONS
+2024-01-10 14:56:53,563 - GS1 Logging - INFO - Activating shadow-root SEARCHRESULTTOOLBAR
+2024-01-10 14:56:53,575 - GS1 Logging - INFO - Clicking to  TOOLBAR_ACTIONS
+2024-01-10 14:56:58,629 - GS1 Logging - INFO - ==> Clicking to the download all button...
+2024-01-10 14:56:58,643 - GS1 Logging - INFO - Activating shadow-root MAIN-APP
+2024-01-10 14:57:00,663 - GS1 Logging - INFO - Activating shadow-root APP-COMMON
+2024-01-10 14:57:00,678 - GS1 Logging - INFO - Activating shadow-root CONTEXTDIALOG
+2024-01-10 14:57:00,691 - GS1 Logging - INFO - Activating shadow-root ROCKWIZARDMANAGE
+2024-01-10 14:57:00,719 - GS1 Logging - INFO - Activating shadow-root ROCK-SCOPE-MANAGE
+2024-01-10 14:57:00,727 - GS1 Logging - INFO - Accessing to CONTENT-ACTIONS
+2024-01-10 14:57:00,804 - GS1 Logging - INFO - Clicking to  DOWNLOADALL
+2024-01-10 15:02:00,806 - GS1 Logging - INFO - =====> PROCESS COMPLETED <=====

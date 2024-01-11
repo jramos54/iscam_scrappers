@@ -1,0 +1,878 @@
+2024-01-08 09:34:51,121 - GS1 Logging - INFO - ==> Driver configuration ...
+2024-01-08 09:34:53,562 - GS1 Logging - INFO - ==> Log in in page https://login.syncfonia.com/home
+2024-01-08 09:34:55,141 - GS1 Logging - INFO - Input username
+2024-01-08 09:35:00,059 - GS1 Logging - INFO - Input pasword
+2024-01-08 09:35:10,557 - GS1 Logging - INFO - ==> Click into search icon...
+2024-01-08 09:35:10,573 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-08 09:35:12,590 - GS1 Logging - INFO - Activating shadow-root APP
+2024-01-08 09:35:14,847 - GS1 Logging - INFO - Activating shadow-root MENU
+2024-01-08 09:35:16,882 - GS1 Logging - INFO - Activating shadow-root NAV MENU
+2024-01-08 09:35:18,914 - GS1 Logging - INFO - elements for the search icon activated...
+2024-01-08 09:35:18,982 - GS1 Logging - INFO - Showing the search button element
+2024-01-08 09:35:21,031 - GS1 Logging - INFO - Search Domain activated...
+2024-01-08 09:35:31,085 - GS1 Logging - INFO - ==> Checking all elements...
+2024-01-08 09:35:31,105 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-08 09:35:33,136 - GS1 Logging - INFO - Activating shadow-root CONTENT VIEW MANAGER
+2024-01-08 09:35:33,140 - GS1 Logging - INFO - Activating shadow-root SUB-CONTENT 
+2024-01-08 09:35:33,159 - GS1 Logging - INFO - Activating shadow-root ROCK CONTENTS
+2024-01-08 09:35:35,186 - GS1 Logging - INFO - home_rsZFwaNgqVssFmuFdN
+2024-01-08 09:35:35,195 - GS1 Logging - INFO - currentApp_search-thing_rsbeNH1ZWIGMF64nu9
+2024-01-08 09:35:35,240 - GS1 Logging - INFO - Activating shadow-root CONTAINER MANAGER
+2024-01-08 09:35:37,258 - GS1 Logging - INFO - Activating shadow-root CONTAINER MANAGER
+2024-01-08 09:35:39,286 - GS1 Logging - INFO - Activating shadow-root CONTAINER MANAGER
+2024-01-08 09:35:41,312 - GS1 Logging - INFO - Activating shadow-root CONTAINER MANAGER
+2024-01-08 09:35:43,339 - GS1 Logging - INFO - Activating shadow-root CONTAINER MANAGER
+2024-01-08 09:35:45,363 - GS1 Logging - INFO - Activating shadow-root CONTAINER MANAGER
+2024-01-08 09:35:47,396 - GS1 Logging - INFO - Activating shadow-root CONTAINER MANAGER
+2024-01-08 09:35:49,423 - GS1 Logging - INFO - Activating shadow-root CONTAINER MANAGER
+2024-01-08 09:35:51,442 - GS1 Logging - INFO - Activating shadow-root CONTAINER MANAGER
+2024-01-08 09:35:58,540 - GS1 Logging - INFO - ==> Checking all elements...
+2024-01-08 09:35:58,577 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-08 09:36:00,593 - GS1 Logging - INFO - Activating shadow-root CONTENT VIEW MANAGER
+2024-01-08 09:36:00,596 - GS1 Logging - INFO - Activating shadow-root SUB-CONTENT 
+2024-01-08 09:36:00,603 - GS1 Logging - INFO - Activating shadow-root ROCK CONTENTS
+2024-01-08 09:36:02,615 - GS1 Logging - INFO - home_rsZFwaNgqVssFmuFdN
+2024-01-08 09:36:02,631 - GS1 Logging - INFO - currentApp_search-thing_rsbeNH1ZWIGMF64nu9
+2024-01-08 09:36:02,663 - GS1 Logging - INFO - Activating shadow-root CONTAINER MANAGER
+2024-01-08 09:36:04,684 - GS1 Logging - INFO - Activating shadow-root CONTAINER MANAGER
+2024-01-08 09:36:04,706 - GS1 Logging - INFO - Activating shadow-root CONTAINER MANAGER
+2024-01-08 09:46:53,802 - GS1 Logging - INFO - ==> Driver configuration ...
+2024-01-08 09:46:56,182 - GS1 Logging - INFO - ==> Log in in page https://login.syncfonia.com/home
+2024-01-08 09:46:56,726 - GS1 Logging - INFO - Input username
+2024-01-08 09:47:02,716 - GS1 Logging - INFO - Input pasword
+2024-01-08 09:47:13,298 - GS1 Logging - INFO - ==> Click into search icon...
+2024-01-08 09:47:13,312 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-08 09:47:15,339 - GS1 Logging - INFO - Activating shadow-root APP
+2024-01-08 09:47:17,463 - GS1 Logging - INFO - Activating shadow-root MENU
+2024-01-08 09:47:19,541 - GS1 Logging - INFO - Activating shadow-root NAV MENU
+2024-01-08 09:47:21,585 - GS1 Logging - INFO - elements for the search icon activated...
+2024-01-08 09:47:21,646 - GS1 Logging - INFO - Showing the search button element
+2024-01-08 09:47:23,681 - GS1 Logging - INFO - Search Domain activated...
+2024-01-08 09:47:33,745 - GS1 Logging - INFO - ==> Checking all elements...
+2024-01-08 09:47:33,766 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 09:47:35,790 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 09:47:35,806 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 09:47:35,822 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 09:47:37,838 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 09:47:37,857 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 09:47:37,882 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 09:47:37,910 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 09:47:37,921 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 09:47:37,937 - GS1 Logging - INFO - Activating shadow-root ENTITYGRID
+2024-01-08 09:47:37,947 - GS1 Logging - INFO - Activating shadow-root PEBBLE-GRID
+2024-01-08 09:47:37,991 - GS1 Logging - INFO - Activating shadow-root GRID
+2024-01-08 09:47:38,015 - GS1 Logging - INFO - Activating shadow-root GRID-SELECTION-OPTIONS
+2024-01-08 09:47:38,026 - GS1 Logging - INFO - Activating shadow-root HEADERCHECKBOX
+2024-01-08 09:47:38,034 - GS1 Logging - INFO - Accessing to CHECKBOXCONTAINER
+2024-01-08 09:47:38,098 - GS1 Logging - INFO - Clicking to the button CHECKBOXCONTAINER
+2024-01-08 09:47:43,103 - GS1 Logging - INFO - ==> Clicking to the download button...
+2024-01-08 09:47:43,115 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 09:47:45,147 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 09:47:45,155 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 09:47:45,163 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 09:47:47,176 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 09:47:47,188 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 09:47:47,219 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 09:47:47,235 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 09:47:47,250 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 09:47:47,297 - GS1 Logging - INFO - Activating shadow-root GRIDACTIONS
+2024-01-08 09:47:47,313 - GS1 Logging - INFO - Activating shadow-root SEARCHRESULTTOOLBAR
+2024-01-08 09:47:47,344 - GS1 Logging - INFO - Activating shadow-root TOOLBAR_ACTIONS
+2024-01-08 09:59:15,906 - GS1 Logging - INFO - ==> Driver configuration ...
+2024-01-08 09:59:18,461 - GS1 Logging - INFO - ==> Log in in page https://login.syncfonia.com/home
+2024-01-08 09:59:21,061 - GS1 Logging - INFO - Input username
+2024-01-08 09:59:25,976 - GS1 Logging - INFO - Input pasword
+2024-01-08 09:59:35,273 - GS1 Logging - INFO - ==> Click into search icon...
+2024-01-08 09:59:35,306 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-08 09:59:37,328 - GS1 Logging - INFO - Activating shadow-root APP
+2024-01-08 09:59:40,109 - GS1 Logging - INFO - Activating shadow-root MENU
+2024-01-08 09:59:42,137 - GS1 Logging - INFO - Activating shadow-root NAV MENU
+2024-01-08 09:59:44,171 - GS1 Logging - INFO - elements for the search icon activated...
+2024-01-08 09:59:44,228 - GS1 Logging - INFO - Showing the search button element
+2024-01-08 09:59:46,269 - GS1 Logging - INFO - Search Domain activated...
+2024-01-08 09:59:56,356 - GS1 Logging - INFO - ==> Checking all elements...
+2024-01-08 09:59:56,379 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 09:59:58,436 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 09:59:58,444 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 09:59:58,452 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:00:00,470 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:00:00,484 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:00:00,520 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:00:00,537 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:00:00,549 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:00:00,561 - GS1 Logging - INFO - Activating shadow-root ENTITYGRID
+2024-01-08 10:00:00,574 - GS1 Logging - INFO - Activating shadow-root PEBBLE-GRID
+2024-01-08 10:00:00,585 - GS1 Logging - INFO - Activating shadow-root GRID
+2024-01-08 10:00:00,597 - GS1 Logging - INFO - Activating shadow-root GRID-SELECTION-OPTIONS
+2024-01-08 10:00:00,610 - GS1 Logging - INFO - Activating shadow-root HEADERCHECKBOX
+2024-01-08 10:00:00,623 - GS1 Logging - INFO - Accessing to CHECKBOXCONTAINER
+2024-01-08 10:00:00,708 - GS1 Logging - INFO - Clicking to the button CHECKBOXCONTAINER
+2024-01-08 10:00:05,709 - GS1 Logging - INFO - ==> Clicking to the download button...
+2024-01-08 10:00:05,727 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 10:00:07,746 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 10:00:07,753 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 10:00:07,758 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:00:09,775 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:00:09,784 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:00:09,823 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:00:09,841 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:00:09,855 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:00:09,900 - GS1 Logging - INFO - Activating shadow-root GRIDACTIONS
+2024-01-08 10:00:09,920 - GS1 Logging - INFO - Activating shadow-root SEARCHRESULTTOOLBAR
+2024-01-08 10:00:09,938 - GS1 Logging - INFO - Activating shadow-root TOOLBAR_ACTIONS
+2024-01-08 10:04:49,474 - GS1 Logging - INFO - ==> Driver configuration ...
+2024-01-08 10:04:51,848 - GS1 Logging - INFO - ==> Log in in page https://login.syncfonia.com/home
+2024-01-08 10:04:52,275 - GS1 Logging - INFO - Input username
+2024-01-08 10:04:58,037 - GS1 Logging - INFO - Input pasword
+2024-01-08 10:05:08,214 - GS1 Logging - INFO - ==> Click into search icon...
+2024-01-08 10:05:08,249 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-08 10:05:10,276 - GS1 Logging - INFO - Activating shadow-root APP
+2024-01-08 10:05:13,244 - GS1 Logging - INFO - Activating shadow-root MENU
+2024-01-08 10:05:15,272 - GS1 Logging - INFO - Activating shadow-root NAV MENU
+2024-01-08 10:05:17,304 - GS1 Logging - INFO - elements for the search icon activated...
+2024-01-08 10:05:17,366 - GS1 Logging - INFO - Showing the search button element
+2024-01-08 10:05:19,400 - GS1 Logging - INFO - Search Domain activated...
+2024-01-08 10:05:29,508 - GS1 Logging - INFO - ==> Checking all elements...
+2024-01-08 10:05:29,530 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 10:05:31,555 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 10:05:31,562 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 10:05:31,570 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:05:33,585 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:05:33,597 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:05:33,613 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:05:33,628 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:05:33,641 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:05:33,653 - GS1 Logging - INFO - Activating shadow-root ENTITYGRID
+2024-01-08 10:05:33,664 - GS1 Logging - INFO - Activating shadow-root PEBBLE-GRID
+2024-01-08 10:05:33,677 - GS1 Logging - INFO - Activating shadow-root GRID
+2024-01-08 10:05:33,691 - GS1 Logging - INFO - Activating shadow-root GRID-SELECTION-OPTIONS
+2024-01-08 10:05:33,705 - GS1 Logging - INFO - Activating shadow-root HEADERCHECKBOX
+2024-01-08 10:05:33,714 - GS1 Logging - INFO - Accessing to CHECKBOXCONTAINER
+2024-01-08 10:05:33,792 - GS1 Logging - INFO - Clicking to the button CHECKBOXCONTAINER
+2024-01-08 10:05:38,793 - GS1 Logging - INFO - ==> Clicking to the download button...
+2024-01-08 10:05:38,815 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 10:05:40,836 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 10:05:40,841 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 10:05:40,847 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:05:42,870 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:05:42,883 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:05:42,943 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:05:42,965 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:05:42,993 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:05:43,059 - GS1 Logging - INFO - Activating shadow-root GRIDACTIONS
+2024-01-08 10:05:43,087 - GS1 Logging - INFO - Activating shadow-root SEARCHRESULTTOOLBAR
+2024-01-08 10:05:43,102 - GS1 Logging - INFO - Activating shadow-root TOOLBAR_ACTIONS
+2024-01-08 10:05:43,114 - GS1 Logging - INFO - Activating shadow-root ACTIONS
+2024-01-08 10:05:43,129 - GS1 Logging - INFO - Activating shadow-root PEBBLE-ICON.BUTTON-ICON
+2024-01-08 10:09:41,255 - GS1 Logging - INFO - ==> Driver configuration ...
+2024-01-08 10:09:43,593 - GS1 Logging - INFO - ==> Log in in page https://login.syncfonia.com/home
+2024-01-08 10:09:44,938 - GS1 Logging - INFO - Input username
+2024-01-08 10:09:49,838 - GS1 Logging - INFO - Input pasword
+2024-01-08 10:09:59,516 - GS1 Logging - INFO - ==> Click into search icon...
+2024-01-08 10:09:59,595 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-08 10:10:01,629 - GS1 Logging - INFO - Activating shadow-root APP
+2024-01-08 10:10:03,663 - GS1 Logging - INFO - Activating shadow-root MENU
+2024-01-08 10:10:05,683 - GS1 Logging - INFO - Activating shadow-root NAV MENU
+2024-01-08 10:10:07,705 - GS1 Logging - INFO - elements for the search icon activated...
+2024-01-08 10:10:07,762 - GS1 Logging - INFO - Showing the search button element
+2024-01-08 10:10:09,804 - GS1 Logging - INFO - Search Domain activated...
+2024-01-08 10:10:19,860 - GS1 Logging - INFO - ==> Checking all elements...
+2024-01-08 10:10:19,887 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 10:10:21,919 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 10:10:21,927 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 10:10:21,935 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:10:23,953 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:10:23,972 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:10:23,999 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:10:24,019 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:10:24,031 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:10:24,045 - GS1 Logging - INFO - Activating shadow-root ENTITYGRID
+2024-01-08 10:10:24,057 - GS1 Logging - INFO - Activating shadow-root PEBBLE-GRID
+2024-01-08 10:10:24,073 - GS1 Logging - INFO - Activating shadow-root GRID
+2024-01-08 10:10:24,089 - GS1 Logging - INFO - Activating shadow-root GRID-SELECTION-OPTIONS
+2024-01-08 10:10:24,111 - GS1 Logging - INFO - Activating shadow-root HEADERCHECKBOX
+2024-01-08 10:10:24,120 - GS1 Logging - INFO - Accessing to CHECKBOXCONTAINER
+2024-01-08 10:10:24,198 - GS1 Logging - INFO - Clicking to the button CHECKBOXCONTAINER
+2024-01-08 10:10:29,199 - GS1 Logging - INFO - ==> Clicking to the download button...
+2024-01-08 10:10:29,249 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 10:10:31,274 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 10:10:31,280 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 10:10:31,286 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:10:33,301 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:10:33,313 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:10:33,324 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:10:33,344 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:10:33,353 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:10:33,404 - GS1 Logging - INFO - Activating shadow-root GRIDACTIONS
+2024-01-08 10:10:33,434 - GS1 Logging - INFO - Activating shadow-root SEARCHRESULTTOOLBAR
+2024-01-08 10:10:33,456 - GS1 Logging - INFO - Activating shadow-root TOOLBAR_ACTIONS
+2024-01-08 10:10:33,479 - GS1 Logging - INFO - Activating shadow-root ACTIONS
+2024-01-08 10:10:33,520 - GS1 Logging - INFO - Activating shadow-root SIMPLEBUTTON
+2024-01-08 10:13:23,197 - GS1 Logging - INFO - ==> Driver configuration ...
+2024-01-08 10:13:25,646 - GS1 Logging - INFO - ==> Log in in page https://login.syncfonia.com/home
+2024-01-08 10:13:26,927 - GS1 Logging - INFO - Input username
+2024-01-08 10:13:31,822 - GS1 Logging - INFO - Input pasword
+2024-01-08 10:13:42,418 - GS1 Logging - INFO - ==> Click into search icon...
+2024-01-08 10:13:42,439 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-08 10:13:44,483 - GS1 Logging - INFO - Activating shadow-root APP
+2024-01-08 10:13:46,530 - GS1 Logging - INFO - Activating shadow-root MENU
+2024-01-08 10:13:48,583 - GS1 Logging - INFO - Activating shadow-root NAV MENU
+2024-01-08 10:13:50,614 - GS1 Logging - INFO - elements for the search icon activated...
+2024-01-08 10:13:50,678 - GS1 Logging - INFO - Showing the search button element
+2024-01-08 10:13:52,724 - GS1 Logging - INFO - Search Domain activated...
+2024-01-08 10:14:02,772 - GS1 Logging - INFO - ==> Checking all elements...
+2024-01-08 10:14:02,798 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 10:14:04,837 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 10:14:04,848 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 10:14:04,859 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:14:06,873 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:14:06,891 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:14:06,905 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:14:06,916 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:14:06,929 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:14:06,940 - GS1 Logging - INFO - Activating shadow-root ENTITYGRID
+2024-01-08 10:14:06,952 - GS1 Logging - INFO - Activating shadow-root PEBBLE-GRID
+2024-01-08 10:14:06,963 - GS1 Logging - INFO - Activating shadow-root GRID
+2024-01-08 10:14:06,975 - GS1 Logging - INFO - Activating shadow-root GRID-SELECTION-OPTIONS
+2024-01-08 10:14:06,989 - GS1 Logging - INFO - Activating shadow-root HEADERCHECKBOX
+2024-01-08 10:14:06,999 - GS1 Logging - INFO - Accessing to CHECKBOXCONTAINER
+2024-01-08 10:14:07,073 - GS1 Logging - INFO - Clicking to the button CHECKBOXCONTAINER
+2024-01-08 10:14:12,074 - GS1 Logging - INFO - ==> Clicking to the download button...
+2024-01-08 10:14:12,096 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 10:14:14,123 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 10:14:14,131 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 10:14:14,138 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:14:16,153 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:14:16,165 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:14:16,185 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:14:16,195 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:14:16,206 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:14:16,257 - GS1 Logging - INFO - Activating shadow-root GRIDACTIONS
+2024-01-08 10:14:16,282 - GS1 Logging - INFO - Activating shadow-root SEARCHRESULTTOOLBAR
+2024-01-08 10:14:16,309 - GS1 Logging - INFO - Activating shadow-root TOOLBAR_ACTIONS
+2024-01-08 10:14:16,331 - GS1 Logging - INFO - Activating shadow-root ACTIONS
+2024-01-08 10:14:16,350 - GS1 Logging - INFO - Activating shadow-root SIMPLEBUTTON
+2024-01-08 10:18:53,479 - GS1 Logging - INFO - ==> Driver configuration ...
+2024-01-08 10:18:55,845 - GS1 Logging - INFO - ==> Log in in page https://login.syncfonia.com/home
+2024-01-08 10:18:57,272 - GS1 Logging - INFO - Input username
+2024-01-08 10:19:02,229 - GS1 Logging - INFO - Input pasword
+2024-01-08 10:19:11,826 - GS1 Logging - INFO - ==> Click into search icon...
+2024-01-08 10:19:11,852 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-08 10:19:13,901 - GS1 Logging - INFO - Activating shadow-root APP
+2024-01-08 10:19:16,162 - GS1 Logging - INFO - Activating shadow-root MENU
+2024-01-08 10:19:18,259 - GS1 Logging - INFO - Activating shadow-root NAV MENU
+2024-01-08 10:19:20,306 - GS1 Logging - INFO - elements for the search icon activated...
+2024-01-08 10:19:20,366 - GS1 Logging - INFO - Showing the search button element
+2024-01-08 10:19:22,408 - GS1 Logging - INFO - Search Domain activated...
+2024-01-08 10:19:32,461 - GS1 Logging - INFO - ==> Checking all elements...
+2024-01-08 10:19:32,487 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 10:19:34,518 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 10:19:34,526 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 10:19:34,537 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:19:36,550 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:19:36,559 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:19:36,575 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:19:36,587 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:19:36,600 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:19:36,610 - GS1 Logging - INFO - Activating shadow-root ENTITYGRID
+2024-01-08 10:19:36,624 - GS1 Logging - INFO - Activating shadow-root PEBBLE-GRID
+2024-01-08 10:19:36,635 - GS1 Logging - INFO - Activating shadow-root GRID
+2024-01-08 10:19:36,647 - GS1 Logging - INFO - Activating shadow-root GRID-SELECTION-OPTIONS
+2024-01-08 10:19:36,661 - GS1 Logging - INFO - Activating shadow-root HEADERCHECKBOX
+2024-01-08 10:19:36,668 - GS1 Logging - INFO - Accessing to CHECKBOXCONTAINER
+2024-01-08 10:19:36,755 - GS1 Logging - INFO - Clicking to the button CHECKBOXCONTAINER
+2024-01-08 10:19:41,756 - GS1 Logging - INFO - ==> Clicking to the download button...
+2024-01-08 10:19:41,779 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 10:19:43,808 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 10:19:43,818 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 10:19:43,827 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:19:45,839 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:19:45,849 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:19:45,865 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:19:45,881 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:19:45,899 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:19:45,947 - GS1 Logging - INFO - Activating shadow-root GRIDACTIONS
+2024-01-08 10:19:45,970 - GS1 Logging - INFO - Activating shadow-root SEARCHRESULTTOOLBAR
+2024-01-08 10:19:45,986 - GS1 Logging - INFO - Activating shadow-root TOOLBAR_ACTIONS
+2024-01-08 10:19:46,002 - GS1 Logging - INFO - Activating shadow-root ACTIONS
+2024-01-08 10:19:46,015 - GS1 Logging - INFO - Activating shadow-root SIMPLEBUTTON
+2024-01-08 10:21:22,240 - GS1 Logging - INFO - ==> Driver configuration ...
+2024-01-08 10:21:24,638 - GS1 Logging - INFO - ==> Log in in page https://login.syncfonia.com/home
+2024-01-08 10:21:26,056 - GS1 Logging - INFO - Input username
+2024-01-08 10:21:30,997 - GS1 Logging - INFO - Input pasword
+2024-01-08 10:21:39,501 - GS1 Logging - INFO - ==> Click into search icon...
+2024-01-08 10:21:39,518 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-08 10:21:41,552 - GS1 Logging - INFO - Activating shadow-root APP
+2024-01-08 10:21:44,268 - GS1 Logging - INFO - Activating shadow-root MENU
+2024-01-08 10:21:46,298 - GS1 Logging - INFO - Activating shadow-root NAV MENU
+2024-01-08 10:21:48,334 - GS1 Logging - INFO - elements for the search icon activated...
+2024-01-08 10:21:48,423 - GS1 Logging - INFO - Showing the search button element
+2024-01-08 10:21:50,457 - GS1 Logging - INFO - Search Domain activated...
+2024-01-08 10:22:00,510 - GS1 Logging - INFO - ==> Checking all elements...
+2024-01-08 10:22:00,531 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 10:22:02,566 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 10:22:02,574 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 10:22:02,582 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:22:04,598 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:22:04,609 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:22:04,621 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:22:04,633 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:22:04,646 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:22:04,658 - GS1 Logging - INFO - Activating shadow-root ENTITYGRID
+2024-01-08 10:22:04,670 - GS1 Logging - INFO - Activating shadow-root PEBBLE-GRID
+2024-01-08 10:22:04,683 - GS1 Logging - INFO - Activating shadow-root GRID
+2024-01-08 10:22:04,695 - GS1 Logging - INFO - Activating shadow-root GRID-SELECTION-OPTIONS
+2024-01-08 10:22:04,706 - GS1 Logging - INFO - Activating shadow-root HEADERCHECKBOX
+2024-01-08 10:22:04,714 - GS1 Logging - INFO - Accessing to CHECKBOXCONTAINER
+2024-01-08 10:22:04,796 - GS1 Logging - INFO - Clicking to the button CHECKBOXCONTAINER
+2024-01-08 10:22:09,797 - GS1 Logging - INFO - ==> Clicking to the download button...
+2024-01-08 10:22:09,845 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 10:22:11,873 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 10:22:11,880 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 10:22:11,888 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:22:13,902 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:22:13,911 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:22:13,921 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:22:13,930 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:22:13,941 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:22:13,976 - GS1 Logging - INFO - Activating shadow-root GRIDACTIONS
+2024-01-08 10:22:13,992 - GS1 Logging - INFO - Activating shadow-root SEARCHRESULTTOOLBAR
+2024-01-08 10:22:14,005 - GS1 Logging - INFO - Activating shadow-root TOOLBAR_ACTIONS
+2024-01-08 10:22:14,018 - GS1 Logging - INFO - Activating shadow-root ACTIONS
+2024-01-08 10:22:14,032 - GS1 Logging - INFO - Activating shadow-root SIMPLEBUTTON
+2024-01-08 10:22:16,061 - GS1 Logging - INFO - style
+2024-01-08 10:22:16,065 - GS1 Logging - INFO - slot
+2024-01-08 10:22:23,136 - GS1 Logging - INFO - =====> PROCESS COMPLETED <=====
+2024-01-08 10:27:31,386 - GS1 Logging - INFO - ==> Driver configuration ...
+2024-01-08 10:27:33,708 - GS1 Logging - INFO - ==> Log in in page https://login.syncfonia.com/home
+2024-01-08 10:27:35,138 - GS1 Logging - INFO - Input username
+2024-01-08 10:27:40,074 - GS1 Logging - INFO - Input pasword
+2024-01-08 10:27:48,161 - GS1 Logging - INFO - ==> Click into search icon...
+2024-01-08 10:27:48,180 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-08 10:27:50,208 - GS1 Logging - INFO - Activating shadow-root APP
+2024-01-08 10:27:52,230 - GS1 Logging - INFO - Activating shadow-root MENU
+2024-01-08 10:27:55,239 - GS1 Logging - INFO - Activating shadow-root NAV MENU
+2024-01-08 10:27:57,282 - GS1 Logging - INFO - elements for the search icon activated...
+2024-01-08 10:27:57,358 - GS1 Logging - INFO - Showing the search button element
+2024-01-08 10:27:59,401 - GS1 Logging - INFO - Search Domain activated...
+2024-01-08 10:28:09,456 - GS1 Logging - INFO - ==> Checking all elements...
+2024-01-08 10:28:09,473 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 10:28:11,503 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 10:28:11,514 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 10:28:11,526 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:28:13,542 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:28:13,560 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:28:13,573 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:28:13,583 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:28:13,596 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:28:13,606 - GS1 Logging - INFO - Activating shadow-root ENTITYGRID
+2024-01-08 10:28:13,618 - GS1 Logging - INFO - Activating shadow-root PEBBLE-GRID
+2024-01-08 10:28:13,631 - GS1 Logging - INFO - Activating shadow-root GRID
+2024-01-08 10:28:13,645 - GS1 Logging - INFO - Activating shadow-root GRID-SELECTION-OPTIONS
+2024-01-08 10:28:13,658 - GS1 Logging - INFO - Activating shadow-root HEADERCHECKBOX
+2024-01-08 10:28:13,669 - GS1 Logging - INFO - Accessing to CHECKBOXCONTAINER
+2024-01-08 10:28:13,740 - GS1 Logging - INFO - Clicking to the button CHECKBOXCONTAINER
+2024-01-08 10:28:18,741 - GS1 Logging - INFO - ==> Clicking to the download button...
+2024-01-08 10:28:18,766 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 10:28:20,789 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 10:28:20,797 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 10:28:20,805 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:28:22,820 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:28:22,832 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:28:22,847 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:28:22,862 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:28:22,870 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:28:22,905 - GS1 Logging - INFO - Activating shadow-root GRIDACTIONS
+2024-01-08 10:28:22,922 - GS1 Logging - INFO - Activating shadow-root SEARCHRESULTTOOLBAR
+2024-01-08 10:28:22,936 - GS1 Logging - INFO - Activating shadow-root TOOLBAR_ACTIONS
+2024-01-08 10:28:22,948 - GS1 Logging - INFO - Activating shadow-root ACTIONS
+2024-01-08 10:28:22,960 - GS1 Logging - INFO - Activating shadow-root SIMPLEBUTTON
+2024-01-08 10:28:24,999 - GS1 Logging - INFO - <style>html {
+  --paper-material_-_display:  block; --paper-material_-_position:  relative;;
+        --paper-material-elevation-1_-_box-shadow:  var(--shadow-elevation-2dp_-_box-shadow);;
+        --paper-material-elevation-2_-_box-shadow:  var(--shadow-elevation-4dp_-_box-shadow);;
+        --paper-material-elevation-3_-_box-shadow:  var(--shadow-elevation-6dp_-_box-shadow);;
+        --paper-material-elevation-4_-_box-shadow:  var(--shadow-elevation-8dp_-_box-shadow);;
+        --paper-material-elevation-5_-_box-shadow:  var(--shadow-elevation-16dp_-_box-shadow);;
+}
+
+.paper-material {
+  display: var(--paper-material_-_display); position: var(--paper-material_-_position);
+}
+
+.paper-material[elevation="1"] {
+  box-shadow: var(--paper-material-elevation-1_-_box-shadow);
+}
+
+.paper-material[elevation="2"] {
+  box-shadow: var(--paper-material-elevation-2_-_box-shadow);
+}
+
+.paper-material[elevation="3"] {
+  box-shadow: var(--paper-material-elevation-3_-_box-shadow);
+}
+
+.paper-material[elevation="4"] {
+  box-shadow: var(--paper-material-elevation-4_-_box-shadow);
+}
+
+.paper-material[elevation="5"] {
+  box-shadow: var(--paper-material-elevation-5_-_box-shadow);
+}
+
+:host {
+  --paper-material_-_display:  block; --paper-material_-_position:  relative;;
+        --paper-material-elevation-1_-_box-shadow:  var(--shadow-elevation-2dp_-_box-shadow);;
+        --paper-material-elevation-2_-_box-shadow:  var(--shadow-elevation-4dp_-_box-shadow);;
+        --paper-material-elevation-3_-_box-shadow:  var(--shadow-elevation-6dp_-_box-shadow);;
+        --paper-material-elevation-4_-_box-shadow:  var(--shadow-elevation-8dp_-_box-shadow);;
+        --paper-material-elevation-5_-_box-shadow:  var(--shadow-elevation-16dp_-_box-shadow);;
+}
+
+:host(.paper-material) {
+  display: var(--paper-material_-_display); position: var(--paper-material_-_position);
+}
+
+:host(.paper-material[elevation="1"]) {
+  box-shadow: var(--paper-material-elevation-1_-_box-shadow);
+}
+
+:host(.paper-material[elevation="2"]) {
+  box-shadow: var(--paper-material-elevation-2_-_box-shadow);
+}
+
+:host(.paper-material[elevation="3"]) {
+  box-shadow: var(--paper-material-elevation-3_-_box-shadow);
+}
+
+:host(.paper-material[elevation="4"]) {
+  box-shadow: var(--paper-material-elevation-4_-_box-shadow);
+}
+
+:host(.paper-material[elevation="5"]) {
+  box-shadow: var(--paper-material-elevation-5_-_box-shadow);
+}
+
+:host {
+  display: var(--layout-inline_-_display);
+      -ms-flex-align: var(--layout-center-center_-_-ms-flex-align); -webkit-align-items: var(--layout-center-center_-_-webkit-align-items); align-items: var(--layout-center-center_-_align-items); -ms-flex-pack: var(--layout-center-center_-_-ms-flex-pack); -webkit-justify-content: var(--layout-center-center_-_-webkit-justify-content); justify-content: var(--layout-center-center_-_justify-content);
+      position: relative;
+      box-sizing: border-box;
+      min-width: 5.14em;
+      margin: 0 0.29em;
+      background: transparent;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      -webkit-tap-highlight-color: transparent;
+      font: inherit;
+      text-transform: uppercase;
+      outline-width: 0;
+      border-radius: 3px;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+      cursor: pointer;
+      z-index: 0;
+      padding: 0.7em 0.57em;
+
+      font-family: var(--paper-font-common-base_-_font-family); -webkit-font-smoothing: var(--paper-font-common-base_-_-webkit-font-smoothing);
+      ;
+}
+
+:host([elevation="1"]) {
+  box-shadow: var(--paper-material-elevation-1_-_box-shadow);
+}
+
+:host([elevation="2"]) {
+  box-shadow: var(--paper-material-elevation-2_-_box-shadow);
+}
+
+:host([elevation="3"]) {
+  box-shadow: var(--paper-material-elevation-3_-_box-shadow);
+}
+
+:host([elevation="4"]) {
+  box-shadow: var(--paper-material-elevation-4_-_box-shadow);
+}
+
+:host([elevation="5"]) {
+  box-shadow: var(--paper-material-elevation-5_-_box-shadow);
+}
+
+:host([hidden]) {
+  display: none !important;
+}
+
+:host([raised].keyboard-focus) {
+  font-weight: bold;
+      font-weight: var(--paper-button-raised-keyboard-focus_-_font-weight, bold);
+}
+
+:host(:not([raised]).keyboard-focus) {
+  font-weight: bold;
+      font-weight: var(--paper-button-flat-keyboard-focus_-_font-weight, bold);
+}
+
+:host([disabled]) {
+  background: none;
+      color: #a8a8a8;
+      cursor: auto;
+      pointer-events: none;
+
+      ;
+}
+
+:host([disabled][raised]) {
+  background: #eaeaea;
+}
+
+:host([animated]) {
+  transition: var(--shadow-transition_-_transition);
+}
+
+paper-ripple {
+  color: var(--paper-button-ink-color);
+}
+
+</style>
+2024-01-08 10:28:25,011 - GS1 Logging - INFO - <slot></slot>
+2024-01-08 10:28:32,103 - GS1 Logging - INFO - =====> PROCESS COMPLETED <=====
+2024-01-08 10:56:26,754 - GS1 Logging - INFO - ==> Driver configuration ...
+2024-01-08 10:56:29,381 - GS1 Logging - INFO - ==> Log in in page https://login.syncfonia.com/home
+2024-01-08 10:56:31,113 - GS1 Logging - INFO - Input username
+2024-01-08 10:56:36,063 - GS1 Logging - INFO - Input pasword
+2024-01-08 10:56:46,501 - GS1 Logging - INFO - ==> Click into search icon...
+2024-01-08 10:56:46,539 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-08 10:56:49,356 - GS1 Logging - INFO - Activating shadow-root APP
+2024-01-08 10:56:51,380 - GS1 Logging - INFO - Activating shadow-root MENU
+2024-01-08 10:56:53,417 - GS1 Logging - INFO - Activating shadow-root NAV MENU
+2024-01-08 10:56:55,454 - GS1 Logging - INFO - elements for the search icon activated...
+2024-01-08 10:56:55,518 - GS1 Logging - INFO - Showing the search button element
+2024-01-08 10:56:57,604 - GS1 Logging - INFO - Search Domain activated...
+2024-01-08 10:57:07,705 - GS1 Logging - INFO - ==> Checking all elements...
+2024-01-08 10:57:07,722 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 10:57:09,745 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 10:57:09,752 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 10:57:09,759 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:57:11,772 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:57:11,788 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:57:11,806 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:57:11,820 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:57:11,836 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:57:11,849 - GS1 Logging - INFO - Activating shadow-root ENTITYGRID
+2024-01-08 10:57:11,863 - GS1 Logging - INFO - Activating shadow-root PEBBLE-GRID
+2024-01-08 10:57:11,876 - GS1 Logging - INFO - Activating shadow-root GRID
+2024-01-08 10:57:11,887 - GS1 Logging - INFO - Activating shadow-root GRID-SELECTION-OPTIONS
+2024-01-08 10:57:11,917 - GS1 Logging - INFO - Activating shadow-root HEADERCHECKBOX
+2024-01-08 10:57:11,931 - GS1 Logging - INFO - Accessing to CHECKBOXCONTAINER
+2024-01-08 10:57:12,000 - GS1 Logging - INFO - Clicking to the button CHECKBOXCONTAINER
+2024-01-08 10:57:17,002 - GS1 Logging - INFO - ==> Clicking to the download button...
+2024-01-08 10:57:17,021 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 10:57:19,033 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 10:57:19,042 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 10:57:19,047 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 10:57:21,061 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 10:57:21,071 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 10:57:21,081 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 10:57:21,091 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 10:57:21,098 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 10:57:21,149 - GS1 Logging - INFO - Activating shadow-root GRIDACTIONS
+2024-01-08 10:57:21,169 - GS1 Logging - INFO - Activating shadow-root SEARCHRESULTTOOLBAR
+2024-01-08 10:57:21,211 - GS1 Logging - INFO - Activating shadow-root TOOLBAR_ACTIONS
+2024-01-08 10:57:21,234 - GS1 Logging - INFO - Activating shadow-root ACTIONS
+2024-01-08 10:57:21,261 - GS1 Logging - INFO - Activating shadow-root SIMPLEBUTTON
+2024-01-08 10:57:23,296 - GS1 Logging - INFO - html {
+  --paper-material_-_display:  block; --paper-material_-_position:  relative;;
+        --paper-material-elevation-1_-_box-shadow:  var(--shadow-elevation-2dp_-_box-shadow);;
+        --paper-material-elevation-2_-_box-shadow:  var(--shadow-elevation-4dp_-_box-shadow);;
+        --paper-material-elevation-3_-_box-shadow:  var(--shadow-elevation-6dp_-_box-shadow);;
+        --paper-material-elevation-4_-_box-shadow:  var(--shadow-elevation-8dp_-_box-shadow);;
+        --paper-material-elevation-5_-_box-shadow:  var(--shadow-elevation-16dp_-_box-shadow);;
+}
+
+.paper-material {
+  display: var(--paper-material_-_display); position: var(--paper-material_-_position);
+}
+
+.paper-material[elevation="1"] {
+  box-shadow: var(--paper-material-elevation-1_-_box-shadow);
+}
+
+.paper-material[elevation="2"] {
+  box-shadow: var(--paper-material-elevation-2_-_box-shadow);
+}
+
+.paper-material[elevation="3"] {
+  box-shadow: var(--paper-material-elevation-3_-_box-shadow);
+}
+
+.paper-material[elevation="4"] {
+  box-shadow: var(--paper-material-elevation-4_-_box-shadow);
+}
+
+.paper-material[elevation="5"] {
+  box-shadow: var(--paper-material-elevation-5_-_box-shadow);
+}
+
+:host {
+  --paper-material_-_display:  block; --paper-material_-_position:  relative;;
+        --paper-material-elevation-1_-_box-shadow:  var(--shadow-elevation-2dp_-_box-shadow);;
+        --paper-material-elevation-2_-_box-shadow:  var(--shadow-elevation-4dp_-_box-shadow);;
+        --paper-material-elevation-3_-_box-shadow:  var(--shadow-elevation-6dp_-_box-shadow);;
+        --paper-material-elevation-4_-_box-shadow:  var(--shadow-elevation-8dp_-_box-shadow);;
+        --paper-material-elevation-5_-_box-shadow:  var(--shadow-elevation-16dp_-_box-shadow);;
+}
+
+:host(.paper-material) {
+  display: var(--paper-material_-_display); position: var(--paper-material_-_position);
+}
+
+:host(.paper-material[elevation="1"]) {
+  box-shadow: var(--paper-material-elevation-1_-_box-shadow);
+}
+
+:host(.paper-material[elevation="2"]) {
+  box-shadow: var(--paper-material-elevation-2_-_box-shadow);
+}
+
+:host(.paper-material[elevation="3"]) {
+  box-shadow: var(--paper-material-elevation-3_-_box-shadow);
+}
+
+:host(.paper-material[elevation="4"]) {
+  box-shadow: var(--paper-material-elevation-4_-_box-shadow);
+}
+
+:host(.paper-material[elevation="5"]) {
+  box-shadow: var(--paper-material-elevation-5_-_box-shadow);
+}
+
+:host {
+  display: var(--layout-inline_-_display);
+      -ms-flex-align: var(--layout-center-center_-_-ms-flex-align); -webkit-align-items: var(--layout-center-center_-_-webkit-align-items); align-items: var(--layout-center-center_-_align-items); -ms-flex-pack: var(--layout-center-center_-_-ms-flex-pack); -webkit-justify-content: var(--layout-center-center_-_-webkit-justify-content); justify-content: var(--layout-center-center_-_justify-content);
+      position: relative;
+      box-sizing: border-box;
+      min-width: 5.14em;
+      margin: 0 0.29em;
+      background: transparent;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      -webkit-tap-highlight-color: transparent;
+      font: inherit;
+      text-transform: uppercase;
+      outline-width: 0;
+      border-radius: 3px;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+      cursor: pointer;
+      z-index: 0;
+      padding: 0.7em 0.57em;
+
+      font-family: var(--paper-font-common-base_-_font-family); -webkit-font-smoothing: var(--paper-font-common-base_-_-webkit-font-smoothing);
+      ;
+}
+
+:host([elevation="1"]) {
+  box-shadow: var(--paper-material-elevation-1_-_box-shadow);
+}
+
+:host([elevation="2"]) {
+  box-shadow: var(--paper-material-elevation-2_-_box-shadow);
+}
+
+:host([elevation="3"]) {
+  box-shadow: var(--paper-material-elevation-3_-_box-shadow);
+}
+
+:host([elevation="4"]) {
+  box-shadow: var(--paper-material-elevation-4_-_box-shadow);
+}
+
+:host([elevation="5"]) {
+  box-shadow: var(--paper-material-elevation-5_-_box-shadow);
+}
+
+:host([hidden]) {
+  display: none !important;
+}
+
+:host([raised].keyboard-focus) {
+  font-weight: bold;
+      font-weight: var(--paper-button-raised-keyboard-focus_-_font-weight, bold);
+}
+
+:host(:not([raised]).keyboard-focus) {
+  font-weight: bold;
+      font-weight: var(--paper-button-flat-keyboard-focus_-_font-weight, bold);
+}
+
+:host([disabled]) {
+  background: none;
+      color: #a8a8a8;
+      cursor: auto;
+      pointer-events: none;
+
+      ;
+}
+
+:host([disabled][raised]) {
+  background: #eaeaea;
+}
+
+:host([animated]) {
+  transition: var(--shadow-transition_-_transition);
+}
+
+paper-ripple {
+  color: var(--paper-button-ink-color);
+}
+
+
+2024-01-08 10:57:23,307 - GS1 Logging - INFO - 
+2024-01-08 10:57:30,402 - GS1 Logging - INFO - =====> PROCESS COMPLETED <=====
+2024-01-08 11:02:29,609 - GS1 Logging - INFO - ==> Driver configuration ...
+2024-01-08 11:02:32,039 - GS1 Logging - INFO - ==> Log in in page https://login.syncfonia.com/home
+2024-01-08 11:02:33,331 - GS1 Logging - INFO - Input username
+2024-01-08 11:02:38,251 - GS1 Logging - INFO - Input pasword
+2024-01-08 11:02:46,656 - GS1 Logging - INFO - ==> Click into search icon...
+2024-01-08 11:02:46,680 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-08 11:02:48,707 - GS1 Logging - INFO - Activating shadow-root APP
+2024-01-08 11:02:51,164 - GS1 Logging - INFO - Activating shadow-root MENU
+2024-01-08 11:02:53,194 - GS1 Logging - INFO - Activating shadow-root NAV MENU
+2024-01-08 11:02:55,232 - GS1 Logging - INFO - elements for the search icon activated...
+2024-01-08 11:02:55,292 - GS1 Logging - INFO - Showing the search button element
+2024-01-08 11:02:57,328 - GS1 Logging - INFO - Search Domain activated...
+2024-01-08 11:03:07,375 - GS1 Logging - INFO - ==> Checking all elements...
+2024-01-08 11:03:07,402 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 11:03:09,428 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 11:03:09,434 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 11:03:09,444 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 11:03:11,461 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 11:03:11,474 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 11:03:11,484 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 11:03:11,504 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 11:03:11,516 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 11:03:11,528 - GS1 Logging - INFO - Activating shadow-root ENTITYGRID
+2024-01-08 11:03:11,539 - GS1 Logging - INFO - Activating shadow-root PEBBLE-GRID
+2024-01-08 11:03:11,557 - GS1 Logging - INFO - Activating shadow-root GRID
+2024-01-08 11:03:11,572 - GS1 Logging - INFO - Activating shadow-root GRID-SELECTION-OPTIONS
+2024-01-08 11:03:11,587 - GS1 Logging - INFO - Activating shadow-root HEADERCHECKBOX
+2024-01-08 11:03:11,596 - GS1 Logging - INFO - Accessing to CHECKBOXCONTAINER
+2024-01-08 11:03:11,666 - GS1 Logging - INFO - Clicking to the button CHECKBOXCONTAINER
+2024-01-08 11:03:16,667 - GS1 Logging - INFO - ==> Clicking to the download button...
+2024-01-08 11:03:16,690 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 11:03:18,716 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 11:03:18,728 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 11:03:18,741 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 11:03:20,754 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 11:03:20,763 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 11:03:20,776 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 11:03:20,793 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 11:03:20,806 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 11:03:20,852 - GS1 Logging - INFO - Activating shadow-root GRIDACTIONS
+2024-01-08 11:03:20,870 - GS1 Logging - INFO - Activating shadow-root SEARCHRESULTTOOLBAR
+2024-01-08 11:03:20,878 - GS1 Logging - INFO - Activating shadow-root TOOLBAR_ACTIONS
+2024-01-08 11:03:27,994 - GS1 Logging - INFO - =====> PROCESS COMPLETED <=====
+2024-01-08 12:11:29,184 - GS1 Logging - INFO - ==> Driver configuration ...
+2024-01-08 12:11:32,425 - GS1 Logging - INFO - ==> Log in in page https://login.syncfonia.com/home
+2024-01-08 12:11:34,399 - GS1 Logging - INFO - Input username
+2024-01-08 12:11:39,303 - GS1 Logging - INFO - Input pasword
+2024-01-08 12:11:48,652 - GS1 Logging - INFO - ==> Click into search icon...
+2024-01-08 12:11:48,676 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-08 12:11:50,702 - GS1 Logging - INFO - Activating shadow-root APP
+2024-01-08 12:11:53,195 - GS1 Logging - INFO - Activating shadow-root MENU
+2024-01-08 12:11:55,208 - GS1 Logging - INFO - Activating shadow-root NAV MENU
+2024-01-08 12:11:57,258 - GS1 Logging - INFO - elements for the search icon activated...
+2024-01-08 12:11:57,326 - GS1 Logging - INFO - Showing the search button element
+2024-01-08 12:11:59,375 - GS1 Logging - INFO - Search Domain activated...
+2024-01-08 12:12:09,421 - GS1 Logging - INFO - ==> Checking all elements...
+2024-01-08 12:12:09,435 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 12:12:11,462 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 12:12:11,468 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 12:12:11,479 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 12:12:13,492 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 12:12:13,502 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 12:12:13,513 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 12:12:13,526 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 12:12:13,539 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 12:12:13,551 - GS1 Logging - INFO - Activating shadow-root ENTITYGRID
+2024-01-08 12:12:13,564 - GS1 Logging - INFO - Activating shadow-root PEBBLE-GRID
+2024-01-08 12:12:13,576 - GS1 Logging - INFO - Activating shadow-root GRID
+2024-01-08 12:12:13,587 - GS1 Logging - INFO - Activating shadow-root GRID-SELECTION-OPTIONS
+2024-01-08 12:12:13,600 - GS1 Logging - INFO - Activating shadow-root HEADERCHECKBOX
+2024-01-08 12:12:13,608 - GS1 Logging - INFO - Accessing to CHECKBOXCONTAINER
+2024-01-08 12:12:13,686 - GS1 Logging - INFO - Clicking to the button CHECKBOXCONTAINER
+2024-01-08 12:12:18,688 - GS1 Logging - INFO - ==> Clicking to the download icon...
+2024-01-08 12:12:18,709 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 12:12:20,730 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 12:12:20,735 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 12:12:20,741 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 12:12:22,754 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 12:12:22,763 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 12:12:22,780 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 12:12:22,790 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 12:12:22,801 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 12:12:22,833 - GS1 Logging - INFO - Activating shadow-root GRIDACTIONS
+2024-01-08 12:12:22,844 - GS1 Logging - INFO - Activating shadow-root SEARCHRESULTTOOLBAR
+2024-01-08 12:12:22,852 - GS1 Logging - INFO - Clicking to  TOOLBAR_ACTIONS
+2024-01-08 12:12:27,898 - GS1 Logging - INFO - ==> Clicking to the download all button...
+2024-01-08 12:12:27,919 - GS1 Logging - INFO - Activating shadow-root MAIN-APP
+2024-01-08 12:12:29,945 - GS1 Logging - INFO - Activating shadow-root APP-COMMON
+2024-01-08 12:12:29,956 - GS1 Logging - INFO - Activating shadow-root CONTEXTDIALOG
+2024-01-08 12:12:30,028 - GS1 Logging - INFO - Activating shadow-root ROCKWIZARDMANAGE
+2024-01-08 12:12:30,072 - GS1 Logging - INFO - Activating shadow-root ROCK-SCOPE-MANAGE
+2024-01-08 12:12:30,082 - GS1 Logging - INFO - Accessing to CONTENT-ACTIONS
+2024-01-08 12:12:30,147 - GS1 Logging - INFO - Clicking to  DOWNLOADALL
+2024-01-08 12:12:40,148 - GS1 Logging - INFO - =====> PROCESS COMPLETED <=====
+2024-01-08 12:13:23,654 - GS1 Logging - INFO - ==> Driver configuration ...
+2024-01-08 12:13:25,973 - GS1 Logging - INFO - ==> Log in in page https://login.syncfonia.com/home
+2024-01-08 12:13:27,712 - GS1 Logging - INFO - Input username
+2024-01-08 12:13:32,621 - GS1 Logging - INFO - Input pasword
+2024-01-08 12:13:40,656 - GS1 Logging - INFO - ==> Click into search icon...
+2024-01-08 12:13:40,681 - GS1 Logging - INFO - Activating shadow-root MAIN
+2024-01-08 12:13:42,736 - GS1 Logging - INFO - Activating shadow-root APP
+2024-01-08 12:13:44,756 - GS1 Logging - INFO - Activating shadow-root MENU
+2024-01-08 12:13:46,806 - GS1 Logging - INFO - Activating shadow-root NAV MENU
+2024-01-08 12:13:48,831 - GS1 Logging - INFO - elements for the search icon activated...
+2024-01-08 12:13:48,892 - GS1 Logging - INFO - Showing the search button element
+2024-01-08 12:13:50,941 - GS1 Logging - INFO - Search Domain activated...
+2024-01-08 12:14:01,013 - GS1 Logging - INFO - ==> Checking all elements...
+2024-01-08 12:14:01,034 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 12:14:03,059 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 12:14:03,067 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 12:14:03,076 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 12:14:05,083 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 12:14:05,095 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 12:14:05,108 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 12:14:05,123 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 12:14:05,137 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 12:14:05,151 - GS1 Logging - INFO - Activating shadow-root ENTITYGRID
+2024-01-08 12:14:05,164 - GS1 Logging - INFO - Activating shadow-root PEBBLE-GRID
+2024-01-08 12:14:05,176 - GS1 Logging - INFO - Activating shadow-root GRID
+2024-01-08 12:14:05,189 - GS1 Logging - INFO - Activating shadow-root GRID-SELECTION-OPTIONS
+2024-01-08 12:14:05,203 - GS1 Logging - INFO - Activating shadow-root HEADERCHECKBOX
+2024-01-08 12:14:05,211 - GS1 Logging - INFO - Accessing to CHECKBOXCONTAINER
+2024-01-08 12:14:05,273 - GS1 Logging - INFO - Clicking to the button CHECKBOXCONTAINER
+2024-01-08 12:14:10,275 - GS1 Logging - INFO - ==> Clicking to the download icon...
+2024-01-08 12:14:10,295 - GS1 Logging - INFO - Activating shadow-rootMAIN-APP
+2024-01-08 12:14:12,319 - GS1 Logging - INFO - Activating shadow-root CONTENTVIEWMANAGER
+2024-01-08 12:14:12,323 - GS1 Logging - INFO - Accessing to CONTENTVIEWMANAGER
+2024-01-08 12:14:12,331 - GS1 Logging - INFO - Accessing to ROCK-CONTENT-VIEW
+2024-01-08 12:14:14,346 - GS1 Logging - INFO - Activating shadow-root ROCK-CONTENT-VIEW
+2024-01-08 12:14:14,359 - GS1 Logging - INFO - Accessing to CONTENT-VIEW-CONTAINER
+2024-01-08 12:14:14,375 - GS1 Logging - INFO - Activating shadow-root APP-ENTITY-DISCOVERY
+2024-01-08 12:14:14,387 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHDISCOVERYGRID
+2024-01-08 12:14:14,395 - GS1 Logging - INFO - Activating shadow-root ENTITYSEARCHGRID
+2024-01-08 12:14:14,438 - GS1 Logging - INFO - Activating shadow-root GRIDACTIONS
+2024-01-08 12:14:14,453 - GS1 Logging - INFO - Activating shadow-root SEARCHRESULTTOOLBAR
+2024-01-08 12:14:14,464 - GS1 Logging - INFO - Clicking to  TOOLBAR_ACTIONS
+2024-01-08 12:14:19,517 - GS1 Logging - INFO - ==> Clicking to the download all button...
+2024-01-08 12:14:19,532 - GS1 Logging - INFO - Activating shadow-root MAIN-APP
+2024-01-08 12:14:21,560 - GS1 Logging - INFO - Activating shadow-root APP-COMMON
+2024-01-08 12:14:21,593 - GS1 Logging - INFO - Activating shadow-root CONTEXTDIALOG
+2024-01-08 12:14:21,620 - GS1 Logging - INFO - Activating shadow-root ROCKWIZARDMANAGE
+2024-01-08 12:14:21,659 - GS1 Logging - INFO - Activating shadow-root ROCK-SCOPE-MANAGE
+2024-01-08 12:14:21,671 - GS1 Logging - INFO - Accessing to CONTENT-ACTIONS
+2024-01-08 12:14:21,740 - GS1 Logging - INFO - Clicking to  DOWNLOADALL
+2024-01-08 12:19:21,742 - GS1 Logging - INFO - =====> PROCESS COMPLETED <=====
