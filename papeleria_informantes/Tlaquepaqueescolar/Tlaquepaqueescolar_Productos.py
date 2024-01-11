@@ -65,7 +65,7 @@ def geolocalizacion(direccion):
 
 
 def agregar_informacion(soup,informante,categoria,fecha):
-    URL='https://www.tlaquepaqueescolar.com.mx/Te2023/'
+    URL='https://tlaquepaqueescolar.com.mx/ecommerce'
     product_information = {
         'Informante': informante,
         'Categoria': categoria.strip(),
@@ -78,142 +78,98 @@ def agregar_informacion(soup,informante,categoria,fecha):
         'Fecha': fecha
         }
     
-    descripcion_corta=soup.find('h3')
-    if descripcion_corta:
-        product_information['DescripcionCorta']=descripcion_corta.text.strip()
-        product_information['DescripcionLarga']=descripcion_corta.text.strip()
+    product_text_container=soup.body.find('div',recursive=False)
+    product_text=product_text_container.text.strip()
+    product_lines=[line for line in product_text.splitlines() if line !=""]
+    print(product_lines)
+    
 
-    # descripcion_larga=soup.find('p',class_="text-justify")
-    # if descripcion_larga:
-    #     product_information['DescripcionLarga']=descripcion_larga.text
+    product_information['DescripcionCorta']=product_lines[0].strip()
+    product_information['DescripcionLarga']=' '.join(product_lines[3:-3])
 
-    sku=soup.find_all('div')
-    if sku:
-        product_information['SKU']=sku[-1].text[9:]
+    product_information['SKU']=product_lines[1].strip('SKU: ')
 
-    imagen=soup.find('img')
+    imagen_container=soup.body.find('div',recursive=False)
+    imagen=imagen_container.find('img')
     if imagen:
-        product_information['Img']=URL+imagen.get('src')
+        imagen_link=imagen.get('src').split('..')
+        product_information['Img']=URL+imagen_link[-1]
 
-    # precio=soup.find('h2',class_='text-primary')
-    # if precio:
-    #     product_information['Precio']=precio.text.strip()
+    
+    product_information['Precio']=product_lines[2].strip()
+    product_information['Etiqueta']=product_lines[-4].strip()
+    
+    json_prod=json.dumps(product_information,indent=4)
+    print(json_prod)
+    # if product_information['SKU'] =="" and product_information['DescripcionCorta']=='':
+    #     json_prod=json.dumps(product_information,indent=4)
+    #     print(json_prod)
+    #     return None
 
-    # json_prod=json.dumps(product_information,indent=4)
-    # print(json_prod)
-    if product_information['SKU'] =="" and product_information['DescripcionCorta']=='':
-        json_prod=json.dumps(product_information,indent=4)
-        print(json_prod)
-        return None
+    # return product_information
 
-    return product_information
-
-def extract_products(container):
-    container_1 = container.find('div')
-    container_2 = container_1.find_all('div', recursive=False)
-    products = container_2[-1].find_all('div', recursive=False)
-    return products
-
-def process_category(driver, category_url, informacion, INFORMANTE, categoria, fecha,URL):
-    driver.get(category_url)
-    soup = BeautifulSoup(driver.page_source, 'html.parser')
-    container = soup.find(id="section-5")
-    products = extract_products(container)
-
-    for product in products:
-        subcat = product.find('a')
-        if subcat:
-            link_target = subcat.get('href')
-            link = URL + link_target
-            process_category(driver, link, informacion, INFORMANTE, categoria,fecha,URL)
-        else:
-            producto = agregar_informacion(
-                product,
-                INFORMANTE, categoria, fecha)
-            if producto:
-                informacion.append(producto)
-            # counter += 1
-            # print(counter)
-
-
-
+def get_products(driver,link):
+    print("==> get productos ")
+    driver.get(link)
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+    time.sleep(3)
+    
+    container=soup.find(id='main')#..find('producto')
+    fashion_section=container.find(class_="fashion_section")
+    # print(fashion_section)
+    product_elements=fashion_section.find_all(class_="col-lg-4 col-sm-4")
+    links=[]
+    
+    for product in product_elements:
+        product_link=product.find('a')
+        link='https://tlaquepaqueescolar.com.mx/ecommerce/modulos/tienda/'+product_link.get('href')
+        print(link)
+        links.append(link)
+    return links
 
 def productos_papelera(driver, fecha):
     INFORMANTE = 'Tlaquepaque Escolar'
-    URL_escolar = 'https://www.tlaquepaqueescolar.com.mx/Te2023/catalogoescolar.html'
-    URL_oficina = 'https://www.tlaquepaqueescolar.com.mx/Te2023/catalogooficinas.html'
-    URL='https://www.tlaquepaqueescolar.com.mx/Te2023/'
+    
+    URL='https://www.tlaquepaqueescolar.com.mx/'
     informacion = []
-    urls=[URL_escolar,URL_oficina]
     counter=0
-    for url in urls:
-        driver.get(url)
-        html = driver.page_source
-        soup = BeautifulSoup(html, 'html.parser')
-
-        menu = soup.find(id="section-5")
-        itemslevel0=menu.find_all('a',recursive=True)
-
-#######################################################################
-        for itemlevel0 in itemslevel0:
-            categoria = itemlevel0.text
-            print(categoria)
-            link_target = itemlevel0.get('href')
-            link = URL + link_target
-            process_category(driver, link, informacion, INFORMANTE,categoria, fecha,URL)        
-        for itemlevel0 in itemslevel0:
-            categoria=itemlevel0.text
-            print(categoria)
-            link_target=itemlevel0.get('href')
-            link=URL+link_target
+    
+    driver.get(URL)
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+    
+    menu_container=soup.find(id='navbar')
+    menu_dropdown=menu_container.find('li',class_='dropdown').find('ul')
+    main_categories=menu_dropdown.find_all('li',recursive=False)
+    categories=[]
+    for main_category in main_categories:
+        elements=main_category.find_all('li')
+        categories.extend(elements)
+    
+    product_items=[]
+    for category in categories:
+        category_name=category.text.strip()
+        category_link=category.find('a').get('href')
+        products=get_products(driver,category_link)
+        product_items.append((category_name,products))
+        
+    for item in product_items:
+        print(categoria)
+        categoria=item[0]
+        links=item[-1]
+        for link in links:
             driver.get(link)
-            
-            soup=BeautifulSoup(driver.page_source, 'html.parser')
-            container=soup.find(id="section-5")
-            # print(container)
-
-            container_1=container.find('div')
-            # products=container.find_all('div',class_="col-md-4 section-5-box wow fadeInUp")
-            container_2=container_1.find_all('div',recursive=False)
-
-            # print(container_2[-1])
-            products=container_2[-1].find_all('div',recursive=False)
-            
-            for product in products:
-
-                subcat=product.find('a')
-                if subcat:
-                    link_target=subcat.get('href')
-                    link=URL+link_target
-
-                    driver.get(link)
-                    soup=BeautifulSoup(driver.page_source, 'html.parser')
-                    container=soup.find(id="section-5")
-                    container_1=container.find('div')
-                    container_2=container_1.find_all('div',recursive=False)
-                    productos=container_2[-1].find_all('div',recursive=False)
-                    for item in productos:
-                        producto=agregar_informacion(
-                            item,
-                            INFORMANTE,categoria,fecha)
-                        informacion.append(producto)
-                        counter+=1
-                        print(counter)
-                else:
-                    producto=agregar_informacion(
-                        product,
-                        INFORMANTE,categoria,fecha)
-                    informacion.append(producto)
-                    counter+=1
-                    print(counter)
-
+            time.sleep(3)
+            html = driver.page_source
+            soup = BeautifulSoup(html, 'html.parser')
+            producto=agregar_informacion(soup,INFORMANTE,categoria,fecha)
+            informacion.append(producto)
     return informacion            
                 
 
 if __name__=='__main__':
-    URL_escolar = 'https://www.tlaquepaqueescolar.com.mx/Te2023/catalogoescolar.html'
-    URL_oficina = 'https://www.tlaquepaqueescolar.com.mx/Te2023/catalogooficinas.html'
-    
+        
     inicio=time.time()
     
     chrome_options = Options()
@@ -224,9 +180,19 @@ if __name__=='__main__':
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("--ignore-urlfetcher-cert-requests")
     chrome_options.add_argument("--start-maximized")
+    chrome_options.add_argument('--js-flags=--max-old-space-size=4096')
+    chrome_options.add_argument('--disable-notifications')
+    chrome_options.add_argument('--password-store=basic')
+    
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     chrome_options.add_experimental_option('useAutomationExtension', False)
-    chrome_options.add_argument('--js-flags=--max-old-space-size=4096')
+    chrome_options.add_experimental_option(
+        "prefs",
+        {
+            "credentials_enable_service":False,
+            "profile.password_manager_enabled":False
+        }
+    )
     
     # Instalar o cargar el controlador Chrome WebDriver
     driver_manager = ChromeDriverManager()
@@ -235,14 +201,18 @@ if __name__=='__main__':
     today=datetime.datetime.now()
     stamped_today=today.strftime("%Y-%m-%d")
 
-    response=requests.get(URL_escolar)
+    datos=productos_papelera(driver,stamped_today)
+    filename='Tlaquepaque_productos_'+stamped_today+'.csv'
+    exportar_csv(datos,filename)
     
-    if response.status_code==200:
-        datos=productos_papelera(driver,stamped_today)
-        filename='Tlaquepaque_productos_'+stamped_today+'.csv'
-        exportar_csv(datos,filename)
-    else:
-        print('sin conexion')
+    # link="https://tlaquepaqueescolar.com.mx/ecommerce/modulos/tienda/detalles.php?id=TzhJcEdRK0d1b3JqVjllOURPZFhGQT09"
+    # driver.get(link)
+    # time.sleep(2)
+    # html = driver.page_source
+    # soup = BeautifulSoup(html, 'html.parser')
+    
+    # agregar_informacion(soup,"informante","categoria","fecha")
+    
     driver.quit()
 
     print(f"{time.time()-inicio}")
