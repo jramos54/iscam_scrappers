@@ -159,9 +159,10 @@ def productos_papelera(driver, fecha):
             product_items.append((category_name,products))
         
     for item in product_items:
-        print(categoria)
+        
         categoria=item[0]
         links=item[-1]
+        print(categoria)
         for link in links:
             driver.get(link)
             time.sleep(3)
