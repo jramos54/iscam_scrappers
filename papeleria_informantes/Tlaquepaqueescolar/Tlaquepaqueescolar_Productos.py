@@ -169,7 +169,8 @@ def productos_papelera(driver, fecha):
             html = driver.page_source
             soup = BeautifulSoup(html, 'html.parser')
             producto=agregar_informacion(soup,INFORMANTE,categoria,fecha)
-            informacion.append(producto)
+            if producto:
+                informacion.append(producto)
     return informacion            
                 
 
