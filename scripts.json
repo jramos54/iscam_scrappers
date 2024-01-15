@@ -5,8 +5,8 @@
         "csvPath":"csv\\"
     },
     {
-        "informante":"Dunososa",
-        "script_name":"abarrotes_informantes\\dunosusa\\productos_dunosusa.py",
+        "informante":"Papeleria La Palma",
+        "script_name":"papeleria_informantes\\Papelerialapalma\\lapalma_automation.py",
         "csvPath":"csv\\"
     }
 ]
