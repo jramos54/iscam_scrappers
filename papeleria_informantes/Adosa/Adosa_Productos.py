@@ -176,12 +176,15 @@ def productos_adosa(driver, fecha):
                                 soup=BeautifulSoup(html_source,'html.parser')
                                 products=soup.find_all('li',class_="item product product-item")
                                 for product in products:
-                                    link=product.find('a')
-                                    driver.get(link.get('href'))
-                                    dato=agregar_informacion(BeautifulSoup(driver.page_source,'html.parser'),INFORMANTE,categoria.get_text(),fecha)
-                                    informacion.append(dato)
-                                    counter+=1
-                                    print(counter)
+                                    try:
+                                        link=product.find('a')
+                                        driver.get(link.get('href'))
+                                        dato=agregar_informacion(BeautifulSoup(driver.page_source,'html.parser'),INFORMANTE,categoria.get_text(),fecha)
+                                        informacion.append(dato)
+                                        counter+=1
+                                        print(counter)
+                                    except:
+                                        print(link)
                 else:
                     print(categoria.get('title'))
                     driver.get(categoria.get('href'))
@@ -194,12 +197,15 @@ def productos_adosa(driver, fecha):
                         soup=BeautifulSoup(html_source,'html.parser')
                         products=soup.find_all('li',class_="item product product-item")
                         for product in products:
-                            link=product.find('a')
-                            driver.get(link.get('href'))
-                            dato=agregar_informacion(BeautifulSoup(driver.page_source,'html.parser'),INFORMANTE,categoria.get_text(),fecha)
-                            informacion.append(dato)
-                            counter+=1
-                            print(counter)
+                            try:
+                                link=product.find('a')
+                                driver.get(link.get('href'))
+                                dato=agregar_informacion(BeautifulSoup(driver.page_source,'html.parser'),INFORMANTE,categoria.get_text(),fecha)
+                                informacion.append(dato)
+                                counter+=1
+                                print(counter)
+                            except:
+                                print(link)
     return informacion
 
 
