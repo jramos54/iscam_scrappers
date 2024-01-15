@@ -110,23 +110,26 @@ def agregar_informacion(soup,informante,categoria,fecha):
 
 def get_products(driver,link):
     print("==> get productos ")
-    driver.get(link)
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'html.parser')
-    time.sleep(3)
-    
-    container=soup.find(id='main')#..find('producto')
-    fashion_section=container.find(class_="fashion_section")
-    # print(fashion_section)
-    product_elements=fashion_section.find_all(class_="col-lg-4 col-sm-4")
-    links=[]
-    
-    for product in product_elements:
-        product_link=product.find('a')
-        link='https://tlaquepaqueescolar.com.mx/ecommerce/modulos/tienda/'+product_link.get('href')
-        print(link)
-        links.append(link)
-    return links
+    try:
+        driver.get(link)
+        html = driver.page_source
+        soup = BeautifulSoup(html, 'html.parser')
+        time.sleep(3)
+        
+        container=soup.find(id='main')#..find('producto')
+        fashion_section=container.find(class_="fashion_section")
+        # print(fashion_section)
+        product_elements=fashion_section.find_all(class_="col-lg-4 col-sm-4")
+        links=[]
+        
+        for product in product_elements:
+            product_link=product.find('a')
+            link='https://tlaquepaqueescolar.com.mx/ecommerce/modulos/tienda/'+product_link.get('href')
+            print(link)
+            links.append(link)
+        return links
+    except:
+        return None
 
 def productos_papelera(driver, fecha):
     INFORMANTE = 'Tlaquepaque Escolar'
@@ -152,7 +155,8 @@ def productos_papelera(driver, fecha):
         category_name=category.text.strip()
         category_link=category.find('a').get('href')
         products=get_products(driver,category_link)
-        product_items.append((category_name,products))
+        if products:
+            product_items.append((category_name,products))
         
     for item in product_items:
         print(categoria)

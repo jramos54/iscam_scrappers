@@ -185,6 +185,8 @@ def productos_adosa(driver, fecha):
                                         print(counter)
                                     except:
                                         print(link)
+                                        time.sleep(30)
+                                        driver.get(link)
                 else:
                     print(categoria.get('title'))
                     driver.get(categoria.get('href'))
@@ -206,6 +208,8 @@ def productos_adosa(driver, fecha):
                                 print(counter)
                             except:
                                 print(link)
+                                time.sleep(30)
+                                driver.get(link)
     return informacion
 
 
