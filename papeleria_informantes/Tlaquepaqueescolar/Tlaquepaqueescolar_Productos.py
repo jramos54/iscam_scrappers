@@ -106,7 +106,7 @@ def agregar_informacion(soup,informante,categoria,fecha):
     #     print(json_prod)
     #     return None
 
-    # return product_information
+    return product_information
 
 def get_products(driver,link):
     print("==> get productos ")
@@ -165,7 +165,7 @@ def productos_papelera(driver, fecha):
         print(categoria)
         for link in links:
             driver.get(link)
-            time.sleep(3)
+            time.sleep(2)
             html = driver.page_source
             soup = BeautifulSoup(html, 'html.parser')
             producto=agregar_informacion(soup,INFORMANTE,categoria,fecha)

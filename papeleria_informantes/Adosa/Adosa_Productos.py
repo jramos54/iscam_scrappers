@@ -105,6 +105,7 @@ def agregar_informacion(soup,informante,categoria,fecha):
 
 
 def pagination(driver,link):
+    print("==> pagination")
     URL = 'https://www.adosa.com.mx/'
     
     driver.get(link)
@@ -113,8 +114,6 @@ def pagination(driver,link):
     pages=[]
 
     pagination_html=soup.find('div',class_='pages')
-    
-    pages.append(link)
 
     if pagination_html:
         total_articles=soup.find('p',id="toolbar-amount")
@@ -126,10 +125,72 @@ def pagination(driver,link):
         total_pages=(num_articles//30)+1
         for i in range(2,total_pages+1):
             pages.append(link+'?p='+f'{i}')
+    else:
+        pages.append(link)
 
         
-    return tuple(set(pages))
+    return list(set(pages))
 
+def get_categories(menu_elements):
+    print("==> getting categories")
+    links_categories=[]
+    for menu_element in menu_elements:
+        link = menu_element.find('a', recursive=False)
+        if link:
+            Seccion=link.text
+            print(f"{Seccion}")
+
+        div_elements = menu_element.find_all('div', class_='item-content1')
+        for div in div_elements:
+            item_divs = div.find_all('div')
+            for item in item_divs:
+                item_class = item.get('class')
+                if 'parent' in item_class:
+                    level2 = item.find_all('div', class_='level2')
+                    for level2_ in level2:
+                        link = level2_.find('a')
+                        if "Ver Todos" not in link.text:
+                            categoria=link.text
+                            url=link.get('href')
+                            if url:
+                                links_categories.append((categoria,url))
+                elif 'level1' in item_class:
+                    link = item.find('a')
+                    if "Ver Todos" not in link.text:
+                        categoria=link.text
+                        url=link.get('href')
+                        if url:
+                            links_categories.append((categoria,url))
+    set_links=set(links_categories)
+    return list(set_links)
+
+def get_products(driver,categories):
+    print("==> Getting products")
+    pages=[]
+    products=[]
+    for category in categories:
+        print(category[0])
+        link=category[1]
+        print(link)
+        try:
+            page=pagination(driver,link)
+            time.sleep(1)
+            pages.append((category[0],page))
+        except:
+            time.sleep(5)
+            page=pagination(driver,link)
+            time.sleep(1)
+            pages.append((category[0],page))
+        
+    for page in pages:
+        for link in page[-1]:
+            driver.get(link)
+            html_source=driver.page_source
+            soup=BeautifulSoup(html_source,'html.parser')
+            products_=soup.find_all('li',class_="item product product-item")
+            products.append((page[0],products_))
+    
+    return products
 
 def productos_adosa(driver, fecha):
     INFORMANTE = 'ADOSA'
@@ -141,75 +202,89 @@ def productos_adosa(driver, fecha):
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
 
-    menu = soup.find(class_="navigation")
-    items_level0=menu.find_all('li')
+    menu_container = soup.find(class_="navigation")
+    menu_elements=menu_container.find_all('li')
     
     counter=0
-    for item_level0 in items_level0:
+    categories=get_categories(menu_elements)
+    
+    products=get_products(driver,categories)
+    for product in products:
+        for producto in product:
+            try:
+                link=producto[-1].find('a')
+                driver.get(link.get('href'))
+                dato=agregar_informacion(BeautifulSoup(driver.page_source,'html.parser'),INFORMANTE,producto[0],fecha)
+                informacion.append(dato)
+                counter+=1
+                print(counter)
+            except:
+                print(link)
+                time.sleep(30)
+                driver.get(link)
+    
+    
         #
-        title=item_level0.find('a')
-        # print(title.get('title'))
+#         menu_level1=item_level0.find('div',class_="item-content1 hidden-xs hidden-sm")                
+#         containers_level1 = menu_level1.find_all('div',recursive=False)
 
-        menu_level1=item_level0.find('div',class_="item-content1 hidden-xs hidden-sm")                
-        containers_level1 = menu_level1.find_all('div',recursive=False)
-
-        for container_level1 in containers_level1:
-            items_level1=container_level1.find_all('div',recursive=False)
-            for item_level1 in items_level1:
-                categoria=item_level1.find('a')
-                containers_level2=item_level1.find_all('div',class_="item-content1 hidden-xs hidden-sm")
+#         for container_level1 in containers_level1:
+#             items_level1=container_level1.find_all('div',recursive=False)
+#             for item_level1 in items_level1:
+#                 categoria=item_level1.find('a')
+#                 containers_level2=item_level1.find_all('div',class_="item-content1 hidden-xs hidden-sm")
                
-                if containers_level2:
-                    for container_level2 in containers_level2:
-                        items_level2=container_level2.find_next().find_all('div')
+#                 if containers_level2:
+#                     for container_level2 in containers_level2:
+#                         items_level2=container_level2.find_next().find_all('div')
                         
-                        for item_level2 in items_level2:
-                            categoria=item_level2.find('a')
-                            link_page=categoria.get('href')
-                            #paginacion de la categoria
-                            pages=pagination(driver,link_page)
-                            print(categoria.get_text())
-# Comienza la extraccion por producto
-                            for page in pages:
-                                driver.get(page)
-                                html_source=driver.page_source
-                                soup=BeautifulSoup(html_source,'html.parser')
-                                products=soup.find_all('li',class_="item product product-item")
-                                for product in products:
-                                    try:
-                                        link=product.find('a')
-                                        driver.get(link.get('href'))
-                                        dato=agregar_informacion(BeautifulSoup(driver.page_source,'html.parser'),INFORMANTE,categoria.get_text(),fecha)
-                                        informacion.append(dato)
-                                        counter+=1
-                                        print(counter)
-                                    except:
-                                        print(link)
-                                        time.sleep(30)
-                                        driver.get(link)
-                else:
-                    print(categoria.get('title'))
-                    driver.get(categoria.get('href'))
-                    link_page=categoria.get('href')
-                    pages=pagination(driver,link_page)
-# Comienza la extraccion por producto
-                    for page in pages:
-                        driver.get(page)
-                        html_source=driver.page_source
-                        soup=BeautifulSoup(html_source,'html.parser')
-                        products=soup.find_all('li',class_="item product product-item")
-                        for product in products:
-                            try:
-                                link=product.find('a')
-                                driver.get(link.get('href'))
-                                dato=agregar_informacion(BeautifulSoup(driver.page_source,'html.parser'),INFORMANTE,categoria.get_text(),fecha)
-                                informacion.append(dato)
-                                counter+=1
-                                print(counter)
-                            except:
-                                print(link)
-                                time.sleep(30)
-                                driver.get(link)
+#                         for item_level2 in items_level2:
+#                             categoria=item_level2.find('a')
+#                             link_page=categoria.get('href')
+#                             #paginacion de la categoria
+#                             pages=pagination(driver,link_page)
+#                             print(categoria.get_text())
+# # Comienza la extraccion por producto
+#                             for page in pages:
+#                                 driver.get(page)
+#                                 html_source=driver.page_source
+#                                 soup=BeautifulSoup(html_source,'html.parser')
+#                                 products=soup.find_all('li',class_="item product product-item")
+#                                 for product in products:
+#                                     try:
+#                                         link=product.find('a')
+#                                         driver.get(link.get('href'))
+#                                         dato=agregar_informacion(BeautifulSoup(driver.page_source,'html.parser'),INFORMANTE,categoria.get_text(),fecha)
+#                                         informacion.append(dato)
+#                                         counter+=1
+#                                         print(counter)
+#                                     except:
+#                                         print(link)
+#                                         time.sleep(30)
+#                                         driver.get(link)
+#                 else:
+#                     print(categoria.get('title'))
+#                     driver.get(categoria.get('href'))
+#                     link_page=categoria.get('href')
+#                     pages=pagination(driver,link_page)
+# # Comienza la extraccion por producto
+#                     for page in pages:
+#                         driver.get(page)
+#                         html_source=driver.page_source
+#                         soup=BeautifulSoup(html_source,'html.parser')
+#                         products=soup.find_all('li',class_="item product product-item")
+#                         for product in products:
+#                             try:
+#                                 link=product.find('a')
+#                                 driver.get(link.get('href'))
+#                                 dato=agregar_informacion(BeautifulSoup(driver.page_source,'html.parser'),INFORMANTE,categoria.get_text(),fecha)
+#                                 informacion.append(dato)
+#                                 counter+=1
+#                                 print(counter)
+#                             except:
+#                                 print(link)
+#                                 time.sleep(30)
+#                                 driver.get(link)
     return informacion
 
 

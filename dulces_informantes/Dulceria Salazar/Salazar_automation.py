@@ -339,9 +339,9 @@ def main(driver,stamped_today):
 
     # Ejecucion normal del script
     datos=productos_dulces(driver,stamped_today)
-    
-    filename=args.ruta + 'salazar_productos_'+stamped_today+'.csv' 
-    exportar_csv(datos,filename)
+    if datos:
+        filename=args.ruta + 'salazar_productos_'+stamped_today+'.csv' 
+        exportar_csv(datos,filename)
 
 
 if __name__=='__main__':
