@@ -1,0 +1,12 @@
+[
+    {
+        "informante":"7 eleven",
+        "script_name":"abarrotes_informantes\\7-eleven\\automation_7-eleven.py",
+        "csvPath":"csv_conveniencia\\"
+    },
+    {
+        "informante":"Circle K",
+        "script_name":"abarrotes_informantes\\circuloK\\automation_CirculoK.py",
+        "csvPath":"csv_conveniencia\\"
+    }
+]

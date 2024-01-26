@@ -1,8 +1,6 @@
 import pandas as pd
-import openpyxl,json
+import openpyxl,json,os
 import numpy as np
-
-
 
 def extraer_encabezados_excel(archivo_excel):
     try:
@@ -34,8 +32,6 @@ def extraer_encabezados_excel(archivo_excel):
         return "Los encabezados se han guardado en 'encabezados.json'"
     except Exception as e:
         return str(e)
-
-
 
 def count_non_empty_cells(file_path, sheets):
     """
@@ -100,8 +96,6 @@ def excel_to_json_null(input_excel_file, output_json_file, sheet_names):
     except Exception as e:
         print(f"Se produjo un error al procesar el archivo Excel: {str(e)}")
 
-
-
 def excel_to_json(input_excel_file, output_json_file, sheet_names):
     try:
         # Lee el archivo Excel
@@ -133,14 +127,97 @@ def excel_to_json(input_excel_file, output_json_file, sheet_names):
     except Exception as e:
         print(f"Se produjo un error al procesar el archivo Excel: {str(e)}")
 
+def excel_to_dict(input_excel_file, sheet_names):
+    try:
+        xls = pd.ExcelFile(input_excel_file)
+        data = {}
+
+        for sheet_name in sheet_names:
+            df = pd.read_excel(xls, sheet_name=sheet_name, header=1)
+
+            df.dropna(axis=0, how='all', inplace=True)
+            df.dropna(axis=1, how='all', inplace=True)
+
+            sheet_data = []
+            for _, row in df.iterrows():
+                row_dict = {col: row[col].strftime('%Y-%m-%d %H:%M:%S') if isinstance(row[col], pd.Timestamp) else row[col] for col in df.columns if pd.notna(row[col])}
+                sheet_data.append(row_dict)
+
+            data[sheet_name] = sheet_data
+
+        return data
+
+    except Exception as e:
+        print(f"Se produjo un error al procesar el archivo Excel: {str(e)}")
+        return None
+    
+def save_dict_to_json(data, output_json_file):
+    try:
+        with open(output_json_file, 'w', encoding='utf-8') as json_file:  # Añadir encoding='utf-8'
+            json.dump(data, json_file, ensure_ascii=False, default=str, indent=4)  # Añadir ensure_ascii=False
+        print(f"El diccionario ha sido guardado en el archivo JSON '{output_json_file}' con éxito.")
+    except Exception as e:
+        print(f"Se produjo un error al guardar el diccionario como JSON: {str(e)}")
+
+def list_files_in_directory(directory):
+    file_list = []
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            relative_path = os.path.relpath(os.path.join(root, file), directory)
+            file_list.append(relative_path.replace('\\', '/'))
+    return file_list
+
+def extract_values_from_dicts(dict_list, key_list):
+    result = {}
+
+    for key_dict in key_list:
+        for friendly_key, real_key in key_dict.items():  # Obtiene la clave amigable y la clave real
+            unique_values = set()
+
+            for dictionary in dict_list:
+                if real_key in dictionary:
+                    unique_values.add(dictionary[real_key])
+
+            result[friendly_key] = list(unique_values)
+
+    return result
 
 if __name__=="__main__":
-    archivo_excel = r'1d2cbd6a-1b39-4d74-ac94-22cb42620991_out.xlsm'
-    resultado = extraer_encabezados_excel(archivo_excel)
+    
+    directory = r'excel_files'
+    items_json="items_examples.json"
+    keys_search="key_search.json"
+    
     sheets_to_import = ["Relationships", "Model", "Entities"]
-    non_empty_cells_count = count_non_empty_cells(archivo_excel, sheets_to_import)
-    print(json.dumps(non_empty_cells_count,indent=4))
-    excel_to_json(archivo_excel, 'ejemplo.json', sheets_to_import)
-    excel_to_json_null(archivo_excel, 'ejemplo_null.json', sheets_to_import)
+    keys=[{"nombre_generico":"Name"},{"marca":"Brand Name BMSid 3541"},{"publicador":"Information provider party name BMSid 85"}]
+    
+    all_data = {}  # Diccionario para acumular todos los datos de los archivos
+
+    archivos_excel = list_files_in_directory(directory)
+    
+    for archivo in archivos_excel:
+        data = excel_to_dict(os.path.join(directory, archivo), sheets_to_import)
+        if data:
+            # Combina los datos del archivo actual con los datos acumulados
+            all_data.update(data)
+
+    # print(json.dumps(all_data, indent=4))
+    print(len(all_data['Entities']))
+    
+    save_dict_to_json(data, items_json)
+    
+    keys_result=extract_values_from_dicts(all_data['Entities'],keys)
+    
+    print(len(keys_result["nombre_generico"]))
+    print(len(keys_result["marca"]))
+    print(len(keys_result["publicador"]))
+    
+    save_dict_to_json(keys_result, keys_search)
+
+    # resultado = extraer_encabezados_excel(archivo_excel)
+    # non_empty_cells_count = count_non_empty_cells(archivo_excel, sheets_to_import)
+    # print(json.dumps(non_empty_cells_count,indent=4))
+    # excel_to_json(archivo_excel, 'ejemplo.json', sheets_to_import)
+    # excel_to_json_null(archivo_excel, 'ejemplo_null.json', sheets_to_import)
 
 
