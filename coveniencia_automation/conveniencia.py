@@ -62,14 +62,11 @@ def cargar_datos_en_sqlserver(archivo_csv):
 
 def mover_archivos(carpeta_origen, carpeta_destino):
     try:
-        # Obtén la lista de archivos en la carpeta de origen
         archivos = os.listdir(carpeta_origen)
         
-        # Asegúrate de que la carpeta de destino exista; si no, créala
         if not os.path.exists(carpeta_destino):
             os.makedirs(carpeta_destino)
         
-        # Mueve cada archivo de la carpeta de origen a la carpeta de destino
         for archivo in archivos:
             origen = os.path.join(carpeta_origen, archivo)
             destino = os.path.join(carpeta_destino, archivo)
