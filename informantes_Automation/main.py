@@ -51,7 +51,9 @@ def mover_archivos(carpeta_origen, carpeta_destino):
         
                
 if __name__ == "__main__":
-    with open('scripts.json','r',encoding='utf-8') as source:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    source_name=os.path.join(script_dir, 'scripts.json')
+    with open(source_name,'r',encoding='utf-8') as source:
         scripts = json.load(source)
         
     # max_threads=3

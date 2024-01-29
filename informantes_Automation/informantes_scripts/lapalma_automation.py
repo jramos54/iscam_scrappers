@@ -182,14 +182,13 @@ def productos_papelera(driver, fecha):
     return informacion            
 
 def main(driver,stamped_today):
-    # Se toma el argumento del directorio destino
     parser = argparse.ArgumentParser(description='Se incorpora la ruta destino del CSV')
     parser.add_argument('ruta', help='Ruta personalizada para el archivo CSV')
     args = parser.parse_args()
 
-    # Ejecucion normal del script
     datos=productos_papelera(driver,stamped_today)      
     filename=args.ruta + 'Papelerialapalma_productos_'+stamped_today+'.csv' 
+    print(filename)
     exportar_csv(datos,filename)   
 
 if __name__=='__main__':
