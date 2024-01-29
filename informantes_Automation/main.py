@@ -3,11 +3,12 @@ import shutil
 
     
 def execute_script(script,python_executable,destination):
-    
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    script_name=os.path.join(script_dir, script['script_name'])
     try:
         print(f"Informante {script['informante']}")
         print(f"Se ejecuta {script['script_name']} ...")
-        subprocess.check_call([python_executable, script['script_name'],destination])
+        subprocess.check_call([python_executable, script_name,destination])
     except subprocess.CalledProcessError as e:
         print(f"Error en {script['script_name']}: {e}")
         with open("error_log.txt", "a") as log_file:
