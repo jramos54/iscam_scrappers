@@ -1,12 +1,12 @@
 [
     {
         "informante":"Papeleria La Palma",
-        "script_name":"informantes_Automation\\informantes_scripts\\lapalma_automation.py",
+        "script_name":"informantes_scripts\\lapalma_automation.py",
         "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\PapeleriaLaPalma"
     },
     {
         "informante":"Celca",
-        "script_name":"informantes_Automation\\informantes_scripts\\Celca_Automation.py",
+        "script_name":"informantes_scripts\\Celca_Automation.py",
         "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\Celca"
     }
 ]
