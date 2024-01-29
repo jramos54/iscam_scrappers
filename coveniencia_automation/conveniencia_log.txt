@@ -1,0 +1,36 @@
+Error en abarrotes_informantes\7-eleven\automation_7-eleven.py:
+Traceback (most recent call last):
+  File "C:\Users\jramos\codingFiles\dacodes\scrapping_project_iscam\coveniencia_automation\conveniencia.py", line 10, in execute_script
+    subprocess.check_call([python_executable, script['script_name'], destination])
+  File "C:\Users\jramos\.pyenv\pyenv-win\versions\3.11.6\Lib\subprocess.py", line 413, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['C:\\Users\\jramos\\codingFiles\\dacodes\\scrapping_project_iscam\\venv\\Scripts\\python.exe', 'abarrotes_informantes\\7-eleven\\automation_7-eleven.py', 'C:\\Users\\jramos\\codingFiles\\dacodes\\scrapping_project_iscam\\coveniencia_automation\\csv_conveniencia\\']' returned non-zero exit status 2.
+
+
+Error en abarrotes_informantes\circuloK\automation_CirculoK.py:
+Traceback (most recent call last):
+  File "C:\Users\jramos\codingFiles\dacodes\scrapping_project_iscam\coveniencia_automation\conveniencia.py", line 10, in execute_script
+    subprocess.check_call([python_executable, script['script_name'], destination])
+  File "C:\Users\jramos\.pyenv\pyenv-win\versions\3.11.6\Lib\subprocess.py", line 413, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['C:\\Users\\jramos\\codingFiles\\dacodes\\scrapping_project_iscam\\venv\\Scripts\\python.exe', 'abarrotes_informantes\\circuloK\\automation_CirculoK.py', 'C:\\Users\\jramos\\codingFiles\\dacodes\\scrapping_project_iscam\\coveniencia_automation\\csv_conveniencia\\']' returned non-zero exit status 2.
+
+
+Error en abarrotes_informantes\7-eleven\automation_7-eleven.py:
+Traceback (most recent call last):
+  File "C:\Users\jramos\codingFiles\dacodes\scrapping_project_iscam\coveniencia_automation\conveniencia.py", line 14, in execute_script
+    subprocess.check_call([python_executable, script['script_name'], destination])
+  File "C:\Users\jramos\.pyenv\pyenv-win\versions\3.11.6\Lib\subprocess.py", line 413, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['C:\\Users\\jramos\\codingFiles\\dacodes\\scrapping_project_iscam\\venv\\Scripts\\python.exe', 'abarrotes_informantes\\7-eleven\\automation_7-eleven.py', 'C:\\Users\\jramos\\codingFiles\\dacodes\\scrapping_project_iscam\\coveniencia_automation\\csv\\']' returned non-zero exit status 2.
+
+
+Error en abarrotes_informantes\circuloK\automation_CirculoK.py:
+Traceback (most recent call last):
+  File "C:\Users\jramos\codingFiles\dacodes\scrapping_project_iscam\coveniencia_automation\conveniencia.py", line 14, in execute_script
+    subprocess.check_call([python_executable, script['script_name'], destination])
+  File "C:\Users\jramos\.pyenv\pyenv-win\versions\3.11.6\Lib\subprocess.py", line 413, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['C:\\Users\\jramos\\codingFiles\\dacodes\\scrapping_project_iscam\\venv\\Scripts\\python.exe', 'abarrotes_informantes\\circuloK\\automation_CirculoK.py', 'C:\\Users\\jramos\\codingFiles\\dacodes\\scrapping_project_iscam\\coveniencia_automation\\csv\\']' returned non-zero exit status 2.
+
+

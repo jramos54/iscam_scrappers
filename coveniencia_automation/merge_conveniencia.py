@@ -117,7 +117,7 @@ def merge_values(products):
         
 if __name__=="__main__":
     
-    directorio = 'csv_conveniencia'  
+    directorio = 'csv_merge'  
     
     resultados = read_files(directorio)
     # print(json.dumps(resultado,indent=4))
