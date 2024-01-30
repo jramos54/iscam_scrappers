@@ -13,5 +13,77 @@
         "informante":"Liquor Store",
         "script_name":"informantes_scripts\\Liquor_automation.py",
         "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\LiquorStore\\"
+    },
+    {
+        "informante":"BP-Peru",
+        "script_name":"informantes_scripts\\bp-peru_automation.py",
+        "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\bpPeru\\"
+    },
+    {
+        "informante":"Farmadepot",
+        "script_name":"informantes_scripts\\farmadepot_automation.py",
+        "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\farmaDepot\\"
+    },
+    {
+        "informante":"San Felipe Escolar",
+        "script_name":"informantes_scripts\\Sanfelipeescolar_automation.py",
+        "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\SanFelipeEscolar\\"
+    },
+    {
+        "informante":"Pangea",
+        "script_name":"informantes_scripts\\Pangea_automation.py",
+        "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\Pangea\\"
+    },
+    {
+        "informante":"Hs Comercial",
+        "script_name":"informantes_scripts\\hscomercial_automation.py",
+        "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\HsComercial\\"
+    },
+    {
+        "informante":"La duena",
+        "script_name":"informantes_scripts\\Laduena_automation.py",
+        "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\LaDuena\\"
+    },
+    {
+        "informante":"La Mediterranea",
+        "script_name":"informantes_scripts\\Mediterranea_automation.py",
+        "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\LaMediterranea\\"
+    },
+    {
+        "informante":"LcGroup",
+        "script_name":"informantes_scripts\\lcgroup_automation.py",
+        "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\LcGroup\\"
+    },
+    {
+        "informante":"Los Anicetos",
+        "script_name":"informantes_scripts\\anicetos_automation.py",
+        "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\LosAnicetos\\"
+    },
+    {
+        "informante":"Major Peru",
+        "script_name":"informantes_scripts\\majorperu_automation.py",
+        "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\MajorPeru\\"
+    },
+    {
+        "informante":"Ofimart",
+        "script_name":"informantes_scripts\\Ofimart_automation.py",
+        "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\Ofimart\\"
+    },
+    {
+        "informante":"Super Papelera",
+        "script_name":"informantes_scripts\\Superpapelera_automation.py",
+        "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\SuperPapelera\\"
+    },
+    {
+        "informante":"Contrabarra",
+        "script_name":"informantes_scripts\\Contrabarra_automation.py",
+        "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\Contrabarra\\"
+    },
+    {
+        "informante":"Dunosusa",
+        "script_name":"informantes_scripts\\dunosusa_automation.py",
+        "csvPath":"\\\\cctlc-rdp02.iscamnet.lan\\ISCAM_FS\\Sistemas\\Pruebas Web Scraping\\Dunosusa\\"
     }
 ]
+
+

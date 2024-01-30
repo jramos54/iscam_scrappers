@@ -62,12 +62,12 @@ def geolocalizacion(direccion):
     
     else:
         return None,None
-    
 
-def agregar_informacion(soup,informante,categoria,fecha):
+
+def agregar_informacion(soup,informante,fecha):
     product_information = {
         'Informante': informante,
-        'Categoria': categoria.strip(),
+        'Categoria': '',
         'DescripcionCorta': '',
         'DescripcionLarga': '',
         'SKU': '',
@@ -76,120 +76,104 @@ def agregar_informacion(soup,informante,categoria,fecha):
         'Precio': '',
         'Fecha': fecha
         }
-    container=soup.find('div',class_="page-wrap").find('div',class_="page-area")
+    cat_container=soup.find('nav',class_="woocommerce-breadcrumb")
+    if cat_container:
+        links=cat_container.find_all('a')
+        categoria=links[-1].text.strip()
+        # etiqueta=links[-1].text.strip()
+        product_information['Categoria']=categoria
+        # product_information['Etiqueta']=etiqueta
+
+    container=soup.find('div', {'data-elementor-type': 'product'})
     if container:
-        descripcion_corta=container.find('div',class_="summary entry-summary").find('h1')
+        descripcion_corta=container.find('h1')
         if descripcion_corta:
             product_information['DescripcionCorta']=descripcion_corta.text
 
-        # descripcion_larga=container.find('table',class_="woocommerce-product-attributes shop_attributes").text
-        # descripcion_larga_=descripcion_larga.splitlines()
-        # if descripcion_larga:
-            product_information['DescripcionLarga']=product_information['DescripcionCorta']
+        descripcion_larga=container.find(id="tab-description")
+        if descripcion_larga:
+            txt_desc=descripcion_larga.text
+            descripcion_larga_=txt_desc.splitlines()
+            product_information['DescripcionLarga']='. '.join(elemento for elemento in descripcion_larga_ if elemento.strip() != '')
 
-        # sku=container.find('span',class_="sku")
-        # if sku:
-        #     product_information['SKU']=sku.text
+        sku=container.find('span',class_="sku")
+        if sku:
+            product_information['SKU']=sku.text.strip()
 
-        imagen_element=container.find('figure',class_="woocommerce-product-gallery__wrapper")
-        imagen=imagen_element.find('img')
+        imagen=container.find('img', {'role': 'presentation'})
         if imagen:
             product_information['Img']=imagen.get('src')
 
-        precio=container.find('div',class_="summary entry-summary").find('p',class_="price")
+        precio=container.find('span',class_="woocommerce-Price-amount amount")
         if precio:
-            product_information['Precio']=precio.text.strip()
-        
-        etiqueta=container.find('span',class_="posted_in")
-        if etiqueta:
-            product_information['Etiqueta']=etiqueta.find('a').text
+            product_information['Precio']=precio.text
 
-        # json_prod=json.dumps(product_information,indent=4)
-        # print(json_prod)
+        json_prod=json.dumps(product_information,indent=4)
+        print(json_prod)
 
     return product_information
 
 
 def pagination(driver,link):
-    
+   
     driver.get(link)
     html=driver.page_source
     soup=BeautifulSoup(html,'html.parser')
     pages=[]
 
-    pagination_html=soup.find('ul',class_="page-numbers")
+    next_page_item=soup.find('a',class_="next page-numbers")
+    pagination_html=next_page_item.parent.previous_sibling 
 
     pages.append(link)
 
     if pagination_html:
-        paginas=pagination_html.find_all('li')
-        last_page_link=paginas[-1].find('a').get('href')
-        
-        last_page=int(last_page_link.strip().split('/')[-2])
-        
-        for i in range(2,last_page+1):
-            pages.append(link+'/page/'+f'{i}'+'/')
+        total_pages_link=pagination_html.find('a').text
+    
+        total_pages=int(total_pages_link)
+        for i in range(2,total_pages+1):
+            pages.append(link+'page/'+f'{i}'+'/')
 
     return tuple(set(pages))
 
 
 def productos_papelera(driver, fecha):
-    INFORMANTE = 'Papeleria la Palma'
-    URL = 'https://papelerialapalma.com/'
+    INFORMANTE = 'Ofimart'
+    URL = 'https://ofimart.mx/tienda/'
     informacion = []
 
-    driver.get(URL)
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'html.parser')
-
-    menu = soup.find('div',class_="page-wrap")
-    
-    lista_level0=menu.find(id="text-5")
-    itemslevel0=lista_level0.find_all('a',recursive=True)
-
+    pages=pagination(driver,URL)
     counter=0
-    for itemlevel0 in itemslevel0:
-        categoria=itemlevel0.text
-        # print(itemlevel0.find('span').text)
-        # print('-'*40)
-        link=itemlevel0.get('href')
-        print(categoria)
-        if categoria=='Nuevos':
-            continue
-        pages=pagination(driver,link)
+
+    for page in pages:
+        driver.get(page)
+        page_html=BeautifulSoup(driver.page_source,'html.parser')
+        products_content=page_html.find('ul',class_="products elementor-grid columns-4")
+        if products_content:
+            products=products_content.find_all('li')
+
+            for product in products:
+                time.sleep(2)
+                product_link=product.find('a')
+                # print(product_link.get('href'))
+                driver.get(product_link.get('href'))
+                
+                producto=agregar_informacion(
+                    BeautifulSoup(driver.page_source, 'html.parser'),
+                    INFORMANTE,fecha)
+                informacion.append(producto)
+                counter+=1
+                print(counter)
         
-        for page in pages:
-            driver.get(page)
-            page_html=BeautifulSoup(driver.page_source,'html.parser')
-
-            products_content=page_html.find('ul',class_="products columns-4")
-            if products_content:
-                products=products_content.find_all('li')
-
-                for product in products:
-                    
-                    product_link=product.find('a',class_='woocommerce-LoopProduct-link woocommerce-loop-product__link')
-                    
-                    # print(product_link.get('href'))
-                    driver.get(product_link.get('href'))
-                    
-                    producto=agregar_informacion(
-                        BeautifulSoup(driver.page_source, 'html.parser'),
-                        INFORMANTE,categoria,fecha)
-                    informacion.append(producto)
-                    counter+=1
-                    print(counter)
     return informacion            
 
 def main(driver,stamped_today):
     parser = argparse.ArgumentParser(description='Se incorpora la ruta destino del CSV')
     parser.add_argument('ruta', help='Ruta personalizada para el archivo CSV')
     args = parser.parse_args()
-
-    datos=productos_papelera(driver,stamped_today)      
-    filename=args.ruta + 'Papelerialapalma_productos_'+stamped_today+'.csv' 
-    print(filename)
-    exportar_csv(datos,filename)   
+    
+    datos=productos_papelera(driver,stamped_today)
+    filename=args.ruta +'Ofimart_productos_'+stamped_today+'.csv'
+    exportar_csv(datos,filename)
 
 if __name__=='__main__':
     inicio=time.time()
@@ -208,11 +192,11 @@ if __name__=='__main__':
     # Instalar o cargar el controlador Chrome WebDriver
     driver_manager = ChromeDriverManager()
     driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
-
+    
     today=datetime.datetime.now()
     stamped_today=today.strftime("%Y-%m-%d")
 
-    main(driver,stamped_today)
+    main(driver,stamped_today)  
     
     driver.quit()
 

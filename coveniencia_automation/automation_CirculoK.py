@@ -160,8 +160,8 @@ def producto_informacion(soup_product,informante,categoria,marcas,fecha):
     #         product_information['Marca'] = marca
     #         break
         
-    print(json.dumps(product_information,indent=4))
-    print(json.dumps(product_link,indent=4))
+    # print(json.dumps(product_information,indent=4))
+    # print(json.dumps(product_link,indent=4))
     time.sleep(1)
     return product_information,product_link
           
@@ -198,17 +198,20 @@ def productos_informante(url,driver,fecha):
         print(categoria)
         link_products=product[-1]
         for link_product in link_products:
-            link_item=url[:-1]+link_product.get('href')
-            driver.get(link_item)
-            time.sleep(3)
-            html = driver.page_source
-            soup_product = BeautifulSoup(html, 'html.parser')
-            
-            product_info,product_link=producto_informacion(soup_product,informante,categoria,marcas,fecha)
-            informacion.append(product_info)
-            product_links.append(product_link)
-            counter+=1
-            print(counter)
+            try:
+                link_item=url[:-1]+link_product.get('href')
+                driver.get(link_item)
+                time.sleep(3)
+                html = driver.page_source
+                soup_product = BeautifulSoup(html, 'html.parser')
+                
+                product_info,product_link=producto_informacion(soup_product,informante,categoria,marcas,fecha)
+                informacion.append(product_info)
+                product_links.append(product_link)
+                counter+=1
+                print(counter)
+            except:
+                print(link_item)
     
     return informacion,product_links
     
