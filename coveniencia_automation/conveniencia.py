@@ -7,20 +7,21 @@ import pyodbc
 import shutil
 
 
-def execute_script(script, python_executable, destination):
+def execute_script(script_name, python_executable, destination):
     try:
-        print(f"Informante {script['informante']}")
-        print(f"Se ejecuta {script['script_name']} ...")
-        subprocess.check_call([python_executable, script['script_name'], destination])
+        print(f"Se ejecuta {script_name} ...")
+        subprocess.check_call([python_executable, script_name, destination])
     except subprocess.CalledProcessError as e:
-        print(f"Error en {script['script_name']}:{e}")
+        print(f"Error en {script_name}:{e}")
         with open("conveniencia_log.txt", "a") as log_file:
-            log_file.write(f"Error en {script['script_name']}:\n{traceback.format_exc()}\n\n")
+            log_file.write(f"Error en {script_name}:\n{traceback.format_exc()}\n\n")
 
 def run_scripts_one_by_one(scripts, python_executable):
     script_dir = os.path.dirname(os.path.abspath(__file__))
+    
     for script in scripts:
-        execute_script(script, python_executable, os.path.join(script_dir, script['csvPath']))
+        script_name=os.path.join(script_dir, script['script_name'])
+        execute_script(script_name, python_executable, os.path.join(script_dir, script['csvPath']))
 
 def cargar_datos_en_sqlserver(archivo_csv):
     try:
@@ -89,14 +90,14 @@ if __name__ == "__main__":
     
     connection_string = "Driver={SQL Server Native Client 11.0};Server=CCAZR-PROC01\PROC_cirugias;Database=ScrapingTDC;Uid=UsrInovacion;Pwd=M4ryW1tch041123!;"
 
-    directorio_archivos = ".\\csv"
+    directorio_archivos = os.path.join(script_dir, 'csv')
     archivos_csv = [archivo for archivo in os.listdir(directorio_archivos) if archivo.endswith(".csv")]
     
     for archivo_csv in archivos_csv:
         cargar_datos_en_sqlserver(archivo_csv)
         
-    carpeta_origen = "csv"
-    carpeta_destino = "csv_merge"
+    carpeta_origen = os.path.join(script_dir, 'csv')
+    carpeta_destino = os.path.join(script_dir, 'csv_merge')
 
     mover_archivos(carpeta_origen, carpeta_destino)
     
