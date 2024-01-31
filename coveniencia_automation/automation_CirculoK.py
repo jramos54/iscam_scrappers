@@ -251,15 +251,30 @@ if __name__=='__main__':
     # Chrome options for webdriver
     #
     chrome_options = Options()
-    # chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument("--log-level=3")
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("--ignore-urlfetcher-cert-requests")
     chrome_options.add_argument("--start-maximized")
+    chrome_options.add_argument('--js-flags=--max-old-space-size=4096')
+    chrome_options.add_argument('--disable-notifications')
+    chrome_options.add_argument('--password-store=basic')
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=1920x1080")
+
+
+    
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     chrome_options.add_experimental_option('useAutomationExtension', False)
+    chrome_options.add_experimental_option(
+        "prefs",
+        {
+            "credentials_enable_service":False,
+            "profile.password_manager_enabled":False
+        }
+    )
 
     # Install Chrome WebDriver
     driver_manager = ChromeDriverManager()
