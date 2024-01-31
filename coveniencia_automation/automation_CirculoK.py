@@ -10,6 +10,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import TimeoutException
+
 # import scrapping tool
 from bs4 import BeautifulSoup
 
@@ -37,35 +39,40 @@ def productos_categorias(category_list,driver):
     # print('='*50,'\n','='*50)
     informacion=[]
     for category in category_list:
-        print(category)
+        print("\n")
         link=category[-1]
         print(f"categoria {category[0]}")
         print(link)
         
         marcas=[]
         
-        driver.get(link)
-        time.sleep(3)
+        driver.set_page_load_timeout(30)
+        try:
+            driver.get(link)
+            time.sleep(3)
+                
+            checkboxes = driver.find_elements(By.CSS_SELECTOR, "input[type='checkbox']")
+            for checkbox in checkboxes:
+                # print(checkbox.get_attribute('name'))
+                marcas.append(checkbox.get_attribute('name'))
             
-        checkboxes = driver.find_elements(By.CSS_SELECTOR, "input[type='checkbox']")
-        for checkbox in checkboxes:
-            print(checkbox.get_attribute('name'))
-            marcas.append(checkbox.get_attribute('name'))
-        
-        xpath="//a[div[contains(text(), 'Mostrar más')]]"
-        finish_scroll = True
-        last_height = driver.execute_script("return window.innerHeight")
+            xpath="//a[div[contains(text(), 'Mostrar más')]]"
+            finish_scroll = True
+            last_height = driver.execute_script("return window.innerHeight")
 
-        while finish_scroll:
-            last_height, finish_scroll = scroll(driver, xpath, last_height)
-        
-        html_code=driver.page_source
-        soup = BeautifulSoup(html_code,'html.parser')
-        element_container=soup.find(id="gallery-layout-container")
-        elements=element_container.find_all('a')
-        print(f'productos totales {len(elements)}')
+            while finish_scroll:
+                last_height, finish_scroll = scroll(driver, xpath, last_height)
+            
+            html_code=driver.page_source
+            soup = BeautifulSoup(html_code,'html.parser')
+            element_container=soup.find(id="gallery-layout-container")
+            elements=element_container.find_all('a')
+            print(f'productos totales {len(elements)}')
 
-        informacion.append((category[0],marcas,elements))
+            informacion.append((category[0],marcas,elements))
+        except TimeoutException:
+            driver.quit()
+            driver = webdriver.Chrome()
        
             
     return informacion
@@ -211,7 +218,11 @@ def productos_informante(url,driver,fecha):
                 counter+=1
                 print(counter)
             except:
+                print("time-out")
                 print(link_item)
+                time.sleep(30)
+                driver.quit()
+                driver = webdriver.Chrome()
     
     return informacion,product_links
     

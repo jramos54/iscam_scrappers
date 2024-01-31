@@ -1,12 +1,12 @@
 [
     {
-        "informante":"7 eleven",
-        "script_name":"automation_7-eleven.py",
+        "informante":"Circle K",
+        "script_name":"automation_CirculoK.py",
         "csvPath":"csv\\"
     },
     {
-        "informante":"Circle K",
-        "script_name":"automation_CirculoK.py",
+        "informante":"7 eleven",
+        "script_name":"automation_7-eleven.py",
         "csvPath":"csv\\"
     }
 ]
