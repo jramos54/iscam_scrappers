@@ -70,9 +70,13 @@ def productos_categorias(category_list,driver):
 
             informacion.append((category[0],marcas,elements))
         except TimeoutException:
+            print("timeout")
             # driver.quit()
             # driver = webdriver.Chrome()
             driver.refresh()
+        except Exception as e:
+                driver.quit()
+                driver = webdriver.Chrome()
        
             
     return informacion
@@ -223,8 +227,9 @@ def productos_informante(url,driver,fecha):
                 print(link_item)
                 time.sleep(30)
                 driver.refresh()
-                # driver.quit()
-                # driver = webdriver.Chrome()
+            except Exception as e:
+                driver.quit()
+                driver = webdriver.Chrome()
     
     return informacion,product_links
     
