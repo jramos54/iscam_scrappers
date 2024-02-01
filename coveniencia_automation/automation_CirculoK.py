@@ -27,7 +27,7 @@ def scroll(driver, element_xpath, last_height):
             EC.visibility_of_element_located((By.XPATH, element_xpath))
         )
         mostrar_mas.click()
-        time.sleep(2)
+        time.sleep(5)
         print('Saltando a la siguiente pagina')
         return last_height, True
     except Exception as e:
@@ -46,10 +46,9 @@ def productos_categorias(category_list,driver):
         
         marcas=[]
         
-        driver.set_page_load_timeout(30)
         try:
             driver.get(link)
-            time.sleep(3)
+            time.sleep(5)
                 
             checkboxes = driver.find_elements(By.CSS_SELECTOR, "input[type='checkbox']")
             for checkbox in checkboxes:
@@ -71,8 +70,9 @@ def productos_categorias(category_list,driver):
 
             informacion.append((category[0],marcas,elements))
         except TimeoutException:
-            driver.quit()
-            driver = webdriver.Chrome()
+            # driver.quit()
+            # driver = webdriver.Chrome()
+            driver.refresh()
        
             
     return informacion
@@ -205,10 +205,11 @@ def productos_informante(url,driver,fecha):
         print(categoria)
         link_products=product[-1]
         for link_product in link_products:
+        
             try:
                 link_item=url[:-1]+link_product.get('href')
                 driver.get(link_item)
-                time.sleep(3)
+                time.sleep(5)
                 html = driver.page_source
                 soup_product = BeautifulSoup(html, 'html.parser')
                 
@@ -217,12 +218,13 @@ def productos_informante(url,driver,fecha):
                 product_links.append(product_link)
                 counter+=1
                 print(counter)
-            except:
+            except TimeoutException:
                 print("time-out")
                 print(link_item)
                 time.sleep(30)
-                driver.quit()
-                driver = webdriver.Chrome()
+                driver.refresh()
+                # driver.quit()
+                # driver = webdriver.Chrome()
     
     return informacion,product_links
     
@@ -274,8 +276,6 @@ if __name__=='__main__':
     chrome_options.add_argument('--password-store=basic')
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--window-size=1920x1080")
-
-
     
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     chrome_options.add_experimental_option('useAutomationExtension', False)
@@ -290,11 +290,11 @@ if __name__=='__main__':
     # Install Chrome WebDriver
     driver_manager = ChromeDriverManager()
     driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
+    driver.set_page_load_timeout(30)
     
     today = datetime.datetime.now()
     stamped_today = today.strftime("%Y-%m-%d")
     
     main(driver,stamped_today)
-    
 
     driver.quit()
