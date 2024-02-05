@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.keys import Keys
 
 # importar webdriver manager
@@ -197,22 +197,43 @@ def productos_dulces(driver, fecha):
         print(categoria)
         print(link_categoria)
         
-        driver.get(link_categoria)
-        html_source=driver.page_source
-        soup=BeautifulSoup(html_source,'html.parser')
-        
-        main_container=soup.find(id="main")
-        main_list=main_container.find('ul',class_="products columns-4 tablet-columns-4 mobile-columns-2")
-        products=main_list.find_all('li')
+        try:
+            
+            driver.get(link_categoria)
+            html_source=driver.page_source
+            soup=BeautifulSoup(html_source,'html.parser')
+            
+            main_container=soup.find(id="main")
+            main_list=main_container.find('ul',class_="products columns-4 tablet-columns-4 mobile-columns-2")
+            products=main_list.find_all('li')
 
-        for product in products:
-            link=product.find('a')
-            driver.get(link.get('href'))
-            dato=agregar_informacion(BeautifulSoup(driver.page_source,'html.parser'),INFORMANTE,categoria,fecha)
-            if dato:
-                informacion.append(dato)
-                counter+=1
-                print(counter)
+            for product in products:
+                link=product.find('a')
+                try:
+                    driver.get(link.get('href'))
+                    dato=agregar_informacion(BeautifulSoup(driver.page_source,'html.parser'),INFORMANTE,categoria,fecha)
+                    if dato:
+                        informacion.append(dato)
+                        counter+=1
+                        print(counter)
+                except TimeoutException:
+                    print("time-out")
+                    print(link)
+                    time.sleep(60)
+                    driver.quit()
+                    driver = driver_config()
+                except Exception as e:
+                    driver.quit()
+                    driver = driver_config()
+        except TimeoutException:
+            print("time-out")
+            print(link_item)
+            time.sleep(60)
+            driver.quit()
+            driver = driver_config()
+        except Exception as e:
+            driver.quit()
+            driver = driver_config()
         
     return informacion           
                 
@@ -270,6 +291,38 @@ def sucursales_dulces(driver,fecha):
 
     return directorio
 
+def driver_config():
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument("--log-level=3")
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--ignore-urlfetcher-cert-requests")
+    chrome_options.add_argument("--start-maximized")
+    chrome_options.add_argument('--js-flags=--max-old-space-size=4096')
+    chrome_options.add_argument('--disable-notifications')
+    chrome_options.add_argument('--password-store=basic')
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=1920x1080")
+    
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
+    chrome_options.add_experimental_option(
+        "prefs",
+        {
+            "credentials_enable_service":False,
+            "profile.password_manager_enabled":False
+        }
+    )
+
+    # Install Chrome WebDriver
+    driver_manager = ChromeDriverManager()
+    driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
+    driver.set_page_load_timeout(30)
+
+    return driver
+
 def main(driver,stamped_today):
     parser = argparse.ArgumentParser(description='Se incorpora la ruta destino del CSV')
     parser.add_argument('ruta', help='Ruta personalizada para el archivo CSV')
@@ -300,7 +353,8 @@ if __name__=='__main__':
     # Instalar o cargar el controlador Chrome WebDriver
     driver_manager = ChromeDriverManager()
     driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
-
+    driver.set_page_load_timeout(30)
+    
     today=datetime.datetime.now()
     stamped_today=today.strftime("%Y-%m-%d")
 

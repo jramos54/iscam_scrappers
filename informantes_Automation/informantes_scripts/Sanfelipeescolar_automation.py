@@ -12,6 +12,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import TimeoutException
+
 
 # importar webdriver manager
 from webdriver_manager.chrome import ChromeDriverManager
@@ -139,53 +141,94 @@ def productos_sanfelipeescolar(driver, fecha):
                 products = product_list.find_all('a', class_='woocommerce-LoopProduct-link woocommerce-loop-product__link')
 
                 for product in products:
-                    product_information = {
-                        'Informante': INFORMANTE,
-                        'Categoria': categoria,
-                        'DescripcionCorta': '',
-                        'DescripcionLarga': '',
-                        'SKU': '',
-                        'Etiqueta': '',
-                        'Img': '',
-                        'Precio': '',
-                        'Fecha': fecha
-                    }
-  
-                    driver.get(product.get('href'))
-                    html_product = driver.page_source
-                    soup = BeautifulSoup(html_product, 'html.parser')
-                    product_details = soup.find('div', class_='product-entry-wrapper')
+                    try:
+                        product_information = {
+                            'Informante': INFORMANTE,
+                            'Categoria': categoria,
+                            'DescripcionCorta': '',
+                            'DescripcionLarga': '',
+                            'SKU': '',
+                            'Etiqueta': '',
+                            'Img': '',
+                            'Precio': '',
+                            'Fecha': fecha
+                        }
+    
+                        driver.get(product.get('href'))
+                        html_product = driver.page_source
+                        soup = BeautifulSoup(html_product, 'html.parser')
+                        product_details = soup.find('div', class_='product-entry-wrapper')
 
-                    descripcion_corta = product_details.find('h1', class_='product_title entry-title')
-                    if descripcion_corta:
-                        product_information['DescripcionCorta'] = descripcion_corta.get_text()
+                        descripcion_corta = product_details.find('h1', class_='product_title entry-title')
+                        if descripcion_corta:
+                            product_information['DescripcionCorta'] = descripcion_corta.get_text()
 
-                    descripcion_larga = product_details.find('div', class_='woocommerce-product-details__short-description')
-                    if descripcion_larga:
-                        descripcion_larga_= descripcion_larga.get_text()
-                        product_information['DescripcionLarga'] = ". ".join(descripcion_larga_.splitlines())
+                        descripcion_larga = product_details.find('div', class_='woocommerce-product-details__short-description')
+                        if descripcion_larga:
+                            descripcion_larga_= descripcion_larga.get_text()
+                            product_information['DescripcionLarga'] = ". ".join(descripcion_larga_.splitlines())
 
-                    sku = product_details.find('span', class_='sku')
-                    if sku:
-                        product_information['SKU'] = sku.get_text()
+                        sku = product_details.find('span', class_='sku')
+                        if sku:
+                            product_information['SKU'] = sku.get_text()
 
-                    etiqueta = product_details.find('span', class_='tagged_as')
-                    if etiqueta:
-                        product_information['Etiqueta'] = etiqueta.get_text()
+                        etiqueta = product_details.find('span', class_='tagged_as')
+                        if etiqueta:
+                            product_information['Etiqueta'] = etiqueta.get_text()
 
-                    precio = product_details.find('p', class_='price')
-                    if precio:
-                        product_information['Precio'] = precio.get_text()
+                        precio = product_details.find('p', class_='price')
+                        if precio:
+                            product_information['Precio'] = precio.get_text()
 
-                    imagen = product_details.find('a', class_='ct-image-container')
-                    if imagen:
-                        product_information['Img'] = imagen.get('href')
-                    
-                    contador+=1
-                    print(contador)
-                    informacion.append(product_information)
+                        imagen = product_details.find('a', class_='ct-image-container')
+                        if imagen:
+                            product_information['Img'] = imagen.get('href')
+                        
+                        contador+=1
+                        print(contador)
+                        informacion.append(product_information)
+                    except TimeoutException:
+                        print("time-out")
+                        time.sleep(60)
+                        driver.quit()
+                        driver = driver_config()
+                    except Exception as e:
+                        driver.quit()
+                        driver = driver_config()
 
     return informacion
+
+def driver_config():
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument("--log-level=3")
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--ignore-urlfetcher-cert-requests")
+    chrome_options.add_argument("--start-maximized")
+    chrome_options.add_argument('--js-flags=--max-old-space-size=4096')
+    chrome_options.add_argument('--disable-notifications')
+    chrome_options.add_argument('--password-store=basic')
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=1920x1080")
+    
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
+    chrome_options.add_experimental_option(
+        "prefs",
+        {
+            "credentials_enable_service":False,
+            "profile.password_manager_enabled":False
+        }
+    )
+
+    # Install Chrome WebDriver
+    driver_manager = ChromeDriverManager()
+    driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
+    driver.set_page_load_timeout(30)
+
+    return driver
 
 def main(driver,stamped_today):
     parser = argparse.ArgumentParser(description='Se incorpora la ruta destino del CSV')
@@ -217,7 +260,8 @@ if __name__=='__main__':
     # Instalar o cargar el controlador Chrome WebDriver
     driver_manager = ChromeDriverManager()
     driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
-
+    driver.set_page_load_timeout(30)
+    
     today=datetime.datetime.now()
     stamped_today=today.strftime("%Y-%m-%d")
 

@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.keys import Keys
 
 # importar webdriver manager
@@ -172,25 +172,46 @@ def productos_papelera(driver, fecha):
                 pages=pagination(driver,link)
                 
                 for page in pages:
-                    driver.get(page)
-                    page_html=BeautifulSoup(driver.page_source,'html.parser')
+                    try:
+                        driver.get(page)
+                        page_html=BeautifulSoup(driver.page_source,'html.parser')
 
-                    products_content=page_html.find('ul',class_="products columns-3")
-                    if products_content:
-                        products=products_content.find_all('li')
+                        products_content=page_html.find('ul',class_="products columns-3")
+                        if products_content:
+                            products=products_content.find_all('li')
 
-                        for product in products:
-                            
-                            product_link=product.find('a')
-                            # print(product_link.get('href'))
-                            driver.get(product_link.get('href'))
-                            
-                            producto=agregar_informacion(
-                                BeautifulSoup(driver.page_source, 'html.parser'),
-                                INFORMANTE,categoria,fecha)
-                            informacion.append(producto)
-                            counter+=1
-                            print(counter)
+                            for product in products:
+                                
+                                product_link=product.find('a')
+                                try:
+                                    
+                                    # print(product_link.get('href'))
+                                    driver.get(product_link.get('href'))
+                                    
+                                    producto=agregar_informacion(
+                                        BeautifulSoup(driver.page_source, 'html.parser'),
+                                        INFORMANTE,categoria,fecha)
+                                    informacion.append(producto)
+                                    counter+=1
+                                    print(counter)
+                                except TimeoutException:
+                                    print("time-out")
+                                    print(product_link)
+                                    time.sleep(60)
+                                    driver.quit()
+                                    driver = driver_config()
+                                except Exception as e:
+                                    driver.quit()
+                                    driver = driver_config()
+                    except TimeoutException:
+                        print("time-out")
+                        print(page)
+                        time.sleep(60)
+                        driver.quit()
+                        driver = driver_config()
+                    except Exception as e:
+                        driver.quit()
+                        driver = driver_config()
     return informacion            
 
 
@@ -244,6 +265,38 @@ def sucursales_superpapelera(driver,fecha):
                 directorio.append(tienda)
 
     return directorio
+
+def driver_config():
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument("--log-level=3")
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--ignore-urlfetcher-cert-requests")
+    chrome_options.add_argument("--start-maximized")
+    chrome_options.add_argument('--js-flags=--max-old-space-size=4096')
+    chrome_options.add_argument('--disable-notifications')
+    chrome_options.add_argument('--password-store=basic')
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=1920x1080")
+    
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
+    chrome_options.add_experimental_option(
+        "prefs",
+        {
+            "credentials_enable_service":False,
+            "profile.password_manager_enabled":False
+        }
+    )
+
+    # Install Chrome WebDriver
+    driver_manager = ChromeDriverManager()
+    driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
+    driver.set_page_load_timeout(30)
+
+    return driver
 
 def main(driver,stamped_today):
     parser = argparse.ArgumentParser(description='Se incorpora la ruta destino del CSV')

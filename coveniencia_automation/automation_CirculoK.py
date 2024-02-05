@@ -27,7 +27,7 @@ def scroll(driver, element_xpath, last_height):
             EC.visibility_of_element_located((By.XPATH, element_xpath))
         )
         mostrar_mas.click()
-        time.sleep(5)
+        time.sleep(3)
         print('Saltando a la siguiente pagina')
         return last_height, True
     except Exception as e:
@@ -48,7 +48,7 @@ def productos_categorias(category_list,driver):
         
         try:
             driver.get(link)
-            time.sleep(5)
+            time.sleep(2)
                 
             checkboxes = driver.find_elements(By.CSS_SELECTOR, "input[type='checkbox']")
             for checkbox in checkboxes:
@@ -73,10 +73,11 @@ def productos_categorias(category_list,driver):
             print("timeout")
             # driver.quit()
             # driver = webdriver.Chrome()
-            driver.refresh()
+            driver.quit()
+            driver = driver_config()
         except Exception as e:
-                driver.quit()
-                driver = webdriver.Chrome()
+            driver.quit()
+            driver = driver_config()
        
             
     return informacion
@@ -184,7 +185,7 @@ def productos_informante(url,driver,fecha):
     # driver.get(url)
     driver=click_mayor(driver,url)
     time.sleep(6)
-    # driver.save_screenshot("captura_de_pantalla.png")
+    # driver.save_screenshot("captura_de_pantalla_K.png")
     
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
@@ -213,7 +214,7 @@ def productos_informante(url,driver,fecha):
             try:
                 link_item=url[:-1]+link_product.get('href')
                 driver.get(link_item)
-                time.sleep(5)
+                time.sleep(3)
                 html = driver.page_source
                 soup_product = BeautifulSoup(html, 'html.parser')
                 
@@ -225,11 +226,12 @@ def productos_informante(url,driver,fecha):
             except TimeoutException:
                 print("time-out")
                 print(link_item)
-                time.sleep(30)
-                driver.refresh()
+                time.sleep(60)
+                driver.quit()
+                driver = driver_config()
             except Exception as e:
                 driver.quit()
-                driver = webdriver.Chrome()
+                driver = driver_config()
     
     return informacion,product_links
     
@@ -245,7 +247,7 @@ def click_mayor(driver,link):
     except Exception as e:
         print("Error: ", e)
         
-    time.sleep(5)
+    time.sleep(3)
 
     return driver
 
@@ -262,6 +264,37 @@ def main(driver,stamped_today):
     
     exportar_csv(products,filename)
 
+def driver_config():
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument("--log-level=3")
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--ignore-urlfetcher-cert-requests")
+    chrome_options.add_argument("--start-maximized")
+    chrome_options.add_argument('--js-flags=--max-old-space-size=4096')
+    chrome_options.add_argument('--disable-notifications')
+    chrome_options.add_argument('--password-store=basic')
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=1920x1080")
+    
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
+    chrome_options.add_experimental_option(
+        "prefs",
+        {
+            "credentials_enable_service":False,
+            "profile.password_manager_enabled":False
+        }
+    )
+
+    # Install Chrome WebDriver
+    driver_manager = ChromeDriverManager()
+    driver = webdriver.Chrome(service=Service(executable_path=driver_manager.install()), options=chrome_options)
+    driver.set_page_load_timeout(30)
+
+    return driver
 
 if __name__=='__main__':
     inicio=time.time()
